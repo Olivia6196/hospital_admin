@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 import { MdLogin, MdSecurity, MdSpeed, MdPeopleAlt, MdLocalHospital } from 'react-icons/md';
 
@@ -13,7 +14,12 @@ export default function Home() {
         <nav className="flex justify-between items-center px-10 py-6">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 bg-white rounded-2xl flex items-center justify-center">
-              <span className="text-3xl">🏥</span>
+              <Image 
+              src="/images/hospital-logo.png" 
+              alt="Hospital Logo" 
+              width={24} 
+              height={24} 
+              />
             </div>
             <h1 className="text-4xl font-bold tracking-tight" 
                 style={{ fontFamily: 'var(--font-dancing)' }}>
@@ -44,7 +50,7 @@ export default function Home() {
             </p>
 
             {/* Sign In Button */}
-            <Link href="/dashboard">
+            <Link href="/login">
               <button className="group relative inline-flex items-center gap-4 bg-white text-blue-950 font-semibold text-xl px-12 py-6 rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50">
                 <span>Enter Admin Dashboard</span>
                 <MdLogin className="text-3xl group-hover:rotate-12 transition-transform" />

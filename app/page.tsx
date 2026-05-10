@@ -1,11 +1,39 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-import { MdLogin, MdSecurity, MdSpeed, MdPeopleAlt, MdLocalHospital } from 'react-icons/md';
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  MdLogin,
+  MdSecurity,
+  MdSpeed,
+  MdPeopleAlt,
+  MdLocalHospital,
+} from "react-icons/md";
 
 export default function Home() {
+  const features = [
+    {
+      icon: MdPeopleAlt,
+      title: "20,000+ Patients",
+      subtitle: "Managed Efficiently",
+    },
+    {
+      icon: MdSecurity,
+      title: "Enterprise Security",
+      subtitle: "Role-Based Access",
+    },
+    {
+      icon: MdSpeed,
+      title: "Real-time Updates",
+      subtitle: "Live Dashboard",
+    },
+    {
+      icon: MdLocalHospital,
+      title: "Full Hospital Control",
+      subtitle: "Doctors, Nurses & Staff",
+    },
+  ];
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-950 via-indigo-950 to-purple-950 text-white overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-green-700 via-blue-950 to-green-900 text-white overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size-[50px_50px] opacity-30"></div>
 
@@ -13,20 +41,24 @@ export default function Home() {
         {/* Navbar */}
         <nav className="flex justify-between items-center px-10 py-6">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 bg-white rounded-2xl flex items-center justify-center">
-              <Image 
-              src="/images/hospital-logo.png" 
-              alt="Hospital Logo" 
-              width={24} 
-              height={24} 
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+              <Image
+                src="/images/hospital-logo.png"
+                alt="Hospital Logo"
+                width={44}
+                height={44}
               />
             </div>
-            <h1 className="text-4xl font-bold tracking-tight" 
-                style={{ fontFamily: 'var(--font-dancing)' }}>
+            <h1
+              className="text-4xl font-bold tracking-tight"
+              style={{ fontFamily: "var(--font-dancing)" }}
+            >
               MediAdmin
             </h1>
           </div>
-          <div className="text-sm text-blue-300">General Hospital • Admin Portal</div>
+          <div className="text-sm text-blue-300">
+            General Hospital • Admin Portal
+          </div>
         </nav>
 
         {/* Hero Section */}
@@ -38,15 +70,19 @@ export default function Home() {
             </div>
 
             <h1 className="text-7xl md:text-8xl font-bold leading-tight mb-6">
-              Welcome to the<br />
-              <span className="bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Welcome to the
+              <br />
+              <span
+                className="bg-linear-to-r from-blue-600 via-white to-pink-400 bg-clip-text text-transparent"
+                style={{ fontFamily: "var(--font-dancing)" }}
+              >
                 Heart of Care
               </span>
             </h1>
 
-            <p className="text-2xl text-blue-200 mb-10 max-w-2xl mx-auto">
-              Manage patients, doctors, nurses, appointments, and hospital operations — 
-              all in one powerful platform.
+            <p className="text-2xl text-blue-100 mb-10 max-w-2xl mx-auto">
+              Manage patients, doctors, nurses, appointments, and hospital
+              operations — all in one powerful platform.
             </p>
 
             {/* Sign In Button */}
@@ -57,49 +93,32 @@ export default function Home() {
               </button>
             </Link>
 
-            <p className="text-sm text-blue-400 mt-6">Only authorized administrators can access</p>
+            <p className="text-sm text-blue-100 mt-6">
+              Only authorized administrators can access
+            </p>
           </div>
         </div>
 
         {/* Features / Trust Bar */}
         <div className="border-t border-white/10 py-12">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6">
-            <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
-                <MdPeopleAlt size={32} />
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center text-center hover:border hover:border-blue-200 rounded-lg hover:py-5 hover:shadow-[0_0_15px_#ffffff]"
+              >
+                <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
+                  <feature.icon size={32} />
+                </div>
+                <h4 className="font-semibold text-lg">{feature.title}</h4>
+                <p className="text-blue-100 text-sm">{feature.subtitle}</p>
               </div>
-              <h4 className="font-semibold text-lg">20,000+ Patients</h4>
-              <p className="text-blue-300 text-sm">Managed Efficiently</p>
-            </div>
-
-            <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
-                <MdSecurity size={32} />
-              </div>
-              <h4 className="font-semibold text-lg">Enterprise Security</h4>
-              <p className="text-blue-300 text-sm">Role-Based Access</p>
-            </div>
-
-            <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
-                <MdSpeed size={32} />
-              </div>
-              <h4 className="font-semibold text-lg">Real-time Updates</h4>
-              <p className="text-blue-300 text-sm">Live Dashboard</p>
-            </div>
-
-            <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
-                <MdLocalHospital size={32} />
-              </div>
-              <h4 className="font-semibold text-lg">Full Hospital Control</h4>
-              <p className="text-blue-300 text-sm">Doctors, Nurses & Staff</p>
-            </div>
+            ))}
           </div>
         </div>
 
         {/* Footer */}
-        <footer className="py-8 text-center text-blue-400 text-sm border-t border-white/10">
+        <footer className="py-8 text-center text-white/90 text-sm border-t border-white/10">
           © 2026 MediAdmin • General Hospital Administration System
         </footer>
       </div>

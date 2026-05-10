@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${dancingScript.variable} font-sans`}>
+      <body className={`${inter.variable} ${dancingScript.variable}`}>
         {children}
       </body>
     </html>

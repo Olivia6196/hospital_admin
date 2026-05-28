@@ -1,0 +1,61 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { CiSearch } from "react-icons/ci";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoSettingsOutline } from "react-icons/io5";
+
+interface HeaderProps {
+  title: string;
+  subtitle?: string;
+}
+
+export default function Header({ title, subtitle }: HeaderProps) {
+      const [notifOpen, setNotifOpen] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 60000); 
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <header className="flex items-center gap-5 px-3 py-3 border-b sticky top-0 z-10 rounded-2xl backdrop-blur-sm">
+      <div className="flex-1">
+        <h1 className="text-2xl font-bold">{title}</h1>
+        {subtitle && <p className="text-sm text-white/70 pt-1">{subtitle}</p>}
+      </div>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 border bg-white/5 backdrop-blur-xl border-white/20 shadow-xl focus-within:ring-1 transition-all duration-200">
+          <CiSearch size={20}/>
+          <input type="text" placeholder="Search patients, doctors…" 
+          className="bg-transparent focus:outline-none text-sm text-white/70 placeholder:text-white/50"
+          />
+        </div>
+        <button className="relative flex items-center justify-center w-9 h-9 border rounded-xl bg-white/5 backdrop-blur-xl border-white/20 shadow-xl " onClick={() => setNotifOpen(!notifOpen)}>
+          <IoIosNotificationsOutline size={23} />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full" />
+        </button>
+        <Link 
+        href="/dashboard/settings"
+        className="flex items-center justify-center w-9 h-9 border rounded-xl bg-white/5 backdrop-blur-xl border-white/20 shadow-xl">
+          <IoSettingsOutline size={18} />
+        </Link>
+        <div className="text-sm text-white/70">
+          <span>
+        {currentDate.toLocaleDateString('en-US', {
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        })}
+      </span>
+        </div>
+      </div>
+    </header>
+  );
+}

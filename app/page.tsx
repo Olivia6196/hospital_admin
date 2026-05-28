@@ -81,7 +81,7 @@ export default function Home() {
               operations — all in one powerful platform.
             </p>
 
-            <Link href="/components/login">
+            <Link href="/login">
               <button className="group relative inline-flex items-center gap-4 bg-white text-blue-950 font-semibold text-xl px-12 py-6 rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50">
                 <span>Enter Admin Dashboard</span>
                 <MdLogin className="text-3xl group-hover:rotate-12 transition-transform" />

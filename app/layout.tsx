@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${dancingScript.variable}`}>
+      <body className={`${inter.variable} ${dancingScript.variable} overflow-x-hidden`}>
         <ClientLayout>
         {children}
         </ClientLayout>

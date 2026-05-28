@@ -37,7 +37,6 @@ export default function Sidebar() {
 
   return (
     <div className="h-full p-6 flex flex-col">
-      {/* Logo & Hospital Name */}
       <div className="flex items-center gap-3 mb-12">
         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg shrink-0">
           <Image
@@ -58,7 +57,6 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Main Navigation */}
       <nav className="space-y-1 flex-1">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -81,11 +79,10 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Bottom Section: Settings & Logout */}
       <div className="pt-6 border-t border-white/20 mt-auto space-y-2">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-5 py-2 rounded-2xl text-[17px] text-red-300 hover:text-red-200 hover:bg-white/10 transition-all duration-200"
+          className="w-full flex items-center gap-3 px-5 py-2 rounded-2xl text-[17px] text-red-700 hover:text-red-400 hover:bg-white/10 transition-all duration-200"
         >
           <MdLogout size={26} />
           Logout

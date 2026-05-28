@@ -33,12 +33,9 @@ export default function Home() {
     },
   ];
   return (
-    <div className="min-h-screen bg-linear-to-br from-green-700 via-blue-950 to-green-900 text-white overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size-[50px_50px] opacity-30"></div>
-
+    <div className="min-h-screen bg-[url(/images/hospital_background.webp)] bg-cover bg-center bg-no-repeat relative text-white overflow-hidden">
+         <div className="absolute inset-0 bg-black/80" />
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Navbar */}
         <nav className="flex justify-between items-center px-10 py-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
@@ -53,7 +50,7 @@ export default function Home() {
               className="text-4xl font-bold tracking-tight"
               style={{ fontFamily: "var(--font-dancing)" }}
             >
-              MediAdmin
+              PrimeCare
             </h1>
           </div>
           <div className="text-sm text-blue-300">
@@ -61,7 +58,6 @@ export default function Home() {
           </div>
         </nav>
 
-        {/* Hero Section */}
         <div className="flex-1 flex items-center justify-center px-6">
           <div className="max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full mb-6 border border-white/20">
@@ -85,8 +81,7 @@ export default function Home() {
               operations — all in one powerful platform.
             </p>
 
-            {/* Sign In Button */}
-            <Link href="/login">
+            <Link href="/components/login">
               <button className="group relative inline-flex items-center gap-4 bg-white text-blue-950 font-semibold text-xl px-12 py-6 rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50">
                 <span>Enter Admin Dashboard</span>
                 <MdLogin className="text-3xl group-hover:rotate-12 transition-transform" />
@@ -99,7 +94,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Features / Trust Bar */}
         <div className="border-t border-white/10 py-12">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6">
             {features.map((feature, index) => (

@@ -2,9 +2,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { dancingScript, inter } from "@/ui/fonts";
+import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
-  title: "MediAdmin - Hospital Dashboard",
+  title: "PrimeCare Admin - Hospital Dashboard",
   description: "General Hospital Administration System",
 };
 
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${dancingScript.variable}`}>
+        <ClientLayout>
         {children}
+        </ClientLayout>
       </body>
     </html>
   );

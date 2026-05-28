@@ -11,6 +11,8 @@ import { connectDB } from "@/models"
 const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
+    // Default maxAge (seconds) used by NextAuth when issuing tokens/cookies
+    maxAge: 2 * 60, // 2 minutes
   },
   providers: [
     CredentialsProvider({
@@ -30,8 +32,9 @@ const authOptions: NextAuthOptions = {
           "+password",
         );
         if (!admin) return null;
-        // const isValid = await compare(credentials.password, admin.password);
-        // if (!isValid) return null;
+
+        // include the `remember` flag so callbacks can act on it
+        const remember = Boolean((credentials as any).remember);
 
         return {
           id: admin.id,
@@ -39,34 +42,22 @@ const authOptions: NextAuthOptions = {
           email: admin.email,
           role: admin.role,
           image: admin.image,
-        };
+          remember,
+        } as any;
       },
     }),
-//     GoogleProvider({
-//       clientId: process.env.GOOGLE_CLIENT_ID!,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-//     }),
-//     GithubProvider({
-//       clientId: process.env.GITHUB_CLIENT_ID!,
-//       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-//     }),
   ],
-  // cookies: {
-  //   sessionToken: {
-  //     name: `__Secure-next-auth.session-token`,
-  //     options: {
-  //       httpOnly: true,
-  //       sameSite: "lax",
-  //       path: "/",
-  //       secure: process.env.ENV === "production",
-  //     },
-  //   },
-  // },
   callbacks: {
     async jwt({ token, user }: any) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        // persist remember flag from the authorize() result
+        token.remember = user.remember ?? false;
+
+        // set explicit expiry on the token depending on `remember`
+        const maxAge = 2 * 60; // 2 minutes
+        token.exp = Math.floor(Date.now() / 1000) + maxAge;
       }
       return token;
     },
@@ -74,6 +65,7 @@ const authOptions: NextAuthOptions = {
       if (token && session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
+        session.user.remember = Boolean(token.remember);
       }
       return session;
     },

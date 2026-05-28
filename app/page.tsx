@@ -99,10 +99,10 @@ export default function Home() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center text-center hover:border hover:border-blue-200 rounded-lg hover:py-5 hover:shadow-[0_0_15px_#ffffff]"
+                className="flex flex-col items-center text-center hover:border hover:border-blue-200 rounded-lg hover:py-2 hover:shadow-[0_0_15px_#ffffff]"
               >
                 <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
-                  <feature.icon size={32} />
+                  <feature.icon size={30} />
                 </div>
                 <h4 className="font-semibold text-lg">{feature.title}</h4>
                 <p className="text-blue-100 text-sm">{feature.subtitle}</p>

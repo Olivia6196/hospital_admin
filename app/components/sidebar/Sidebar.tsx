@@ -1,7 +1,8 @@
 "use client";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   MdDashboard,
   MdPeople,
@@ -27,13 +28,6 @@ const navItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const router = useRouter();
-
-  const handleLogout = () => {
-    if (confirm("Are you sure you want to logout from the system?")) {
-      router.push("/"); // Redirect to landing page
-    }
-  };
 
   return (
     <div className="h-full p-6 flex flex-col">
@@ -51,7 +45,7 @@ export default function Sidebar() {
             className="text-4xl font-bold tracking-tight"
             style={{ fontFamily: "var(--font-dancing)" }}
           >
-            MediAdmin
+            PrimeCare
           </h1>
           <p className="text-blue-200 text-sm -mt-1">General Hospital</p>
         </div>
@@ -81,8 +75,8 @@ export default function Sidebar() {
 
       <div className="pt-6 border-t border-white/20 mt-auto space-y-2">
         <button
-          onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-5 py-2 rounded-2xl text-[17px] text-red-700 hover:text-red-400 hover:bg-white/10 transition-all duration-200"
+          onClick={() => signOut({ callbackUrl: "/components/login" })}
+          className="w-full flex items-center gap-3 px-5 py-2 rounded-2xl text-[17px] text-red-600 hover:text-red-400 hover:bg-white/10 transition-all duration-200"
         >
           <MdLogout size={26} />
           Logout

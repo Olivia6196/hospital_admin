@@ -1,5 +1,5 @@
 import { model, models, Schema } from "mongoose";
-export type Role = "admin" | "customer";
+export type Role = "admin" | "patient";
 export interface IAdmin {
   email: string;
   password: string;

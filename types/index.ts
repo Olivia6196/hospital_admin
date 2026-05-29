@@ -1,3 +1,5 @@
+import { IconType } from "react-icons";
+
 // types/index.ts
 export interface Patient {
   id: number;
@@ -7,6 +9,7 @@ export interface Patient {
   contact: string;
   address?: string;
   bloodGroup?: string;
+  status: 'Admitted' | 'Discharged' | 'Outpatient' | 'Critical'
 }
 
 export interface Doctor {
@@ -26,7 +29,7 @@ export interface Nurse {
   shift: 'Morning' | 'Evening' | 'Night';
   phone: string;
   experience: number;
-  status: 'Active' | 'On Leave';
+  status: 'On Duty' | 'On Leave' | 'Off Duty';
 }
 
 export interface Staff {
@@ -54,3 +57,5 @@ export interface Appointment {
   time: string;
   status: 'Scheduled' | 'Completed' | 'Cancelled';
 }
+
+

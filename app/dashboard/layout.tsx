@@ -6,7 +6,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen bg-[url(/images/dashboard_img.webp)] bg-cover bg-no-repeat relative text-white/80">
+    <div className="flex min-h-screen bg-[url(/images/dashboard_img.webp)] bg-cover bg-no-repeat relative text-white">
       <div className="absolute inset-0 bg-black/80" />
       <div className="w-60 fixed left-0 top-0 h-screen bg-linear-to-b from-blue-900 to-blue-950 text-white shadow-2xl z-50 overflow-y-auto">
         <Sidebar />

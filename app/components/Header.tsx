@@ -24,7 +24,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
   }, []);
 
   return (
-    <header className="flex items-center gap-5 px-3 py-3 border-b sticky top-0 z-10 rounded-2xl backdrop-blur-sm">
+    <header className="flex items-center gap-5 px-3 py-3 border-b sticky top-0 z-50 rounded-2xl backdrop-blur-sm">
       <div className="flex-1">
         <h1 className="text-2xl font-bold">{title}</h1>
         {subtitle && <p className="text-sm text-white/70 pt-1">{subtitle}</p>}
@@ -45,7 +45,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
         className="flex items-center justify-center w-9 h-9 border rounded-xl bg-white/5 backdrop-blur-xl border-white/20 shadow-xl">
           <IoSettingsOutline size={18} />
         </Link>
-        <div className="text-sm text-white/70">
+        <div className="text-[0.8rem] text-white/70">
           <span>
         {currentDate.toLocaleDateString('en-US', {
           weekday: 'short',

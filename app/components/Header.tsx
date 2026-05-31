@@ -30,19 +30,19 @@ export default function Header({ title, subtitle }: HeaderProps) {
         {subtitle && <p className="text-sm text-white/70 pt-1">{subtitle}</p>}
       </div>
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 border bg-white/5 backdrop-blur-xl border-white/20 shadow-xl focus-within:ring-1 transition-all duration-200">
+        <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 border bg-white/10 backdrop-blur-xl border-white/20 shadow-xl focus-within:ring-1 transition-all duration-200">
           <CiSearch size={20}/>
           <input type="text" placeholder="Search patients, doctors…" 
           className="bg-transparent focus:outline-none text-sm text-white/70 placeholder:text-white/50"
           />
         </div>
-        <button className="relative flex items-center justify-center w-9 h-9 border rounded-xl bg-white/5 backdrop-blur-xl border-white/20 shadow-xl " onClick={() => setNotifOpen(!notifOpen)}>
+        <button className="relative flex items-center justify-center w-9 h-9 border rounded-xl bg-white/10 backdrop-blur-xl border-white/20 shadow-xl " onClick={() => setNotifOpen(!notifOpen)}>
           <IoIosNotificationsOutline size={23} />
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full" />
         </button>
         <Link 
         href="/dashboard/settings"
-        className="flex items-center justify-center w-9 h-9 border rounded-xl bg-white/5 backdrop-blur-xl border-white/20 shadow-xl">
+        className="flex items-center justify-center w-9 h-9 border rounded-xl bg-white/10 backdrop-blur-xl border-white/20 shadow-xl">
           <IoSettingsOutline size={18} />
         </Link>
         <div className="text-[0.8rem] text-white/70">

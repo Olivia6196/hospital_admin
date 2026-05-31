@@ -8,7 +8,11 @@ export interface Patient {
   gender: 'Male' | 'Female' | 'Other';
   contact: string;
   address?: string;
+  doctor? : string;
+  ward: string;
+  condition: string;
   bloodGroup?: string;
+  admitDate: string;
   status: 'Admitted' | 'Discharged' | 'Outpatient' | 'Critical'
 }
 
@@ -57,5 +61,9 @@ export interface Appointment {
   time: string;
   status: 'Scheduled' | 'Completed' | 'Cancelled';
 }
+
+
+
+
 
 

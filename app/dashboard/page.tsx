@@ -1,7 +1,11 @@
 import DepartmentChart from "../components/charts/DepartmentChart"
 import PatientTrendChart from "../components/charts/PatientTrendChart"
+import RevenueChart from "../components/charts/RevenueChart"
 import Header from "../components/Header"
-import StatCard from "../components/StatCard"
+import AppointmentOverview from "../components/submain/AppointmentOverview"
+import PatientsTable from "../components/submain/PatientsTable"
+import StaffOverview from "../components/submain/StaffOverview"
+import StatCard from "../components/submain/StatCard"
 
 const page = () => {
   return (
@@ -14,6 +18,15 @@ const page = () => {
         <DepartmentChart />
       </div>
 
+      <div className="grid grid-cols-[2fr_1fr] gap-5">
+        <RevenueChart />
+        <StaffOverview />
+      </div>
+      
+       <div className="grid grid-cols-[2fr_1fr] gap-5">
+        <PatientsTable />
+        <AppointmentOverview />
+      </div>
     </div>
   )
 }

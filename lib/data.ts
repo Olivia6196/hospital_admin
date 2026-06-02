@@ -11,7 +11,7 @@ export let patients: Patient[] = [
     address: "12 Park Avenue", 
     status: 'Outpatient',
     doctor: "Dr. Sarah Williams",
-    ward: "Cardiology Ward",
+    ward: "Cardiology",
     condition: "High Blood Pressure",
     admitDate: "2026-05-15"
   },
@@ -25,7 +25,7 @@ export let patients: Patient[] = [
     address: "45 Ocean Drive", 
     status: 'Admitted',
     doctor: "Dr. Raj Patel",
-    ward: "Neurology Ward",
+    ward: "Neurology",
     condition: "Severe Headache",
     admitDate: "2026-05-20"
   },
@@ -39,7 +39,7 @@ export let patients: Patient[] = [
     address: "78 Maple Street", 
     status: 'Discharged',
     doctor: "Dr. Fatima Okoro",
-    ward: "Pediatrics Ward",
+    ward: "Pediatrics",
     condition: "After Childbirth",
     admitDate: "2026-04-28"
   },
@@ -53,7 +53,7 @@ export let patients: Patient[] = [
     address: "23 River Road", 
     status: 'Outpatient',
     doctor: "Dr. Michael Chen",
-    ward: "Orthopedics Ward",
+    ward: "Orthopedics",
     condition: "Knee Pain",
     admitDate: "2026-05-18"
   },
@@ -67,13 +67,13 @@ export let patients: Patient[] = [
     address: "91 Sunset Blvd", 
     status: 'Admitted',
     doctor: "Dr. Aisha Khan",
-    ward: "Obstetrics & Gynecology Ward",
+    ward: "Gynecology",
     condition: "Pregnancy Complications",
     admitDate: "2026-05-22"
   },
   { 
     id: 1006, 
-    name: "James Rodriguez", 
+    name: "James Chukwu", 
     age: 67, 
     gender: "Male", 
     contact: "555-5566", 
@@ -95,7 +95,7 @@ export let patients: Patient[] = [
     address: "34 Elm Street", 
     status: 'Admitted',
     doctor: "Dr. Priya Sharma",
-    ward: "Internal Medicine Ward",
+    ward: "Internal Medicine",
     condition: "Malaria",
     admitDate: "2026-05-19"
   },
@@ -109,7 +109,7 @@ export let patients: Patient[] = [
     address: "12 Liberty Ave", 
     status: 'Critical',
     doctor: "Dr. John Mensah",
-    ward: "Surgical Ward",
+    ward: "Surgical",
     condition: "Appendicitis",
     admitDate: "2026-05-24"
   },
@@ -123,7 +123,7 @@ export let patients: Patient[] = [
     address: "55 Harbor View", 
     status: 'Admitted',
     doctor: "Dr. Aisha Khan",
-    ward: "Gynecology Ward",
+    ward: "Gynecology",
     condition: "Fibroids",
     admitDate: "2026-05-21"
   },
@@ -151,7 +151,7 @@ export let patients: Patient[] = [
     address: "22 Garden Close", 
     status: 'Admitted',
     doctor: "Dr. Grace Okafor",
-    ward: "Radiology Ward",
+    ward: "Radiology",
     condition: "Chest Infection",
     admitDate: "2026-05-26"
   },
@@ -165,7 +165,7 @@ export let patients: Patient[] = [
     address: "17 Central Park", 
     status: 'Discharged',
     doctor: "Dr. Carlos Rodriguez",
-    ward: "Oncology Ward",
+    ward: "Oncology",
     condition: "Cancer Treatment",
     admitDate: "2026-04-15"
   },
@@ -193,7 +193,7 @@ export let patients: Patient[] = [
     address: "33 Ridge Way", 
     status: 'Admitted',
     doctor: "Dr. Michael Chen",
-    ward: "Orthopedics Ward",
+    ward: "Orthopedics",
     condition: "Broken Leg",
     admitDate: "2026-05-20"
   },
@@ -207,7 +207,7 @@ export let patients: Patient[] = [
     address: "88 Beachfront", 
     status: 'Admitted',
     doctor: "Dr. Aisha Khan",
-    ward: "Obstetrics & Gynecology Ward",
+    ward: "Gynecology",
     condition: "Pregnancy Issue",
     admitDate: "2026-05-22"
   },
@@ -221,7 +221,7 @@ export let patients: Patient[] = [
     address: "11 High Street", 
     status: 'Admitted',
     doctor: "Dr. Raj Patel",
-    ward: "Neurology Ward",
+    ward: "Neurology",
     condition: "Stroke",
     admitDate: "2026-05-19"
   },
@@ -235,7 +235,7 @@ export let patients: Patient[] = [
     address: "77 Queen’s Road", 
     status: 'Critical',
     doctor: "Dr. Priya Sharma",
-    ward: "Internal Medicine Ward",
+    ward: "Internal Medicine",
     condition: "Severe Infection",
     admitDate: "2026-05-28"
   },
@@ -249,7 +249,7 @@ export let patients: Patient[] = [
     address: "50 Freedom Lane", 
     status: 'Discharged',
     doctor: "Dr. John Mensah",
-    ward: "Surgical Ward",
+    ward: "Surgical",
     condition: "Hernia Surgery",
     admitDate: "2026-05-10"
   },
@@ -263,7 +263,7 @@ export let patients: Patient[] = [
     address: "29 Sunrise Ave",
     status: 'Outpatient',
     doctor: "Dr. Grace Okafor",
-    ward: "Radiology Ward",
+    ward: "Radiology",
     condition: "Breast Lump",
     admitDate: "2026-05-24"
   },
@@ -277,7 +277,7 @@ export let patients: Patient[] = [
     address: "15 Valley View", 
     status: 'Admitted',
     doctor: "Dr. Carlos Rodriguez",
-    ward: "Oncology Ward",
+    ward: "Oncology",
     condition: "Colon Cancer",
     admitDate: "2026-05-21"
   },
@@ -354,16 +354,12 @@ export let departments: Department[] = [
 ];
 
 export let appointments: Appointment[] = [
-  { id: 501, patientName: "Emma Thompson", doctorName: "Dr. Sarah Williams", date: "2026-05-10", time: "09:30", status: "Scheduled" },
-  { id: 502, patientName: "Michael Chen", doctorName: "Dr. Raj Patel", date: "2026-05-10", time: "11:00", status: "Scheduled" },
-  { id: 503, patientName: "Aisha Khan", doctorName: "Dr. Fatima Okoro", date: "2026-05-10", time: "14:15", status: "Completed" },
-  { id: 504, patientName: "David Okoro", doctorName: "Dr. Michael Chen", date: "2026-05-11", time: "08:45", status: "Scheduled" },
-  { id: 505, patientName: "Fatima Al-Sayed", doctorName: "Dr. Priya Sharma", date: "2026-05-11", time: "10:30", status: "Scheduled" },
-  { id: 506, patientName: "James Rodriguez", doctorName: "Dr. John Mensah", date: "2026-05-11", time: "13:00", status: "Cancelled" },
-  { id: 507, patientName: "Priya Sharma", doctorName: "Dr. Grace Okafor", date: "2026-05-12", time: "09:15", status: "Scheduled" },
-  { id: 508, patientName: "John Mensah", doctorName: "Dr. Ahmed Hassan", date: "2026-05-12", time: "15:45", status: "Completed" },
-  { id: 509, patientName: "Sophia Laurent", doctorName: "Dr. Sarah Williams", date: "2026-05-13", time: "11:30", status: "Scheduled" },
-  { id: 510, patientName: "Ahmed Hassan", doctorName: "Dr. Carlos Rodriguez", date: "2026-05-13", time: "14:00", status: "Scheduled" },
+  { id: 501, patientName: "Emma Thompson", doctorName: "Dr. Sarah Williams", date: "2026-05-10", time: "09:30", status: "Cancelled", type: "Check-up" },
+  { id: 502, patientName: "Michael Chen", doctorName: "Dr. Raj Patel", date: "2026-05-10", time: "11:00", status: "Scheduled", type: "Consultation" },
+  { id: 503, patientName: "Aisha Khan", doctorName: "Dr. Fatima Okoro", date: "2026-05-10", time: "14:15", status: "Completed", type: "Treatment" },
+  { id: 504, patientName: "David Okoro", doctorName: "Dr. Michael Chen", date: "2026-05-11", time: "08:45", status: "Scheduled", type: "Follow-up" },
+  { id: 505, patientName: "Fatima Al-Sayed", doctorName: "Dr. Priya Sharma", date: "2026-05-11", time: "10:30", status: "Scheduled", type: "Check-up" },
+  { id: 506, patientName: "James Chukwu", doctorName: "Dr. John Mensah", date: "2026-05-11", time: "13:00", status: "Cancelled", type: "Consultation" },
 ];
 
 export const patientTrendData = [
@@ -392,4 +388,19 @@ export const departmentData = [
    { name: "Oncology", patients: 11, color:"#10b981" },
    { name: "Radiology", patients: 60, color:"#1e40af" },
 ];
+
+export const revenueData = [
+  { month: "Dec", revenue: 4200000, expenses: 3100000 },
+  { month: "Jan", revenue: 4800000, expenses: 3400000 },
+  { month: "Feb", revenue: 4500000, expenses: 3200000 },
+  { month: "Mar", revenue: 5200000, expenses: 3700000 },
+  { month: "Apr", revenue: 5600000, expenses: 3900000 },
+  { month: "May", revenue: 6100000, expenses: 4100000 },
+];
+
+export const staffStats = {
+  doctors: { total: 10, onDuty: 6 },
+  nurses: { total: 25, onDuty: 14 },
+  other: { total: 15, onDuty: 10 },
+};
 

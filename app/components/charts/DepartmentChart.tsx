@@ -33,7 +33,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function DepartmentChart() {
   return (
-    <div className="bg-black/20 backdrop-blur-2xl border border-white/20 rounded-3xl p-6 shadow-2xl h-full lg:h-93">
+    <div className="bg-black/95 backdrop-blur-2xl border border-white/20 rounded-3xl p-6 shadow-2xl h-full lg:h-93">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>

@@ -59,6 +59,7 @@ export interface Appointment {
   doctorName: string;
   date: string;
   time: string;
+  type: 'Check-up' | 'Consultation' | 'Treatment' | 'Follow-up';
   status: 'Scheduled' | 'Completed' | 'Cancelled';
 }
 

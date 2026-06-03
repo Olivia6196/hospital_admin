@@ -12,7 +12,7 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
     // Default maxAge (seconds) used by NextAuth when issuing tokens/cookies
-    maxAge: 2 * 60, // 2 minutes
+    maxAge: 60 * 60, // 1 hour
   },
   providers: [
     CredentialsProvider({
@@ -56,7 +56,7 @@ const authOptions: NextAuthOptions = {
         token.remember = user.remember ?? false;
 
         // set explicit expiry on the token depending on `remember`
-        const maxAge = 2 * 60; // 2 minutes
+        const maxAge = 60 * 60; // 1 hour
         token.exp = Math.floor(Date.now() / 1000) + maxAge;
       }
       return token;

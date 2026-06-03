@@ -11,6 +11,7 @@ export interface IPatient extends Document {
   age: number;
   condition: string;
   ward: string;
+  gender?: 'Male' | 'Female' | 'Other';
   doctor: string;
   admitDate: Date;
   status: PatientStatus;
@@ -36,6 +37,7 @@ const PatientSchema = new Schema<IPatient>(
     address: { type: String, trim: true },
     bloodGroup: { type: String, trim: true },
     contact: { type: String, trim: true },
+    gender: { type: String, trim: true, enum: ["Male", "Female", "Other"] },
   },
   { timestamps: true },
 );

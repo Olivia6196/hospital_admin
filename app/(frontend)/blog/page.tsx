@@ -1,9 +1,5 @@
-"use client"
 import { Search } from 'lucide-react'
-import { BlogCard, PageHero, SectionHeader } from '../../main/UI'
-import { useEffect, useState } from 'react'
-import Navbar from '../../main/Navbar'
-import Footer from '../../main/Footer'
+import { PageHero, SectionHeader, BlogCard } from '@/app/components/main/UI'
 
 const categories = ['All', 'Cardiology', 'Neurology', 'Pediatrics', 'Wellness', 'Nutrition', 'Surgery', 'Mental Health']
 
@@ -22,27 +18,8 @@ const posts = [
 const featured = posts[0]
 
 export default function BlogPage() {
-  const [dark, setDark] = useState(false)
-  
-    useEffect(() => {
-      const stored = localStorage.getItem('theme')
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        setDark(true)
-        document.documentElement.classList.add('dark')
-      }
-    }, [])
-  
-    const toggleDark = () => {
-      setDark(prev => {
-        const next = !prev
-        document.documentElement.classList.toggle('dark', next)
-        localStorage.setItem('theme', next ? 'dark' : 'light')
-        return next
-      })
-    }
   return (
     <div className="bg-white dark:bg-gray-950">
-      <Navbar dark={dark} toggleDark={toggleDark}/>
       <PageHero
         title="Health Blog & News"
         subtitle="Expert insights, medical news, and wellness tips from our specialists"
@@ -71,7 +48,7 @@ export default function BlogPage() {
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="rounded-3xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-lg grid md:grid-cols-2">
-            <div className="aspect-4/3 md:aspect-auto overflow-hidden">
+            <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
               <img src={featured.image} alt={featured.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
             <div className="p-10 flex flex-col justify-center">
@@ -116,7 +93,6 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

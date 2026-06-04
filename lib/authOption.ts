@@ -23,36 +23,46 @@ const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials) return null;
-        if (!credentials.email || !credentials.password) {
+        try {
+          if (!credentials) return null;
+          if (!credentials.email || !credentials.password) {
+            console.log("Authorize: missing credentials");
+            return null;
+          }
+          await connectDB();
+
+          const admin = await Admin.findOne({
+            email: credentials.email,
+          }).select("+password");
+
+          if (!admin) {
+            console.log("Authorize: no admin for", credentials.email);
+            return null;
+          }
+
+          const isPasswordCorrect = await bcrypt.compare(
+            credentials.password,
+            admin.password,
+          );
+
+          if (!isPasswordCorrect) {
+            console.log("Authorize: password mismatch for", credentials.email);
+            return null;
+          }
+
+          // include the `remember` flag so callbacks can act on it
+          const remember = Boolean((credentials as any).remember);
+
+          return {
+            id: admin.id,
+            email: admin.email,
+            role: admin.role,
+            remember,
+          } as any;
+        } catch (err) {
+          console.error("Authorize error:", err);
           return null;
         }
-        await connectDB();
-
-        const admin = await Admin.findOne({
-          email: credentials.email,
-        }).select("+password");
-
-        if (!admin) return null;
-
-        const isPasswordCorrect = await bcrypt.compare(
-          credentials.password,
-          admin.password,
-        );
-
-        if (!isPasswordCorrect) {
-          return null;
-        }
-
-        // include the `remember` flag so callbacks can act on it
-        const remember = Boolean((credentials as any).remember);
-
-        return {
-          id: admin.id,
-          email: admin.email,
-          role: admin.role,
-          remember,
-        } as any;
       },
     }),
   ],

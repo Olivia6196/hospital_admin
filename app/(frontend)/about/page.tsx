@@ -1,9 +1,6 @@
-
+import { PageHero, SectionHeader, StatCard } from '@/app/components/main/UI'
 import { Users, Award, Heart, Clock, CheckCircle, Shield, Zap, Star } from 'lucide-react'
 import Link from 'next/link'
-import { PageHero, SectionHeader, StatCard } from '../../main/UI'
-import Navbar from '../../main/Navbar'
-import Footer from '../../main/Footer'
 
 const team = [
   { name: 'Dr. Patricia Moore', role: 'Chief Medical Officer', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face' },
@@ -23,7 +20,6 @@ const milestones = [
 export default function AboutPage() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      <Navbar />
       <PageHero
         title="About MediCore Hospital"
         subtitle="Delivering compassionate, world-class healthcare for over 35 years"
@@ -171,7 +167,6 @@ export default function AboutPage() {
           </Link>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

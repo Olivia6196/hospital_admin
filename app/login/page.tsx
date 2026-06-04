@@ -76,15 +76,19 @@ export default function AdminLoginPage() {
               setError("");
               const res = await signIn("credentials", {
                 ...formData,
-                redirect: true,
+                redirect: false,
               });
-              if (res && !res.ok) {
-                setError("Invalid credentials");
+
+              if (!res || !res.ok) {
+                setError(res?.error || "Invalid credentials");
+                router.push("/");
                 return;
               }
+
               router.push("/dashboard");
             } catch (err) {
               console.log(err);
+              setError("An unexpected error occurred");
             } finally {
               setLoading(false);
             }

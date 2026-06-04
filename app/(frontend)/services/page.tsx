@@ -1,10 +1,6 @@
-"use client"
 import { Heart, Brain, Bone, Baby, Microscope, Zap, Eye, Wind, Activity, Pill, Stethoscope, Shield, CheckCircle, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { PageHero, SectionHeader } from '../../main/UI'
-import Footer from '../../main/Footer'
-import Navbar from '../../main/Navbar'
-import { useEffect, useState } from 'react'
+import { PageHero, SectionHeader } from '@/app/components/main/UI'
 
 const allServices = [
   {
@@ -64,27 +60,8 @@ const allServices = [
 ]
 
 export default function ServicesPage() {
-  const [dark, setDark] = useState(false)
-  
-    useEffect(() => {
-      const stored = localStorage.getItem('theme')
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        setDark(true)
-        document.documentElement.classList.add('dark')
-      }
-    }, [])
-  
-    const toggleDark = () => {
-      setDark(prev => {
-        const next = !prev
-        document.documentElement.classList.toggle('dark', next)
-        localStorage.setItem('theme', next ? 'dark' : 'light')
-        return next
-      })
-    }
   return (
     <div className="bg-white dark:bg-gray-950">
-      <Navbar dark={dark} toggleDark={toggleDark}/>
       <PageHero
         title="Our Medical Services"
         subtitle="Comprehensive healthcare services delivered by expert specialists"
@@ -117,7 +94,7 @@ export default function ServicesPage() {
                 <div className="grid grid-cols-2 gap-3 mb-8">
                   {svc.features.map(f => (
                     <div key={f} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                      <CheckCircle size={16} className="text-blue-600 dark:text-blue-400 shrink-0" /> {f}
+                      <CheckCircle size={16} className="text-blue-600 dark:text-blue-400 flex-shrink-0" /> {f}
                     </div>
                   ))}
                 </div>
@@ -126,7 +103,7 @@ export default function ServicesPage() {
                   Book Consultation <ArrowRight size={16} />
                 </Link>
               </div>
-              <div className={`rounded-3xl overflow-hidden aspect-4/3 shadow-xl ${i % 2 !== 0 ? 'order-first lg:order-last' : ''}`}>
+              <div className={`rounded-3xl overflow-hidden aspect-[4/3] shadow-xl ${i % 2 !== 0 ? 'order-first lg:order-last' : ''}`}>
                 <img src={svc.image} alt={svc.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
               </div>
             </div>
@@ -145,7 +122,6 @@ export default function ServicesPage() {
           </Link>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

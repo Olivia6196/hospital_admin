@@ -46,9 +46,9 @@ export function DoctorCard({ name, specialty, image, rating, experience, href }:
 }) {
   return (
     <div className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:-translate-y-1">
-      <div className="relative h-56 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-gray-900 overflow-hidden">
+      <div className="relative h-56 bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-gray-900 overflow-hidden">
         <img src={image} alt={name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         <span className="absolute top-3 right-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
           {experience}
         </span>
@@ -147,7 +147,7 @@ export function PageHero({ title, subtitle, breadcrumbs }: {
   title: string; subtitle?: string; breadcrumbs: { label: string; href?: string }[]
 }) {
   return (
-    <div className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 py-20 px-4 overflow-hidden">
+    <div className="relative bg-linear-to-br from-blue-600 via-blue-700 to-blue-900 py-20 px-4 overflow-hidden">
       {/* BG decorations */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />

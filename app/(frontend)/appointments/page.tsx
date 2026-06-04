@@ -1,10 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Calendar, Clock, User, ChevronDown, CheckCircle, Phone, Mail } from 'lucide-react'
-import { PageHero } from '../../main/UI'
-import Navbar from '../../main/Navbar'
-import Footer from '../../main/Footer'
+import { PageHero } from '@/app/components/main/UI'
 
 const doctors = [
   'Dr. Sarah Johnson – Cardiology',
@@ -26,25 +24,6 @@ export default function AppointmentsPage() {
   })
   const [submitted, setSubmitted] = useState(false)
 
-  const [dark, setDark] = useState(false)
-  
-    useEffect(() => {
-      const stored = localStorage.getItem('theme')
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        setDark(true)
-        document.documentElement.classList.add('dark')
-      }
-    }, [])
-  
-    const toggleDark = () => {
-      setDark(prev => {
-        const next = !prev
-        document.documentElement.classList.toggle('dark', next)
-        localStorage.setItem('theme', next ? 'dark' : 'light')
-        return next
-      })
-    }
-
   const update = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -55,7 +34,6 @@ export default function AppointmentsPage() {
   if (submitted) {
     return (
       <div className="bg-white dark:bg-gray-950 min-h-screen">
-        <Navbar dark={dark} toggleDark={toggleDark}/>
         <PageHero title="Appointment Confirmed!" breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Appointments' }]} />
         <div className="flex items-center justify-center py-20 px-4">
           <div className="max-w-md w-full text-center bg-white dark:bg-gray-900 rounded-3xl p-10 border border-gray-100 dark:border-gray-800 shadow-xl">
@@ -290,7 +268,6 @@ export default function AppointmentsPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

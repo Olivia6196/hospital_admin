@@ -2,40 +2,36 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { Sun, Moon, Menu, X, Phone, Mail, ChevronDown, Activity } from 'lucide-react'
-import { ThemeContext } from '../theme/ThemeProvider'
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/components/Landing/about' },
+  { label: 'About', href: '/about' },
   {
     label: 'Services',
     href: '/services',
     children: [
-      { label: 'All Services', href: '/components/Landing/services' },
+      { label: 'All Services', href: '/services' },
       { label: 'Emergency Care', href: '/services#emergency' },
       { label: 'Surgery', href: '/services#surgery' },
       { label: 'Diagnostics', href: '/services#diagnostics' },
       { label: 'Pediatrics', href: '/services#pediatrics' },
     ],
   },
-  { label: 'Doctors', href: '/components/Landing/doctors' },
-  { label: 'Appointments', href: '/components/Landing/appointments' },
-  { label: 'Pricing', href: '/components/Landing/pricing' },
-  { label: 'Blog', href: '/components/Landing/blog' },
-  { label: 'Contact', href: '/components/Landing/contact' },
+  { label: 'Doctors', href: '/doctors' },
+  { label: 'Appointments', href: '/appointments' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
 ]
 
-interface NavbarProps { dark?: boolean; toggleDark?: () => void }
+interface NavbarProps { dark: boolean; toggleDark: () => void }
 
 export default function Navbar({ dark, toggleDark }: NavbarProps) {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropdown, setDropdown] = useState<string | null>(null)
-  const ctx = useContext(ThemeContext)
-  const isDark = dark ?? ctx?.dark ?? false
-  const onToggle = toggleDark ?? ctx?.toggleDark ?? (() => {})
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm">
@@ -93,10 +89,10 @@ export default function Navbar({ dark, toggleDark }: NavbarProps) {
         </ul>
 
         <div className="flex items-center gap-2">
-          <button onClick={onToggle}
+          <button onClick={toggleDark}
             className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
             aria-label="Toggle theme">
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <Link href="/appointments"
             className="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md shadow-blue-200 dark:shadow-blue-900/50 transition-all hover:scale-105 active:scale-95">

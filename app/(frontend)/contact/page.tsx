@@ -1,10 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { PageHero } from '@/app/components/main/UI'
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react'
-import { PageHero } from '../../main/UI'
-import Navbar from '../../main/Navbar'
-import Footer from '../../main/Footer'
 
 const locations = [
   { name: 'Main Hospital', address: '123 Medical Center Drive, New York, NY 10001', phone: '+1 (800) 123-4567', hours: 'Open 24/7' },
@@ -15,24 +13,6 @@ const locations = [
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
-  const [dark, setDark] = useState(false)
-  
-    useEffect(() => {
-      const stored = localStorage.getItem('theme')
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        setDark(true)
-        document.documentElement.classList.add('dark')
-      }
-    }, [])
-  
-    const toggleDark = () => {
-      setDark(prev => {
-        const next = !prev
-        document.documentElement.classList.toggle('dark', next)
-        localStorage.setItem('theme', next ? 'dark' : 'light')
-        return next
-      })
-    }
 
   const update = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
 
@@ -43,7 +23,6 @@ export default function ContactPage() {
 
   return (
     <div className="bg-white dark:bg-gray-950">
-      <Navbar dark={dark} toggleDark={toggleDark}/>
       <PageHero
         title="Contact Us"
         subtitle="We're here to help. Reach out to us with any questions or concerns."
@@ -59,7 +38,7 @@ export default function ContactPage() {
             { icon: MapPin, color: 'bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400', title: 'Address', lines: ['123 Medical Center Drive', 'New York, NY 10001'] },
           ].map(({ icon: Icon, color, title, lines }) => (
             <div key={title} className="flex items-start gap-4 p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-              <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center shrink-0`}>
+              <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center flex-shrink-0`}>
                 <Icon size={22} />
               </div>
               <div>
@@ -135,7 +114,7 @@ export default function ContactPage() {
               {locations.map(loc => (
                 <div key={loc.name} className="p-5 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center flex-shrink-0">
                       <MapPin size={18} className="text-blue-600 dark:text-blue-400" />
                     </div>
                     <div className="flex-1">
@@ -193,7 +172,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

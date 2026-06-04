@@ -1,10 +1,6 @@
-"use client"
 import { Star, Phone, Mail, Calendar, ChevronRight, Search } from 'lucide-react'
 import Link from 'next/link'
-import { PageHero } from '../../main/UI'
-import { useEffect, useState } from 'react'
-import Navbar from '../../main/Navbar'
-import Footer from '../../main/Footer'
+import { PageHero } from '@/app/components/main/UI'
 
 const specialties = ['All', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Surgery', 'Ophthalmology']
 
@@ -20,27 +16,8 @@ const doctors = [
 ]
 
 export default function DoctorsPage() {
-const [dark, setDark] = useState(false)
-
-  useEffect(() => {
-    const stored = localStorage.getItem('theme')
-    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setDark(true)
-      document.documentElement.classList.add('dark')
-    }
-  }, [])
-
-  const toggleDark = () => {
-    setDark(prev => {
-      const next = !prev
-      document.documentElement.classList.toggle('dark', next)
-      localStorage.setItem('theme', next ? 'dark' : 'light')
-      return next
-    })
-  }
   return (
     <div className="bg-white dark:bg-gray-950">
-      <Navbar dark={dark} toggleDark={toggleDark}/>
       <PageHero
         title="Our Expert Doctors"
         subtitle="Meet our team of 200+ board-certified specialists dedicated to your health"
@@ -71,9 +48,9 @@ const [dark, setDark] = useState(false)
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {doctors.map(doc => (
             <div key={doc.name} className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative h-60 bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-gray-900 overflow-hidden">
+              <div className="relative h-60 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-gray-900 overflow-hidden">
                 <img src={doc.image} alt={doc.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span className="absolute top-3 left-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs font-semibold px-2 py-1 rounded-full shadow-sm">
                   {doc.experience}
                 </span>
@@ -119,7 +96,6 @@ const [dark, setDark] = useState(false)
           </Link>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

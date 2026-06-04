@@ -1,7 +1,6 @@
 "use client";
 
 import Header from "@/app/components/Header";
-import ThemeToggle from "@/app/components/theme/ThemeToggle";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -118,7 +117,7 @@ export default function SettingsPage() {
 
             {/* Replace with <ThemeToggle /> */}
             <div className="rounded-lg border border-dashed border-zinc-300 dark:border-zinc-600 px-4 py-2 text-sm text-zinc-500">
-              <ThemeToggle /> 
+             theme toggle component coming soon
             </div>
           </div>
         </div>

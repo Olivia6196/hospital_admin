@@ -108,9 +108,9 @@ export default function Footer() {
               <p className="text-gray-400 text-sm">info@medicore.hospital</p>
             </div>
             <Link href="/login">
-              <button className="text-sm text-white/55 flex items-center gap-1">
+              <button className="text-xs text-white/35 flex items-center gap-1">
                 <span>Enter Admin Dashboard</span>
-                <LogIn className="text-sm" />
+                <LogIn className="text-xs" />
               </button>
             </Link>
 

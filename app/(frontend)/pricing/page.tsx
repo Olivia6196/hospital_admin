@@ -1,10 +1,6 @@
-"use client"
 import { CheckCircle, X, ArrowRight, Shield, Phone } from 'lucide-react'
 import Link from 'next/link'
-import { PageHero, SectionHeader } from '../../main/UI'
-import { useEffect, useState } from 'react'
-import Navbar from '../../main/Navbar'
-import Footer from '../../main/Footer'
+import { PageHero, SectionHeader } from '@/app/components/main/UI'
 
 const plans = [
   {
@@ -79,27 +75,8 @@ const faqs = [
 ]
 
 export default function PricingPage() {
-  const [dark, setDark] = useState(false)
-  
-    useEffect(() => {
-      const stored = localStorage.getItem('theme')
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        setDark(true)
-        document.documentElement.classList.add('dark')
-      }
-    }, [])
-  
-    const toggleDark = () => {
-      setDark(prev => {
-        const next = !prev
-        document.documentElement.classList.toggle('dark', next)
-        localStorage.setItem('theme', next ? 'dark' : 'light')
-        return next
-      })
-    }
   return (
     <div className="bg-white dark:bg-gray-950">
-      <Navbar dark={dark} toggleDark={toggleDark}/>
       <PageHero
         title="Transparent Pricing"
         subtitle="Quality healthcare with clear, honest pricing — no surprises"
@@ -132,8 +109,8 @@ export default function PricingPage() {
                     {plan.features.map(f => (
                       <div key={f.label} className="flex items-center gap-2.5">
                         {f.included
-                          ? <CheckCircle size={16} className={plan.name === 'Doctor Visits' ? 'text-blue-200 shrink-0' : 'text-blue-600 dark:text-blue-400 shrink-0'} />
-                          : <X size={16} className={plan.name === 'Doctor Visits' ? 'text-blue-300/50 shrink-0' : 'text-gray-300 dark:text-gray-600 shrink-0'} />}
+                          ? <CheckCircle size={16} className={plan.name === 'Doctor Visits' ? 'text-blue-200 flex-shrink-0' : 'text-blue-600 dark:text-blue-400 flex-shrink-0'} />
+                          : <X size={16} className={plan.name === 'Doctor Visits' ? 'text-blue-300/50 flex-shrink-0' : 'text-gray-300 dark:text-gray-600 flex-shrink-0'} />}
                         <span className={`text-sm ${
                           f.included
                             ? plan.name === 'Doctor Visits' ? 'text-white' : 'text-gray-700 dark:text-gray-300'
@@ -223,7 +200,6 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

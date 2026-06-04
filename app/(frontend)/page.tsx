@@ -1,14 +1,10 @@
-
 import Link from 'next/link'
 import { 
   ArrowRight, Calendar, Clock, Users, Award, Heart, 
   Shield, Stethoscope, Brain, Bone, Baby, Microscope,
   Zap, CheckCircle, Phone, MapPin, Star
 } from 'lucide-react'
-import { BlogCard, DoctorCard, SectionHeader, ServiceCard, TestimonialCard } from './components/main/UI'
-import Navbar from './components/main/Navbar'
-import Footer from './components/main/Footer'
-
+import { PageHero, SectionHeader, ServiceCard, DoctorCard, TestimonialCard, BlogCard } from '@/app/components/main/UI'
 
 const doctors = [
   { name: 'Dr. Sarah Johnson', specialty: 'Cardiologist', rating: 4.9, experience: '15 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=500&fit=crop&crop=face' },
@@ -59,17 +55,20 @@ const testimonials = [
 export default function Home() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      <Navbar />
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* BG */}
-        <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-950 dark:to-blue-950/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-950 dark:to-blue-950/20" />
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-5 dark:opacity-10"
           style={{ background: 'radial-gradient(circle at 70% 50%, #2563eb 0%, transparent 70%)' }} />
 
         <div className="relative max-w-7xl mx-auto px-4 py-20 grid lg:grid-cols-2 gap-12 items-center">
           {/* Left */}
           <div className="animate-slide-up">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 dark:bg-blue-950 rounded-full text-blue-600 dark:text-blue-400 text-sm font-semibold mb-6 border border-blue-100 dark:border-blue-900">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+              #1 Rated Hospital in New York
+            </div>
             <h1 className="font-display text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight mb-6">
               Find a Doctor<br />
               <span className="text-blue-600">&amp; Book Online</span>
@@ -196,7 +195,7 @@ export default function Home() {
       <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
-            <div className="rounded-3xl overflow-hidden aspect-4/3 shadow-2xl">
+            <div className="rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
               <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&h=600&fit=crop" alt="Hospital" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-xl border border-gray-100 dark:border-gray-800">
@@ -217,7 +216,7 @@ export default function Home() {
                 { icon: Clock, title: '24/7 Support', desc: 'Round-the-clock emergency care and patient support whenever you need it.' },
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} className="flex items-start gap-4 p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center flex-shrink-0">
                     <Icon size={18} className="text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
@@ -285,7 +284,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   )
 }

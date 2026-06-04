@@ -5,7 +5,8 @@ import { NextAuthOptions } from "next-auth";
 import { Admin } from "@/models/Admin";
 // import GoogleProvider from "next-auth/providers/google";
 // import GithubProvider from "next-auth/providers/github";
-import { connectDB } from "@/models"
+import { connectDB } from "@/models";
+import bcrypt from "bcryptjs";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const authOptions: NextAuthOptions = {
@@ -28,20 +29,28 @@ const authOptions: NextAuthOptions = {
         }
         await connectDB();
 
-        const admin = await Admin.findOne({ email: credentials.email }).select(
-          "+password",
-        );
+        const admin = await Admin.findOne({
+          email: credentials.email,
+        }).select("+password");
+
         if (!admin) return null;
+
+        const isPasswordCorrect = await bcrypt.compare(
+          credentials.password,
+          admin.password,
+        );
+
+        if (!isPasswordCorrect) {
+          return null;
+        }
 
         // include the `remember` flag so callbacks can act on it
         const remember = Boolean((credentials as any).remember);
 
         return {
           id: admin.id,
-          name: admin.name,
           email: admin.email,
           role: admin.role,
-          image: admin.image,
           remember,
         } as any;
       },

@@ -23,14 +23,12 @@ const navItems = [
     name: "Patients",
     href: "/dashboard/patients",
     icon: IoIosPeople,
-    badge: "165",
   },
   { name: "Doctors", href: "/dashboard/doctors", icon: MdPerson },
   {
     name: "Nurses",
     href: "/dashboard/nurses",
     icon: MdLocalHospital,
-    badge: "25",
   },
   { name: "Staffs", href: "/dashboard/staffs", icon: MdWork },
   { name: "Departments", href: "/dashboard/departments", icon: MdBusiness },
@@ -50,7 +48,7 @@ const navIcons = [
   MdBusiness,
   MdCalendarToday,
 ];
-export default function Sidebar() {
+export default function Sidebar({badge}:{badge?:string}) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -114,11 +112,6 @@ export default function Sidebar() {
               {!isCollapsed && (
                 <>
               {item.name}
-              <span
-                className={`${item.badge ? "bg-white/10 text-xs border backdrop-blur-2xl border-white/20 shadow-2xl rounded-xl px-2 py-0.5 ml-auto" : "hidden"} `}
-              >
-                {item.badge}
-              </span>
                 </>
               )}
             </Link>

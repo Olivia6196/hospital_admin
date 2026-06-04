@@ -1,2 +1,11 @@
 @import "tailwindcss";
-
+body {
+  background-color: #f7fafc; /* Tailwind's gray-100 */
+  color: #1a202c; /* Tailwind's gray-900 */
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1a202c; /* Tailwind's gray-900 */
+    color: #f7fafc; /* Tailwind's gray-100 */
+  }
+}

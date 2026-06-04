@@ -1,0 +1,103 @@
+import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import bcrypt from "bcryptjs";
+
+import authOptions from "@/lib/auth";
+import { connectDB } from "@/models";
+import { Admin } from "@/models/Admin";
+
+export async function PATCH(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      return NextResponse.json(
+        { message: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const body = await req.json();
+
+    const {
+      email,
+      currentPassword,
+      newPassword,
+    } = body;
+
+    await connectDB();
+
+    const admin = await Admin.findOne({
+      email: session.user.email,
+    });
+
+    if (!admin) {
+      return NextResponse.json(
+        { message: "Account not found" },
+        { status: 404 }
+      );
+    }
+
+    // UPDATE EMAIL
+    if (email) {
+      const existingAdmin = await Admin.findOne({
+        email,
+      });
+
+      if (
+        existingAdmin &&
+        existingAdmin._id.toString() !== admin._id.toString()
+      ) {
+        return NextResponse.json(
+          {
+            message: "Email already exists",
+          },
+          { status: 400 }
+        );
+      }
+
+      admin.email = email;
+    }
+
+    // UPDATE PASSWORD
+    if (currentPassword && newPassword) {
+      const isPasswordCorrect =
+        await bcrypt.compare(
+          currentPassword,
+          admin.password
+        );
+
+      if (!isPasswordCorrect) {
+        return NextResponse.json(
+          {
+            message:
+              "Current password is incorrect",
+          },
+          { status: 400 }
+        );
+      }
+
+      const hashedPassword =
+        await bcrypt.hash(newPassword, 10);
+
+      admin.password = hashedPassword;
+    }
+
+    await admin.save();
+
+    return NextResponse.json({
+      success: true,
+      message: "Settings updated successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Something went wrong",
+      },
+      { status: 500 }
+    );
+  }
+}

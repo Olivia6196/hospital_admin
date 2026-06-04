@@ -21,7 +21,7 @@ type Patient = {
   status: string;
 };
 
-export default function PatientsPage() {
+export default function PatientsTable() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,6 +30,7 @@ export default function PatientsPage() {
       try {
         const res = await fetch("/api/patients");
         const data = await res.json();
+         console.log("Patients API response:", data);
         setPatients(data);
       } catch (err) {
         console.error(err);
@@ -42,13 +43,13 @@ export default function PatientsPage() {
   }, []);
 
   return (
-    <div className="bg-black text-white p-5 rounded-xl backdrop-blur-2xl border border-white/20 shadow-2xl">
+    <div className="bg-white dark:bg-black text-blue-950 dark:text-white p-5 rounded-xl backdrop-blur-2xl border border-white/20 shadow-2xl">
       
       {/* Header */}
       <div className="flex justify-between">
         <h3 className="text-xl font-medium">Recent Patients</h3>
 
-        <div className="text-sm bg-blue-500 border border-white/20 rounded-xl px-3 py-1.5">
+        <div className="text-sm bg-blue-100 dark:bg-blue-500 border border-white/20 rounded-xl px-3 py-1.5">
           <Link href="/dashboard/patients" className="flex items-center gap-1">
             View All
             <IoIosArrowRoundForward />
@@ -87,7 +88,7 @@ export default function PatientsPage() {
                     key={p._id}
                     className="border-t border-white/10 hover:bg-white/5 transition text-sm cursor-pointer"
                   >
-                    <td className="p-2 text-sm font-mono text-white/80">
+                    <td className="p-2 text-sm font-mono text-blue-950/90 dark:text-white/80">
                       {p._id.slice(-6)}
                     </td>
 

@@ -1,11 +1,27 @@
 @import "tailwindcss";
-body {
-  background-color: #f7fafc; /* Tailwind's gray-100 */
-  color: #1a202c; /* Tailwind's gray-900 */
-}
-@media (prefers-color-scheme: dark) {
+
+@layer base {
   body {
-    background-color: #1a202c; /* Tailwind's gray-900 */
-    color: #f7fafc; /* Tailwind's gray-100 */
+    @apply bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-syne);
   }
 }
+
+@layer utilities {
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+}
+
+/* Smooth scrolling */
+html { scroll-behavior: smooth; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { @apply bg-gray-100 dark:bg-gray-900; }
+::-webkit-scrollbar-thumb { @apply bg-blue-500 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-blue-600; }

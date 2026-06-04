@@ -3,6 +3,7 @@
 import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ThemeProvider from "./components/theme/ThemeProvider";
 
 export default function ClientLayout({
   children,
@@ -11,10 +12,10 @@ export default function ClientLayout({
 }) {
   return (
     <SessionProvider>
-      {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
+      <ThemeProvider>
         <ToastContainer theme="dark" position="top-left" />
         {children}
-      {/* </ThemeProvider> */}
+      </ThemeProvider>
     </SessionProvider>
   );
 }

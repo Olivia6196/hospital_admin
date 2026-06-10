@@ -18,6 +18,7 @@ async function seedAdmin() {
       email: "admin@hospital.com",
       password: hashedPassword,
       role: "admin",
+      name: "Admin User",
     });
 
     console.log("Admin created:", admin.email);

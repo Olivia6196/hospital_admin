@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Sun, Moon, Menu, X, Phone, Mail, ChevronDown, Activity } from 'lucide-react'
+import Image from 'next/image'
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -35,7 +36,6 @@ export default function Navbar({ dark, toggleDark }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm">
-      {/* Top bar */}
       <div className="bg-blue-600 dark:bg-blue-700 text-white text-sm py-1.5 px-4 hidden md:block">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
@@ -46,15 +46,14 @@ export default function Navbar({ dark, toggleDark }: NavbarProps) {
         </div>
       </div>
 
-      {/* Main nav */}
       <nav className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shadow-md shadow-blue-200 dark:shadow-blue-900 group-hover:scale-105 transition-transform">
-            <Activity size={20} className="text-white" />
+          <div className="w-9 h-9 rounded-xl bg-white/75 flex items-center justify-center shadow shadow-blue-200 dark:white group-hover:scale-105 transition-transform">
+            <Image src="/images/hospital-logo.png" alt="MediCore Logo" width={18} height={18} className="w-6 h-6" />
           </div>
           <div>
-            <div className="font-display font-800 text-lg text-gray-900 dark:text-white leading-tight">MediCore</div>
-            <div className="text-[10px] text-blue-600 dark:text-blue-400 font-medium tracking-wider uppercase leading-tight">Hospital</div>
+            <p className="font-display font-800 text-lg text-gray-900 dark:text-white leading-tight">MediCore</p>
+            <p className="text-[10px] text-blue-600 dark:text-blue-400 font-medium tracking-wider uppercase leading-tight">Hospital</p>
           </div>
         </Link>
 
@@ -95,7 +94,7 @@ export default function Navbar({ dark, toggleDark }: NavbarProps) {
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <Link href="/appointments"
-            className="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md shadow-blue-200 dark:shadow-blue-900/50 transition-all hover:scale-105 active:scale-95">
+            className="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg hover:rounded-full shadow-md shadow-blue-200 dark:shadow-blue-900/50 transition-all hover:scale-105 active:scale-95">
             Book Appointment
           </Link>
           <button onClick={() => setMobileOpen(!mobileOpen)}

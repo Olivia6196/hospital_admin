@@ -9,17 +9,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     const stored = localStorage.getItem('theme')
-    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setDark(true)
-      document.documentElement.classList.add('dark')
-    }
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const shouldDark = stored === 'dark' || (!stored && prefersDark)
+
+    setDark(shouldDark)
+    document.documentElement.classList.toggle('dark', shouldDark)
+    document.documentElement.style.colorScheme = shouldDark ? 'dark' : 'light'
   }, [])
 
   const toggleDark = () => {
     setDark(prev => {
       const next = !prev
+
       document.documentElement.classList.toggle('dark', next)
+      document.documentElement.style.colorScheme = next ? 'dark' : 'light'
       localStorage.setItem('theme', next ? 'dark' : 'light')
+
       return next
     })
   }

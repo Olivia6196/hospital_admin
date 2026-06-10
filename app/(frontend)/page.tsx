@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link'
 import { 
   ArrowRight, Calendar, Clock, Users, Award, Heart, 
@@ -5,12 +6,15 @@ import {
   Zap, CheckCircle, Phone, MapPin, Star
 } from 'lucide-react'
 import { PageHero, SectionHeader, ServiceCard, DoctorCard, TestimonialCard, BlogCard } from '@/app/components/main/UI'
+import { useRef, useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+import CountUp from "react-countup";
 
 const doctors = [
-  { name: 'Dr. Sarah Johnson', specialty: 'Cardiologist', rating: 4.9, experience: '15 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=500&fit=crop&crop=face' },
-  { name: 'Dr. Michael Chen', specialty: 'Neurologist', rating: 4.8, experience: '12 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=500&fit=crop&crop=face' },
-  { name: 'Dr. Amelia Roberts', specialty: 'Pediatrician', rating: 5.0, experience: '10 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=500&fit=crop&crop=face' },
-  { name: 'Dr. James Wilson', specialty: 'Orthopedic', rating: 4.7, experience: '18 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=500&fit=crop&crop=face' },
+  { name: 'Dr. Sarah Johnson', specialty: 'Cardiologist', rating: 4.9, experience: '10 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=500&fit=crop&crop=face' },
+  { name: 'Dr. Michael Chen', specialty: 'Neurologist', rating: 4.8, experience: '8 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=500&fit=crop&crop=face' },
+  { name: 'Dr. Amelia Roberts', specialty: 'Pediatrician', rating: 5.0, experience: '7 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=500&fit=crop&crop=face' },
+  { name: 'Dr. James Wilson', specialty: 'Orthopedic', rating: 4.7, experience: '9 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=500&fit=crop&crop=face' },
 ]
 
 const services = [
@@ -52,23 +56,36 @@ const testimonials = [
   { name: 'Linda Thompson', role: 'Patient', rating: 5, avatar: 'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=100&h=100&fit=crop&crop=face', text: 'I couldn\'t be happier with the treatment I received. The doctors were knowledgeable and explained everything clearly.' },
 ]
 
+const stats = [
+            { value: '1,500+', label: 'Patients Treated', icon: Users, color: 'blue' },
+            { value: '22', label: 'Years of Service', icon: Award, color: 'blue' },
+            { value: '14+', label: 'Departments', icon: Heart, color: 'blue' },
+            { value: '35+', label: 'Expert Doctors', icon: Stethoscope, color: 'blue' },
+          ]
+
 export default function Home() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { margin: "-100px" });
+
+  // used to force CountUp re-animation
+  const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    if (isInView) {
+      setKey((prev) => prev + 1); // remount CountUp
+    }
+  }, [isInView]);
   return (
     <div className="bg-white dark:bg-gray-950">
-      {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* BG */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-950 dark:to-blue-950/20" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-950 dark:to-blue-950/20" />
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-5 dark:opacity-10"
           style={{ background: 'radial-gradient(circle at 70% 50%, #2563eb 0%, transparent 70%)' }} />
 
         <div className="relative max-w-7xl mx-auto px-4 py-20 grid lg:grid-cols-2 gap-12 items-center">
           {/* Left */}
           <div className="animate-slide-up">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 dark:bg-blue-950 rounded-full text-blue-600 dark:text-blue-400 text-sm font-semibold mb-6 border border-blue-100 dark:border-blue-900">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-              #1 Rated Hospital in New York
-            </div>
             <h1 className="font-display text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight mb-6">
               Find a Doctor<br />
               <span className="text-blue-600">&amp; Book Online</span>
@@ -90,7 +107,7 @@ export default function Home() {
             <div className="flex flex-wrap gap-6 pt-6 border-t border-gray-100 dark:border-gray-800">
               {[
                 { val: '1,500+', label: 'Patients Served', icon: Users },
-                { val: '200+', label: 'Specialists', icon: Stethoscope },
+                { val: '35+', label: 'Specialists', icon: Stethoscope },
                 { val: '98%', label: 'Success Rate', icon: Award },
               ].map(({ val, label, icon: Icon }) => (
                 <div key={label} className="flex items-center gap-2.5">
@@ -174,28 +191,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-blue-600 dark:bg-blue-700 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { value: '1,500+', label: 'Patients Treated', icon: Users, color: 'blue' },
-            { value: '32', label: 'Years of Service', icon: Award, color: 'blue' },
-            { value: '30+', label: 'Departments', icon: Heart, color: 'blue' },
-            { value: '200+', label: 'Expert Doctors', icon: Stethoscope, color: 'blue' },
-          ].map(s => (
-            <div key={s.label} className="text-center text-white">
-              <div className="font-display text-4xl font-bold mb-1">{s.value}</div>
+    <section
+      ref={ref}
+      className="py-7 bg-blue-600 dark:bg-blue-700 px-4"
+    >
+      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map((s, i) => {
+          const Icon = s.icon;
+          const numericValue = parseInt(s.value.replace(/[^0-9]/g, ""));
+          const hasPlus = s.value.includes("+");
+
+          return (
+            <motion.div
+              key={s.label}
+              className="text-center text-white"
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              <div className="flex justify-center mb-2">
+                <Icon className="w-8 h-8 text-blue-200" />
+              </div>
+
+              <div className="font-display text-4xl font-bold mb-1">
+                {isInView && (
+                  <CountUp
+                    key={key + s.label} // 👈 forces restart
+                    end={numericValue}
+                    duration={2}
+                    separator=","
+                  />
+                )}
+                {hasPlus && "+"}
+              </div>
+
               <div className="text-blue-200 text-sm">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
 
       {/* Why Choose Us */}
       <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
-            <div className="rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
+            <div className="rounded-3xl overflow-hidden aspect-4/3 shadow-2xl">
               <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&h=600&fit=crop" alt="Hospital" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-xl border border-gray-100 dark:border-gray-800">
@@ -216,7 +257,7 @@ export default function Home() {
                 { icon: Clock, title: '24/7 Support', desc: 'Round-the-clock emergency care and patient support whenever you need it.' },
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} className="flex items-start gap-4 p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center shrink-0">
                     <Icon size={18} className="text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>

@@ -77,11 +77,13 @@ const faqs = [
 export default function PricingPage() {
   return (
     <div className="bg-white dark:bg-gray-950">
+      <div className="bg-[url('/images/pricebg.jfif')] bg-cover bg-center relative">
       <PageHero
         title="Transparent Pricing"
         subtitle="Quality healthcare with clear, honest pricing — no surprises"
-        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Pricing' }]}
       />
+      <div className="absolute inset-0 bg-black/50" />
+      </div>
 
       {/* Pricing Plans */}
       <section className="py-20 px-4">

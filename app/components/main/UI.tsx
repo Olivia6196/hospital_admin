@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Star, ChevronRight } from 'lucide-react'
+import Image from 'next/image';
 
 // Section Header
 export function SectionHeader({ badge, title, subtitle, center = false }: {
@@ -41,13 +42,13 @@ export function StatCard({ value, label, icon: Icon, color = 'blue' }: {
 }
 
 // Doctor Card
-export function DoctorCard({ name, specialty, image, rating, experience, href }: {
-  name: string; specialty: string; image: string; rating: number; experience: string; href: string
+export function DoctorCard({ name, specialty, image, rating, experience }: {
+  name: string; specialty: string; image: string; rating: number; experience: string;
 }) {
   return (
     <div className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:-translate-y-1">
       <div className="relative h-56 bg-linear-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-gray-900 overflow-hidden">
-        <img src={image} alt={name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+        <Image width={400} height={400} src={image} alt={name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
         <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         <span className="absolute top-3 right-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
           {experience}
@@ -62,10 +63,6 @@ export function DoctorCard({ name, specialty, image, rating, experience, href }:
           ))}
           <span className="text-gray-500 dark:text-gray-400 text-xs ml-1">{rating}</span>
         </div>
-        <Link href={href}
-          className="w-full flex items-center justify-center gap-2 py-2.5 bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-600 text-blue-600 dark:text-blue-400 hover:text-white text-sm font-semibold rounded-xl transition-all">
-          View Profile <ChevronRight size={15} />
-        </Link>
       </div>
     </div>
   )
@@ -104,7 +101,7 @@ export function BlogCard({ title, excerpt, category, date, image, href }: {
   return (
     <div className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
       <div className="relative h-48 bg-gray-100 dark:bg-gray-800 overflow-hidden">
-        <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        <Image width={400} height={300} src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">{category}</span>
       </div>
       <div className="p-5">
@@ -132,7 +129,7 @@ export function TestimonialCard({ name, text, rating, role, avatar }: {
       </div>
       <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-5">"{text}"</p>
       <div className="flex items-center gap-3">
-        <img src={avatar} alt={name} className="w-10 h-10 rounded-full object-cover" />
+        <Image width={40} height={40} src={avatar} alt={name} className="w-10 h-10 rounded-full object-cover" />
         <div>
           <div className="font-semibold text-gray-900 dark:text-white text-sm">{name}</div>
           <div className="text-gray-400 dark:text-gray-500 text-xs">{role}</div>
@@ -147,7 +144,7 @@ export function PageHero({ title, subtitle, }: {
   title: string; subtitle?: string;
 }) {
   return (
-    <div className="relative py-40 px-4 overflow-hidden z-10">
+    <div className="relative py-16 md:py-40 px-4 overflow-hidden z-10">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />

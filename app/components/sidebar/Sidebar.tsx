@@ -48,7 +48,7 @@ const navIcons = [
   MdBusiness,
   MdCalendarToday,
 ];
-export default function Sidebar({badge}:{badge?:string}) {
+export default function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -169,13 +169,11 @@ export default function Sidebar({badge}:{badge?:string}) {
           View Profile
         </button>
 
-        <div className="border-t border-white/10 my-1"></div>
-
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
           className="w-full flex items-center gap-3 px-5 py-2 rounded-2xl text-[17px] text-red-600 hover:text-red-400 hover:bg-white/10 transition-all duration-200"
         >
-          <MdLogout size={26} />
+          <MdLogout size={20} />
           Logout
         </button>
       </div>

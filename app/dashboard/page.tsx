@@ -11,19 +11,18 @@ const page = () => {
   return (
     <div className="flex flex-col gap-7 py-5 px-6">
       <Header title="Dashboard" subtitle="Welcome back, Olivia Omeje. Here's what's happening today." />
-        
-         <StatCard />
-      <div className="grid grid-cols-2 gap-5">
+        <StatCard />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <PatientTrendChart />
         <DepartmentChart />
       </div>
 
-      <div className="grid grid-cols-[2fr_1fr] gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-5">
         <RevenueChart />
         <StaffOverview />
       </div>
       
-       <div className="grid grid-cols-[2fr_1fr] gap-5">
+       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-5">
         <PatientsTable />
         <AppointmentOverview />
       </div>

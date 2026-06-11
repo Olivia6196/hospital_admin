@@ -9,12 +9,13 @@ import { PageHero, SectionHeader, ServiceCard, DoctorCard, TestimonialCard, Blog
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import CountUp from "react-countup";
+import Image from 'next/image';
 
 const doctors = [
-  { name: 'Dr. Sarah Johnson', specialty: 'Cardiologist', rating: 4.9, experience: '10 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=500&fit=crop&crop=face' },
-  { name: 'Dr. Michael Chen', specialty: 'Neurologist', rating: 4.8, experience: '8 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=500&fit=crop&crop=face' },
-  { name: 'Dr. Amelia Roberts', specialty: 'Pediatrician', rating: 5.0, experience: '7 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=500&fit=crop&crop=face' },
-  { name: 'Dr. James Wilson', specialty: 'Orthopedic', rating: 4.7, experience: '9 Yrs', href: '/doctors', image: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=500&fit=crop&crop=face' },
+  { name: 'Dr. Sarah Johnson', specialty: 'Cardiologist', rating: 4.9, experience: '12 Yrs',  image: '/images/doctor1.jfif' },
+  { name: 'Dr. Michael Chen', specialty: 'Neurologist', rating: 4.8, experience: '7 Yrs',  image: '/images/doctor2.jfif' },
+  { name: 'Dr. Amelia Roberts', specialty: 'Pediatrician', rating: 5.0, experience: '8 Yrs',  image: '/images/doctor3.jfif' },
+  { name: 'Dr. James Wilson', specialty: 'Orthopedic', rating: 4.7, experience: '5 Yrs',  image: '/images/doctor4.jfif' },
 ]
 
 const services = [
@@ -31,29 +32,29 @@ const blogs = [
     title: 'Understanding Heart Disease: Prevention and Early Detection',
     excerpt: 'Heart disease remains the leading cause of death worldwide. Learn how to reduce your risk with lifestyle changes and early screening.',
     category: 'Cardiology', date: 'Dec 10, 2024',
-    image: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&h=400&fit=crop',
+    image: '/images/news_one.jfif',
     href: '/blog/heart-disease'
   },
   {
     title: 'The Importance of Regular Health Check-Ups',
     excerpt: 'Regular health screenings can catch problems early when they are most treatable. Discover the key tests every adult should have.',
     category: 'Wellness', date: 'Dec 5, 2024',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop',
+    image: '/images/news_two.jfif',
     href: '/blog/check-ups'
   },
   {
     title: 'Children\'s Mental Health: What Parents Should Know',
     excerpt: 'Mental health is just as important as physical health. Here\'s how to support your child\'s emotional wellbeing.',
     category: 'Pediatrics', date: 'Nov 28, 2024',
-    image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=400&fit=crop',
+    image: '/images/news_three.jfif',
     href: '/blog/childrens-mental-health'
   },
 ]
 
 const testimonials = [
-  { name: 'Jennifer Adams', role: 'Patient', rating: 5, avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face', text: 'MediCore truly cares about its patients. The doctors and staff went above and beyond to make me feel comfortable during my treatment.' },
-  { name: 'Robert Martinez', role: 'Patient', rating: 5, avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face', text: 'Exceptional care from the moment I walked in. The team was professional, attentive, and made my recovery much smoother than expected.' },
-  { name: 'Linda Thompson', role: 'Patient', rating: 5, avatar: 'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=100&h=100&fit=crop&crop=face', text: 'I couldn\'t be happier with the treatment I received. The doctors were knowledgeable and explained everything clearly.' },
+  { name: 'Jennifer Adams', role: 'Patient', rating: 5, avatar: '/images/review_one.jfif', text: 'MediCore truly cares about its patients. The doctors and staff went above and beyond to make me feel comfortable during my treatment.' },
+  { name: 'Robert Martinez', role: 'Patient', rating: 5, avatar: '/images/review_two.jfif', text: 'Exceptional care from the moment I walked in. The team was professional, attentive, and made my recovery much smoother than expected.' },
+  { name: 'Linda Thompson', role: 'Patient', rating: 5, avatar: '/images/review_three.jfif', text: 'I couldn\'t be happier with the treatment I received. The doctors were knowledgeable and explained everything clearly.' },
 ]
 
 const stats = [
@@ -127,10 +128,10 @@ export default function Home() {
           <div className="relative hidden lg:block animate-fade-in">
             <div className="relative w-full aspect-square max-w-lg mx-auto">
               <div className="absolute top-0 right-0 w-72 h-80 rounded-3xl overflow-hidden shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=600&h=700&fit=crop" alt="Doctor" className="w-full h-full object-cover" />
+                <Image width={288} height={320} src="/images/home_one.jfif" alt="Doctor" className="w-full h-full object-cover" />
               </div>
               <div className="absolute bottom-8 left-0 w-52 h-64 rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-950">
-                <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=400&h=500&fit=crop" alt="Medical" className="w-full h-full object-cover" />
+                <Image width={288} height={256} src="/images/home_two.jfif" alt="Medical" className="w-full h-full object-cover" />
               </div>
               {/* Floating cards */}
               <div className="absolute top-4 left-4 bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-xl border border-gray-100 dark:border-gray-800">
@@ -237,7 +238,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <div className="rounded-3xl overflow-hidden aspect-4/3 shadow-2xl">
-              <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&h=600&fit=crop" alt="Hospital" className="w-full h-full object-cover" />
+              <Image width={400} height={300} src="/images/why_picture.jfif" alt="Hospital" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-xl border border-gray-100 dark:border-gray-800">
               <div className="flex items-center gap-1 mb-2">

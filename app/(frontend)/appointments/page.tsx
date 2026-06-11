@@ -3,17 +3,10 @@
 import { useState } from 'react'
 import { Calendar, Clock, User, ChevronDown, CheckCircle, Phone, Mail } from 'lucide-react'
 import { PageHero } from '@/app/components/main/UI'
+import { toast } from 'react-toastify'
 
-const doctors = [
-  'Dr. Sarah Johnson – Cardiology',
-  'Dr. Michael Chen – Neurology',
-  'Dr. Amelia Roberts – Pediatrics',
-  'Dr. James Wilson – Orthopedics',
-  'Dr. Priya Patel – Oncology',
-  'Dr. Robert Kim – Surgery',
-]
 
-const services = ['General Consultation', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Ophthalmology', 'Emergency Care']
+const services = ['General Consultation', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Ophthalmology', 'Emergency Care','Surgery', 'Dermatology', 'Gynecology', 'Psychiatry', 'Dental Care']
 const timeSlots = ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM']
 
 export default function AppointmentsPage() {
@@ -26,10 +19,33 @@ export default function AppointmentsPage() {
 
   const update = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("/api/appointments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to book appointment");
+    }
+
+    toast.success("Appointment booked successfully!");
+
+    setSubmitted(true);
+  } catch (error) {
+    toast.error(
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again."
+    );
   }
+};
 
   if (submitted) {
     return (
@@ -108,13 +124,11 @@ export default function AppointmentsPage() {
 
           <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-lg overflow-hidden">
             <form onSubmit={handleSubmit}>
-              {/* Step 1: Service & Doctor */}
               {step === 1 && (
                 <div className="p-8">
-                  <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6">Select Service & Doctor</h3>
+                  <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6">Select Service</h3>
                   <div className="space-y-5">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Medical Service *</label>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {services.map(s => (
                           <button type="button" key={s} onClick={() => update('service', s)}
@@ -129,15 +143,6 @@ export default function AppointmentsPage() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Preferred Doctor</label>
-                      <div className="relative">
-                        <select value={form.doctor} onChange={e => update('doctor', e.target.value)}
-                          className="w-full appearance-none px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                          <option value="">Select a doctor (optional)</option>
-                          {doctors.map(d => <option key={d}>{d}</option>)}
-                        </select>
-                        <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                      </div>
                     </div>
                   </div>
                   <div className="mt-8 flex justify-end">

@@ -1,12 +1,13 @@
 import { PageHero, SectionHeader, StatCard } from '@/app/components/main/UI'
 import { Users, Award, Heart, Clock, CheckCircle, Shield, Zap, Star } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 const team = [
-  { name: 'Dr. Patricia Moore', role: 'Chief Medical Officer', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face' },
-  { name: 'Dr. Robert Chang', role: 'Head of Surgery', image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face' },
-  { name: 'Dr. Emma Wilson', role: 'Head of Pediatrics', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop&crop=face' },
-  { name: 'Dr. David Kumar', role: 'Head of Cardiology', image: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop&crop=face' },
+  { name: 'Dr. Patricia Moore', role: 'Chief Medical Officer', image: '/images/doctor1.jfif' },
+  { name: 'Dr. Robert Chang', role: 'Head of Surgery', image: '/images/doctor2.jfif' },
+  { name: 'Dr. Emma Wilson', role: 'Head of Pediatrics', image: '/images/doctor3.jfif' },
+  { name: 'Dr. David Kumar', role: 'Head of Cardiology', image: '/images/doctor4.jfif' },
 ]
 
 const milestones = [
@@ -49,11 +50,11 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-2xl overflow-hidden aspect-3/4">
-              <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=500&h=650&fit=crop" alt="Hospital" className="w-full h-full object-cover" />
+              <Image width={400} height={300} src="/images/why_picture.jfif" alt="Hospital" className="w-full h-full object-cover" />
             </div>
             <div className="space-y-4 pt-8">
               <div className="rounded-2xl overflow-hidden aspect-square">
-                <img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=400&h=400&fit=crop" alt="Doctors" className="w-full h-full object-cover" />
+                <Image width={400} height={300} src="/images/news_one.jfif" alt="Doctors" className="w-full h-full object-cover" />
               </div>
               <div className="bg-blue-600 rounded-2xl p-5 text-white">
                 <div className="font-display text-3xl font-bold mb-1">35+</div>
@@ -127,7 +128,7 @@ export default function AboutPage() {
             {team.map(m => (
               <div key={m.name} className="text-center group">
                 <div className="w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-md group-hover:shadow-xl transition-shadow">
-                  <img src={m.image} alt={m.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <Image width={400} height={400} src={m.image} alt={m.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <h4 className="font-display font-semibold text-gray-900 dark:text-white text-sm">{m.name}</h4>
                 <p className="text-blue-600 dark:text-blue-400 text-xs font-medium mt-0.5">{m.role}</p>
@@ -151,7 +152,7 @@ export default function AboutPage() {
               'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop',
             ].map((src, i) => (
               <div key={i} className="rounded-2xl overflow-hidden aspect-4/3 group">
-                <img src={src} alt="Clinic" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <Image width={600} height={400} src={src} alt="Clinic" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
             ))}
           </div>

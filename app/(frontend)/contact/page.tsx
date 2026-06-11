@@ -23,10 +23,12 @@ export default function ContactPage() {
 
   return (
     <div className="bg-white dark:bg-gray-950">
-      <PageHero
-        title="Contact Us"
-        subtitle="We're here to help. Reach out to us with any questions or concerns."
-      />
+      <div className="bg-linear-to-tr from-blue-600 via-blue-800 to-blue-700">
+        <PageHero
+          title="Contact Us"
+          subtitle="We're here to help. Reach out to us with any questions or concerns."
+        />
+      </div>
 
       {/* Contact Cards */}
       <section className="py-16 px-4">

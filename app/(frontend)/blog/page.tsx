@@ -1,8 +1,6 @@
 import { Search } from 'lucide-react'
 import { PageHero, SectionHeader, BlogCard } from '@/app/components/main/UI'
 
-const categories = ['All', 'Cardiology', 'Neurology', 'Pediatrics', 'Wellness', 'Nutrition', 'Surgery', 'Mental Health']
-
 const posts = [
   { title: 'Understanding Heart Disease: Prevention and Early Detection', excerpt: 'Heart disease remains the leading cause of death worldwide. Learn how to reduce your risk with lifestyle changes and regular screenings.', category: 'Cardiology', date: 'Dec 10, 2024', image: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&h=400&fit=crop', href: '/blog/heart-disease' },
   { title: 'The Importance of Regular Health Check-Ups', excerpt: 'Regular health screenings can catch problems early when they are most treatable. Discover the key tests every adult should have.', category: 'Wellness', date: 'Dec 5, 2024', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop', href: '/blog/check-ups' },
@@ -20,34 +18,18 @@ const featured = posts[0]
 export default function BlogPage() {
   return (
     <div className="bg-white dark:bg-gray-950">
+      <div className="bg-[url('/images/blogbg.jfif')] bg-cover bg-center relative">
       <PageHero
         title="Health Blog & News"
         subtitle="Expert insights, medical news, and wellness tips from our specialists"
       />
+        <div className="absolute inset-0 bg-black/30" />
+      </div>
 
-      {/* Search & Filter */}
-      <section className="py-8 px-4 bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="flex flex-wrap gap-2">
-            {categories.map(c => (
-              <button key={c}
-                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-all ${c === 'All' ? 'bg-blue-600 text-white' : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-blue-300 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400'}`}>
-                {c}
-              </button>
-            ))}
-          </div>
-          <div className="relative">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input type="text" placeholder="Search articles..." className="pl-9 pr-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-56" />
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Post */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="rounded-3xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-lg grid md:grid-cols-2">
-            <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
+            <div className="aspect-4/3 md:aspect-auto overflow-hidden">
               <img src={featured.image} alt={featured.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
             <div className="p-10 flex flex-col justify-center">

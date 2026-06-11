@@ -23,7 +23,6 @@ export default function BlogPage() {
       <PageHero
         title="Health Blog & News"
         subtitle="Expert insights, medical news, and wellness tips from our specialists"
-        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Blog' }]}
       />
 
       {/* Search & Filter */}

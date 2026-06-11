@@ -26,7 +26,6 @@ export default function ContactPage() {
       <PageHero
         title="Contact Us"
         subtitle="We're here to help. Reach out to us with any questions or concerns."
-        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]}
       />
 
       {/* Contact Cards */}

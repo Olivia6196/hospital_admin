@@ -39,7 +39,7 @@ export default function ContactPage() {
             { icon: MapPin, color: 'bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400', title: 'Address', lines: ['123 Medical Center Drive', 'New York, NY 10001'] },
           ].map(({ icon: Icon, color, title, lines }) => (
             <div key={title} className="flex items-start gap-4 p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-              <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center flex-shrink-0`}>
+              <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center shrink-0`}>
                 <Icon size={22} />
               </div>
               <div>
@@ -115,7 +115,7 @@ export default function ContactPage() {
               {locations.map(loc => (
                 <div key={loc.name} className="p-5 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center shrink-0">
                       <MapPin size={18} className="text-blue-600 dark:text-blue-400" />
                     </div>
                     <div className="flex-1">

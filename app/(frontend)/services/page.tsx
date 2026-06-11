@@ -62,11 +62,13 @@ const allServices = [
 export default function ServicesPage() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      <PageHero
-        title="Our Medical Services"
-        subtitle="Comprehensive healthcare services delivered by expert specialists"
-        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
-      />
+      <div className="bg-[url('/images/dashboard_img.webp')] bg-cover bg-center relative">
+        <PageHero
+          title="Our Medical Services"
+          subtitle="Comprehensive healthcare services delivered by expert specialists"
+        />
+        <div className="absolute inset-0 bg-black/30" />
+      </div>
 
       {/* Service Grid */}
       <section className="py-20 px-4">

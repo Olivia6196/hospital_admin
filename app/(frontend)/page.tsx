@@ -91,7 +91,7 @@ export default function Home() {
               <span className="text-blue-600">&amp; Book Online</span>
             </h1>
             <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8 max-w-lg">
-              Access world-class healthcare from the comfort of your home. Connect with 200+ specialists, book appointments, and manage your health records in one place.
+              Access world-class healthcare from the comfort of your home. Connect with 35+ specialists, book appointments, and manage your health records in one place.
             </p>
             <div className="flex flex-wrap gap-4 mb-10">
               <Link href="/appointments"

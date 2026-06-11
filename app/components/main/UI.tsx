@@ -143,25 +143,16 @@ export function TestimonialCard({ name, text, rating, role, avatar }: {
 }
 
 // Page Hero Banner
-export function PageHero({ title, subtitle, breadcrumbs }: {
-  title: string; subtitle?: string; breadcrumbs: { label: string; href?: string }[]
+export function PageHero({ title, subtitle, }: {
+  title: string; subtitle?: string;
 }) {
   return (
-    <div className="relative bg-linear-to-br from-blue-600 via-blue-700 to-blue-900 py-20 px-4 overflow-hidden">
-      {/* BG decorations */}
+    <div className="relative py-40 px-4 overflow-hidden z-10">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
       </div>
       <div className="relative max-w-7xl mx-auto text-center">
-        <nav className="flex items-center justify-center gap-2 text-sm text-blue-200 mb-4">
-          {breadcrumbs.map((b, i) => (
-            <span key={i} className="flex items-center gap-2">
-              {i > 0 && <ChevronRight size={14} />}
-              {b.href ? <Link href={b.href} className="hover:text-white transition-colors">{b.label}</Link> : <span className="text-white font-medium">{b.label}</span>}
-            </span>
-          ))}
-        </nav>
         <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-3">{title}</h1>
         {subtitle && <p className="text-blue-100 text-lg max-w-2xl mx-auto">{subtitle}</p>}
       </div>

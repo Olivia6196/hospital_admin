@@ -34,7 +34,11 @@ export default function AppointmentsPage() {
   if (submitted) {
     return (
       <div className="bg-white dark:bg-gray-950 min-h-screen">
-        <PageHero title="Appointment Confirmed!" breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Appointments' }]} />
+        <div className="bg-[url('/images/appointmentbg.jfif')] bg-cover bg-center relative">
+        <PageHero title="Appointment Confirmed!" />
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
+        
         <div className="flex items-center justify-center py-20 px-4">
           <div className="max-w-md w-full text-center bg-white dark:bg-gray-900 rounded-3xl p-10 border border-gray-100 dark:border-gray-800 shadow-xl">
             <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-950/50 flex items-center justify-center mx-auto mb-6">
@@ -68,11 +72,13 @@ export default function AppointmentsPage() {
 
   return (
     <div className="bg-white dark:bg-gray-950">
-      <PageHero
-        title="Book an Appointment"
-        subtitle="Schedule your visit with our specialists in just a few clicks"
-        breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Appointments' }]}
-      />
+      <div className="bg-[url('/images/appointmentbg.jfif')] bg-cover bg-center relative">
+        <PageHero
+          title="Book an Appointment"
+          subtitle="Schedule your visit with our specialists in just a few clicks"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
 
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">

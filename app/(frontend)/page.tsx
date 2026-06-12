@@ -128,7 +128,7 @@ export default function Home() {
           <div className="relative hidden lg:block animate-fade-in">
             <div className="relative w-full aspect-square max-w-lg mx-auto">
               <div className="absolute top-0 right-0 w-72 h-80 rounded-3xl overflow-hidden shadow-2xl">
-                <Image width={288} height={320} src="/images/home_one.jfif" alt="Doctor" className="w-full h-full object-cover" />
+                <Image width={288} height={320} src="/images/home_one.jpg" alt="Doctor" className="w-full h-full object-cover" />
               </div>
               <div className="absolute bottom-8 left-0 w-52 h-64 rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-950">
                 <Image width={288} height={256} src="/images/home_two.jfif" alt="Medical" className="w-full h-full object-cover" />

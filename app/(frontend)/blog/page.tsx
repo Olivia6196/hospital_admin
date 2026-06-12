@@ -34,7 +34,7 @@ export default function BlogPage() {
             <div className="aspect-4/3 md:aspect-auto overflow-hidden">
               <Image width={600} height={400} src={featured.image} alt={featured.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
-            <div className="p-10 flex flex-col justify-center">
+            <div className="p-5 md:p-10 flex flex-col justify-center">
               <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full mb-4 uppercase tracking-wider">
                 Featured • {featured.category}
               </span>

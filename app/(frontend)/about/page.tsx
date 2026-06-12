@@ -124,7 +124,7 @@ export default function AboutPage() {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <SectionHeader badge="Leadership" title="Our Timetable & Leadership Team"/>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {team.map(m => (
               <div key={m.name} className="text-center group">
                 <div className="w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-md group-hover:shadow-xl transition-shadow">
@@ -142,7 +142,7 @@ export default function AboutPage() {
       <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
           <SectionHeader badge="Our Facility" title="Our Clinic" />
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {[
               'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop',
               'https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=400&fit=crop',

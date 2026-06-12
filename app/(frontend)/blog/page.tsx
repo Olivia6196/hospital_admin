@@ -69,7 +69,7 @@ export default function BlogPage() {
         <div className="max-w-xl mx-auto text-center text-white">
           <h2 className="font-display text-3xl font-bold mb-3">Stay Informed</h2>
           <p className="text-blue-100 mb-6">Subscribe to our newsletter for the latest health tips and medical news from our specialists.</p>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <input type="email" placeholder="Enter your email address"
               className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-blue-200 text-sm focus:outline-none focus:ring-2 focus:ring-white/50" />
             <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all">Subscribe</button>

@@ -1,21 +1,21 @@
 import { PageHero, SectionHeader, StatCard } from '@/app/components/main/UI'
-import { Users, Award, Heart, Clock, CheckCircle, Shield, Zap, Star } from 'lucide-react'
+import { Users, Award, Heart, Clock, Shield, Zap, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 const team = [
-  { name: 'Dr. Patricia Moore', role: 'Chief Medical Officer', image: '/images/doctor1.jfif' },
-  { name: 'Dr. Robert Chang', role: 'Head of Surgery', image: '/images/doctor2.jfif' },
-  { name: 'Dr. Emma Wilson', role: 'Head of Pediatrics', image: '/images/doctor3.jfif' },
-  { name: 'Dr. David Kumar', role: 'Head of Cardiology', image: '/images/doctor4.jfif' },
+  { name: 'Dr. Sarah Johnson', role: 'C.M.O & Head of Cardiology', image: '/images/doctor1.jfif' },
+  { name: 'Dr. Alex Turner', role: 'Head of Surgery', image: '/images/doctor15.jfif' },
+  { name: 'Dr. Grace Mensah', role: 'Head of Pediatrics', image: '/images/doctor23.jfif' },
+  { name: 'Dr. Micheal Chen', role: 'Head of Neurology', image: '/images/doctor2.jfif' },
 ]
 
 const milestones = [
-  { year: '1985', title: 'Founded', desc: 'MediCore Hospital opened its doors with a vision to provide exceptional healthcare to the community.' },
-  { year: '1995', title: 'Expansion', desc: 'Expanded to 3 locations across New York, serving over 50,000 patients annually.' },
-  { year: '2005', title: 'Innovation', desc: 'Introduced state-of-the-art robotic surgery and digital health records system.' },
-  { year: '2015', title: 'Excellence Award', desc: 'Awarded the National Healthcare Excellence Award for patient outcomes.' },
-  { year: '2024', title: 'Digital Health', desc: 'Launched telemedicine platform, bringing expert care to patients anywhere.' },
+  { year: '1996', title: 'Founded', desc: 'MediCore Hospital opened its doors with a vision to provide exceptional healthcare to the community.' },
+  { year: '2004', title: 'Expansion', desc: 'Expanded to 3 locations across New York, serving over 50,000 patients annually.' },
+  { year: '2012', title: 'Innovation', desc: 'Introduced state-of-the-art robotic surgery and digital health records system.' },
+  { year: '2020', title: 'Excellence Award', desc: 'Awarded the National Healthcare Excellence Award for patient outcomes.' },
+  { year: '2026', title: 'Digital Health', desc: 'Launched telemedicine platform, bringing expert care to patients anywhere.' },
 ]
 
 export default function AboutPage() {
@@ -66,11 +66,11 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900/50 px-4">
+      <section className="py-7 bg-gray-50 dark:bg-gray-900/50 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
           <StatCard value="1,500+" label="Patients Treated" icon={Users} color="blue" />
-          <StatCard value="200+" label="Expert Doctors" icon={Award} color="green" />
-          <StatCard value="30+" label="Departments" icon={Heart} color="purple" />
+          <StatCard value="35+" label="Expert Doctors" icon={Award} color="green" />
+          <StatCard value="14+" label="Departments" icon={Heart} color="purple" />
           <StatCard value="98%" label="Success Rate" icon={Star} color="orange" />
         </div>
       </section>
@@ -78,7 +78,7 @@ export default function AboutPage() {
       {/* Facts */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <SectionHeader badge="Our Values" title="Facts About MediCore" center />
+          <SectionHeader badge="Our Values" title="Facts About MediCore" />
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { title: 'Our Vision', icon: '🔭', desc: 'To be the most trusted healthcare provider, recognized for clinical excellence, patient satisfaction, and innovation in medical care.' },
@@ -98,7 +98,7 @@ export default function AboutPage() {
       {/* Timeline */}
       <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-4xl mx-auto">
-          <SectionHeader badge="Our Journey" title="A Legacy of Healthcare Excellence" center />
+          <SectionHeader badge="Our Journey" title="A Legacy of Healthcare Excellence" />
           <div className="relative">
             <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-blue-100 dark:bg-blue-900 hidden md:block" />
             {milestones.map((m, i) => (
@@ -123,7 +123,7 @@ export default function AboutPage() {
       {/* Leadership Team */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <SectionHeader badge="Leadership" title="Our Timetable & Leadership Team" center />
+          <SectionHeader badge="Leadership" title="Our Timetable & Leadership Team"/>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {team.map(m => (
               <div key={m.name} className="text-center group">
@@ -141,7 +141,7 @@ export default function AboutPage() {
       {/* Clinic Gallery */}
       <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
-          <SectionHeader badge="Our Facility" title="Our Clinic" center />
+          <SectionHeader badge="Our Facility" title="Our Clinic" />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
               'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop',

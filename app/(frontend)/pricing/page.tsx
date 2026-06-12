@@ -88,7 +88,7 @@ export default function PricingPage() {
       {/* Pricing Plans */}
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto">
-          <SectionHeader badge="Plans" title="MediCore Clinic Pricing Plans" subtitle="Choose the plan that best fits your healthcare needs." center />
+          <SectionHeader badge="Plans" title="MediCore Clinic Pricing Plans" subtitle="Choose the plan that best fits your healthcare needs."/>
           <div className="grid md:grid-cols-3 gap-6">
             {plans.map(plan => (
               <div key={plan.name} className={`relative rounded-3xl overflow-hidden border ${
@@ -111,8 +111,8 @@ export default function PricingPage() {
                     {plan.features.map(f => (
                       <div key={f.label} className="flex items-center gap-2.5">
                         {f.included
-                          ? <CheckCircle size={16} className={plan.name === 'Doctor Visits' ? 'text-blue-200 flex-shrink-0' : 'text-blue-600 dark:text-blue-400 flex-shrink-0'} />
-                          : <X size={16} className={plan.name === 'Doctor Visits' ? 'text-blue-300/50 flex-shrink-0' : 'text-gray-300 dark:text-gray-600 flex-shrink-0'} />}
+                          ? <CheckCircle size={16} className={plan.name === 'Doctor Visits' ? 'text-blue-200 shrink-0' : 'text-blue-600 dark:text-blue-400 shrink-0'} />
+                          : <X size={16} className={plan.name === 'Doctor Visits' ? 'text-blue-300/50 shrink-0' : 'text-gray-300 dark:text-gray-600 shrink-0'} />}
                         <span className={`text-sm ${
                           f.included
                             ? plan.name === 'Doctor Visits' ? 'text-white' : 'text-gray-700 dark:text-gray-300'
@@ -139,7 +139,7 @@ export default function PricingPage() {
       {/* Common Procedures */}
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-4xl mx-auto">
-          <SectionHeader badge="Fee Schedule" title="Common Procedure Costs" subtitle="Estimated costs for common procedures (without insurance). Actual costs vary." center />
+          <SectionHeader badge="Fee Schedule" title="Common Procedure Costs" subtitle="Estimated costs for common procedures (without insurance). Actual costs vary." />
           <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden shadow-sm">
             <div className="grid grid-cols-2 bg-blue-600 dark:bg-blue-700 text-white text-sm font-semibold px-6 py-3">
               <span>Procedure</span>
@@ -159,7 +159,7 @@ export default function PricingPage() {
       {/* Insurance */}
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
-          <SectionHeader badge="Insurance" title="We Accept Major Insurance Plans" center />
+          <SectionHeader badge="Insurance" title="We Accept Major Insurance Plans" />
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
             {['Blue Cross', 'Aetna', 'Cigna', 'UnitedHealth', 'Humana', 'Medicare'].map(ins => (
               <div key={ins} className="bg-gray-50 dark:bg-gray-900 rounded-xl py-4 px-2 text-center border border-gray-100 dark:border-gray-800 text-xs font-semibold text-gray-600 dark:text-gray-400">
@@ -174,7 +174,7 @@ export default function PricingPage() {
       {/* FAQ */}
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-3xl mx-auto">
-          <SectionHeader badge="FAQs" title="Frequently Asked Questions" center />
+          <SectionHeader badge="FAQs" title="Frequently Asked Questions"/>
           <div className="space-y-4">
             {faqs.map(({ q, a }) => (
               <div key={q} className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">

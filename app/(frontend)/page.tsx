@@ -59,7 +59,7 @@ const testimonials = [
 
 const stats = [
             { value: '1,500+', label: 'Patients Treated', icon: Users, color: 'blue' },
-            { value: '22', label: 'Years of Service', icon: Award, color: 'blue' },
+            { value: '30', label: 'Years of Service', icon: Award, color: 'blue' },
             { value: '14+', label: 'Departments', icon: Heart, color: 'blue' },
             { value: '35+', label: 'Expert Doctors', icon: Stethoscope, color: 'blue' },
           ]
@@ -290,7 +290,7 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
-          <SectionHeader badge="Patient Stories" title="What Our Patients Say" center />
+          <SectionHeader badge="Patient Stories" title="What Our Patients Say" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map(t => <TestimonialCard key={t.name} {...t} />)}
           </div>

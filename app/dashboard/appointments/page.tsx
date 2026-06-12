@@ -375,6 +375,9 @@ const AppointmentsPage = () => {
                       Date & time
                     </th>
                     <th className="text-left px-5 py-3.5 text-xs font-medium text-gray-400 uppercase tracking-wide">
+                      Doctor
+                    </th>
+                    <th className="text-left px-5 py-3.5 text-xs font-medium text-gray-400 uppercase tracking-wide">
                       Status
                     </th>
                     <th className="text-right px-5 py-3.5 text-xs font-medium text-gray-400 uppercase tracking-wide">

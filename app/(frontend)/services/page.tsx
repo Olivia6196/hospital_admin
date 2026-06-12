@@ -73,17 +73,7 @@ export default function ServicesPage() {
       {/* Service Grid */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <SectionHeader badge="What We Offer" title="Comprehensive Medical Care" subtitle="From routine check-ups to complex procedures, our specialists provide expert care across all medical disciplines." center />
-
-          {/* Quick nav */}
-          <div className="flex flex-wrap justify-center gap-2 mb-16">
-            {allServices.map(s => (
-              <a key={s.id} href={`#${s.id}`}
-                className="px-4 py-1.5 text-sm font-medium rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-200 dark:hover:border-blue-800 transition-all">
-                {s.title}
-              </a>
-            ))}
-          </div>
+          <SectionHeader badge="What We Offer" title="Comprehensive Medical Care" subtitle="From routine check-ups to complex procedures, our specialists provide expert care across all medical disciplines."/>
 
           {allServices.map((svc, i) => (
             <div key={svc.id} id={svc.id} className={`grid lg:grid-cols-2 gap-12 items-center mb-24 ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
@@ -96,7 +86,7 @@ export default function ServicesPage() {
                 <div className="grid grid-cols-2 gap-3 mb-8">
                   {svc.features.map(f => (
                     <div key={f} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                      <CheckCircle size={16} className="text-blue-600 dark:text-blue-400 flex-shrink-0" /> {f}
+                      <CheckCircle size={16} className="text-blue-600 dark:text-blue-400 shrink-0" /> {f}
                     </div>
                   ))}
                 </div>
@@ -105,7 +95,7 @@ export default function ServicesPage() {
                   Book Consultation <ArrowRight size={16} />
                 </Link>
               </div>
-              <div className={`rounded-3xl overflow-hidden aspect-[4/3] shadow-xl ${i % 2 !== 0 ? 'order-first lg:order-last' : ''}`}>
+              <div className={`rounded-3xl overflow-hidden aspect-4/3 shadow-xl ${i % 2 !== 0 ? 'order-first lg:order-last' : ''}`}>
                 <img src={svc.image} alt={svc.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
               </div>
             </div>

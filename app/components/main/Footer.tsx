@@ -121,7 +121,7 @@ export default function Footer() {
       {/* Bottom */}
       <div className="border-t border-gray-800 py-5 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-500">
-          <p>© 2024 MediCore Hospital. All rights reserved.</p>
+          <p>© 2026 MediCore Hospital. All rights reserved.</p>
           <div className="flex gap-5">
             <Link href="#" className="hover:text-gray-300 transition-colors">Privacy Policy</Link>
             <Link href="#" className="hover:text-gray-300 transition-colors">Terms of Service</Link>

@@ -3,11 +3,11 @@ import { Star, ChevronRight } from 'lucide-react'
 import Image from 'next/image';
 
 // Section Header
-export function SectionHeader({ badge, title, subtitle, center = false }: {
-  badge?: string; title: string; subtitle?: string; center?: boolean
+export function SectionHeader({ badge, title, subtitle }: {
+  badge?: string; title: string; subtitle?: string;
 }) {
   return (
-    <div className={`mb-12 ${center ? 'text-center' : ''}`}>
+    <div className="mb-12 flex flex-col items-center text-center justify-center">
       {badge && (
         <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-xs font-semibold rounded-full mb-3 uppercase tracking-wider">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse-slow"></span>
@@ -15,7 +15,7 @@ export function SectionHeader({ badge, title, subtitle, center = false }: {
         </span>
       )}
       <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-tight">{title}</h2>
-      {subtitle && <p className="mt-3 text-gray-500 dark:text-gray-400 text-base leading-relaxed max-w-2xl">{center ? '' : ''}{subtitle}</p>}
+      {subtitle && <p className="mt-3 text-gray-500 dark:text-gray-400 text-base leading-relaxed max-w-2xl">{subtitle}</p>}
     </div>
   )
 }

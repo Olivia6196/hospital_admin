@@ -50,7 +50,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   if (submitted) {
     return (
       <div className="bg-white dark:bg-gray-950 min-h-screen">
-        <div className="bg-[url('/images/appointmentbg.jfif')] bg-cover bg-center relative">
+        <div className="bg-[url('/images/appointmentbg.jpg')] bg-cover bg-center relative">
         <PageHero title="Appointment Confirmed!" />
         <div className="absolute inset-0 bg-black/50" />
       </div>
@@ -88,7 +88,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   return (
     <div className="bg-white dark:bg-gray-950">
-      <div className="bg-[url('/images/appointmentbg.jfif')] bg-cover bg-center relative">
+      <div className="bg-[url('/images/appointmentbg.jpg')] bg-cover bg-center relative">
         <PageHero
           title="Book an Appointment"
           subtitle="Schedule your visit with our specialists in just a few clicks"

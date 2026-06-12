@@ -1,15 +1,17 @@
 import { Search } from 'lucide-react'
 import { PageHero, SectionHeader, BlogCard } from '@/app/components/main/UI'
+import Link from 'next/link'
+import Image from 'next/image'
 
 const posts = [
-  { title: 'Understanding Heart Disease: Prevention and Early Detection', excerpt: 'Heart disease remains the leading cause of death worldwide. Learn how to reduce your risk with lifestyle changes and regular screenings.', category: 'Cardiology', date: 'Dec 10, 2024', image: '/images/news_one.jfif', href: '/blog/heart-disease' },
-  { title: 'The Importance of Regular Health Check-Ups', excerpt: 'Regular health screenings can catch problems early when they are most treatable. Discover the key tests every adult should have.', category: 'Wellness', date: 'Dec 5, 2024', image: '/images/news_two.jfif', href: '/blog/check-ups' },
-  { title: "Children's Mental Health: What Parents Should Know", excerpt: "Mental health is just as important as physical health. Here's how to support your child's emotional wellbeing.", category: 'Pediatrics', date: 'Nov 28, 2024', image: '/images/news_three.jfif', href: '/blog/childrens-mental-health' },
-  { title: 'Advances in Minimally Invasive Surgery', excerpt: 'New techniques in laparoscopic and robotic-assisted surgery are reducing recovery time and improving patient outcomes dramatically.', category: 'Surgery', date: 'Nov 20, 2024', image: '/images/news_four.webp', href: '/blog/minimally-invasive' },
+  { title: 'Understanding Heart Disease: Prevention and Early Detection', excerpt: 'Heart disease remains the leading cause of death worldwide. Learn how to reduce your risk with lifestyle changes and regular screenings.', category: 'Cardiology', date: 'Dec 10, 2024', image: '/images/news_one.jpg', href: '/blog/heart-disease' },
+  { title: 'The Importance of Regular Health Check-Ups', excerpt: 'Regular health screenings can catch problems early when they are most treatable. Discover the key tests every adult should have.', category: 'Wellness', date: 'Dec 5, 2024', image: '/images/news_two.jpg', href: '/blog/check-ups' },
+  { title: "Children's Mental Health: What Parents Should Know", excerpt: "Mental health is just as important as physical health. Here's how to support your child's emotional wellbeing.", category: 'Pediatrics', date: 'Nov 28, 2024', image: '/images/news_three.jpg', href: '/blog/childrens-mental-health' },
+  { title: 'Advances in Minimally Invasive Surgery', excerpt: 'New techniques in laparoscopic and robotic-assisted surgery are reducing recovery time and improving patient outcomes dramatically.', category: 'Surgery', date: 'Nov 20, 2024', image: '/images/surgery.jpg', href: '/blog/minimally-invasive' },
   { title: 'Nutrition and Brain Health: What the Research Says', excerpt: 'Emerging research shows strong links between diet and cognitive function. Learn which foods support a healthy brain.', category: 'Neurology', date: 'Nov 14, 2024', image: '/images/news_five.webp', href: '/blog/brain-nutrition' },
   { title: 'Managing Diabetes: A Comprehensive Guide', excerpt: 'Living with diabetes requires careful management. Our endocrinologists share practical tips for maintaining healthy blood sugar levels.', category: 'Wellness', date: 'Nov 8, 2024', image: '/images/news_six.webp', href: '/blog/diabetes-management' },
   { title: 'The Rise of Telemedicine: Changing Healthcare Access', excerpt: 'Telemedicine has revolutionized how patients access care. Discover the benefits and limitations of virtual healthcare visits.', category: 'Wellness', date: 'Nov 1, 2024', image: '/images/news_seven.webp', href: '/blog/telemedicine' },
-  { title: 'Understanding Anxiety Disorders: Signs and Treatment', excerpt: 'Anxiety affects millions of people worldwide. Learn to recognize the signs and explore evidence-based treatment options.', category: 'Mental Health', date: 'Oct 25, 2024', image: 'https://images.unsplash.com/photo-1559757175-7cb057fba93c?w=600&h=400&fit=crop', href: '/blog/anxiety-disorders' },
+  { title: 'Understanding Anxiety Disorders: Signs and Treatment', excerpt: 'Anxiety affects millions of people worldwide. Learn to recognize the signs and explore evidence-based treatment options.', category: 'Mental Health', date: 'Oct 25, 2024', image: '/images/anxiety.jpg', href: '/blog/anxiety-disorders' },
   { title: 'Bone Health After 50: Prevention of Osteoporosis', excerpt: 'As we age, maintaining strong bones becomes increasingly important. Discover key strategies to prevent bone loss and fractures.', category: 'Wellness', date: 'Oct 18, 2024', image: '/images/news_nine.webp', href: '/blog/bone-health' },
 ]
 
@@ -18,7 +20,7 @@ const featured = posts[0]
 export default function BlogPage() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      <div className="bg-[url('/images/blogbg.jfif')] bg-cover bg-center relative">
+      <div className="bg-[url('/images/blogbg.jpg')] bg-cover bg-center relative">
       <PageHero
         title="Health Blog & News"
         subtitle="Expert insights, medical news, and wellness tips from our specialists"
@@ -30,7 +32,7 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto">
           <div className="rounded-3xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-lg grid md:grid-cols-2">
             <div className="aspect-4/3 md:aspect-auto overflow-hidden">
-              <img src={featured.image} alt={featured.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              <Image width={600} height={400} src={featured.image} alt={featured.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
             <div className="p-10 flex flex-col justify-center">
               <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full mb-4 uppercase tracking-wider">
@@ -40,7 +42,7 @@ export default function BlogPage() {
               <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-6">{featured.excerpt}</p>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-400 dark:text-gray-500">{featured.date}</span>
-                <a href={featured.href} className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-all hover:scale-105">Read Article</a>
+                <Link href={featured.href} className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-all hover:scale-105">Read Article</Link>
               </div>
             </div>
           </div>

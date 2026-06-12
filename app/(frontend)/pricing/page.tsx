@@ -77,7 +77,7 @@ const faqs = [
 export default function PricingPage() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      <div className="bg-[url('/images/pricebg.jfif')] bg-cover bg-center relative">
+      <div className="bg-[url('/images/pricebg.jpg')] bg-cover bg-center relative">
       <PageHero
         title="Transparent Pricing"
         subtitle="Quality healthcare with clear, honest pricing — no surprises"

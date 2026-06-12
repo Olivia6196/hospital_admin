@@ -1,61 +1,62 @@
 import { Heart, Brain, Bone, Baby, Microscope, Zap, Eye, Wind, Activity, Pill, Stethoscope, Shield, CheckCircle, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { PageHero, SectionHeader } from '@/app/components/main/UI'
+import Image from 'next/image'
 
 const allServices = [
   {
     id: 'emergency', icon: Zap, color: 'bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400',
     title: 'Emergency Care', desc: 'Our 24/7 emergency department is equipped with the latest technology and staffed by experienced emergency physicians and nurses ready to handle any medical crisis.',
     features: ['24/7 Availability', 'Rapid Response Team', 'Critical Care Unit', 'Trauma Center'],
-    image: 'https://images.unsplash.com/photo-1504813184591-01572f98c85f?w=600&h=400&fit=crop'
+    image: '/images/service.jpg'
   },
   {
     id: 'cardiology', icon: Heart, color: 'bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400',
     title: 'Cardiology', desc: 'Our cardiac care team offers comprehensive services for all heart-related conditions, from preventive care to complex interventional procedures.',
     features: ['EKG & Echocardiogram', 'Cardiac Catheterization', 'Electrophysiology', 'Heart Failure Clinic'],
-    image: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=600&h=400&fit=crop'
+    image: '/images/news_one.jpg'
   },
   {
     id: 'neurology', icon: Brain, color: 'bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400',
     title: 'Neurology', desc: 'Expert neurological care for disorders of the brain, spine, and nervous system using advanced diagnostic imaging and treatment techniques.',
     features: ['MRI & CT Scanning', 'Epilepsy Management', 'Stroke Center', 'Movement Disorders'],
-    image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop'
+    image: '/images/news_five.webp'
   },
   {
     id: 'surgery', icon: Stethoscope, color: 'bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400',
     title: 'General Surgery', desc: 'Our surgeons are skilled in a wide range of procedures including minimally invasive laparoscopic surgery and robotic-assisted surgery.',
     features: ['Minimally Invasive', 'Robotic Surgery', 'Day Surgery', 'Pre/Post-Op Care'],
-    image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&h=400&fit=crop'
+    image: '/images/surgery.jpg'
   },
   {
     id: 'orthopedics', icon: Bone, color: 'bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400',
     title: 'Orthopedics', desc: 'Comprehensive care for musculoskeletal conditions including joint replacement, sports medicine, and spinal surgery.',
     features: ['Joint Replacement', 'Sports Medicine', 'Spinal Surgery', 'Physical Therapy'],
-    image: 'https://images.unsplash.com/photo-1536064479547-7ee40b74b807?w=600&h=400&fit=crop'
+    image: '/images/news_nine.webp'
   },
   {
     id: 'pediatrics', icon: Baby, color: 'bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400',
     title: 'Pediatrics', desc: 'Specialized healthcare for infants, children, and adolescents in a child-friendly environment with compassionate specialists.',
     features: ['Well-Child Visits', 'Vaccinations', 'Developmental Screening', 'Pediatric ER'],
-    image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=400&fit=crop'
+    image: '/images/news_three.jpg'
   },
   {
     id: 'diagnostics', icon: Microscope, color: 'bg-cyan-50 dark:bg-cyan-950/50 text-cyan-600 dark:text-cyan-400',
     title: 'Diagnostics & Lab', desc: 'State-of-the-art diagnostic facilities offering comprehensive laboratory tests and advanced imaging services.',
     features: ['Blood & Urine Tests', 'MRI & CT Scan', 'X-Ray & Ultrasound', 'Pathology'],
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop'
+    image: '/images/clinic6.webp'
   },
   {
     id: 'ophthalmology', icon: Eye, color: 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400',
     title: 'Ophthalmology', desc: 'Complete eye care services from routine eye exams and glasses prescriptions to complex surgical procedures.',
     features: ['Eye Exams', 'LASIK Surgery', 'Cataract Surgery', 'Glaucoma Treatment'],
-    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&h=400&fit=crop'
+    image: '/images/eye.jpg'
   },
   {
     id: 'pulmonology', icon: Wind, color: 'bg-sky-50 dark:bg-sky-950/50 text-sky-600 dark:text-sky-400',
     title: 'Pulmonology', desc: 'Expert care for respiratory conditions including asthma, COPD, sleep disorders, and lung cancer treatment.',
     features: ['Pulmonary Function', 'Sleep Studies', 'Bronchoscopy', 'Ventilator Management'],
-    image: 'https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?w=600&h=400&fit=crop'
+    image: '/images/breathe.jpg'
   },
 ]
 
@@ -96,7 +97,7 @@ export default function ServicesPage() {
                 </Link>
               </div>
               <div className={`rounded-3xl overflow-hidden aspect-4/3 shadow-xl ${i % 2 !== 0 ? 'order-first lg:order-last' : ''}`}>
-                <img src={svc.image} alt={svc.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                <Image width={600} height={400} src={svc.image} alt={svc.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
               </div>
             </div>
           ))}

@@ -4,10 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const team = [
-  { name: 'Dr. Sarah Johnson', role: 'C.M.O & Head of Cardiology', image: '/images/doctor1.jfif' },
-  { name: 'Dr. Alex Turner', role: 'Head of Surgery', image: '/images/doctor15.jfif' },
-  { name: 'Dr. Grace Mensah', role: 'Head of Pediatrics', image: '/images/doctor23.jfif' },
-  { name: 'Dr. Micheal Chen', role: 'Head of Neurology', image: '/images/doctor2.jfif' },
+  { name: 'Dr. Sarah Johnson', role: 'C.M.O & Head of Cardiology', image: '/images/doctor1.jpg' },
+  { name: 'Dr. Alex Turner', role: 'Head of Surgery', image: '/images/doctor15.jpg' },
+  { name: 'Dr. Grace Mensah', role: 'Head of Pediatrics', image: '/images/doctor23.jpg' },
+  { name: 'Dr. Micheal Chen', role: 'Head of Neurology', image: '/images/doctor2.jpg' },
 ]
 
 const milestones = [
@@ -21,10 +21,10 @@ const milestones = [
 export default function AboutPage() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      <div className="bg-[url('/images/aboutbg.jfif')] bg-cover bg-center relative">
+      <div className="bg-[url('/images/aboutbg.jpg')] bg-cover bg-center relative">
         <PageHero
           title="About MediCore Hospital"
-          subtitle="Delivering compassionate, world-class healthcare for over 35 years"
+          subtitle="Delivering compassionate, world-class healthcare for over 29 years"
         />
         <div className="absolute inset-0 bg-black/30" />
       </div>
@@ -50,11 +50,11 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-2xl overflow-hidden aspect-3/4">
-              <Image width={400} height={300} src="/images/why_picture.jfif" alt="Hospital" className="w-full h-full object-cover" />
+              <Image width={400} height={300} src="/images/why_picture.jpg" alt="Hospital" className="w-full h-full object-cover" />
             </div>
             <div className="space-y-4 pt-8">
               <div className="rounded-2xl overflow-hidden aspect-square">
-                <Image width={400} height={300} src="/images/news_one.jfif" alt="Doctors" className="w-full h-full object-cover" />
+                <Image width={400} height={300} src="/images/news_one.jpg" alt="Doctors" className="w-full h-full object-cover" />
               </div>
               <div className="bg-blue-600 rounded-2xl p-5 text-white">
                 <div className="font-display text-3xl font-bold mb-1">35+</div>

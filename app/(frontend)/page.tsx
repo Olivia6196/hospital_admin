@@ -12,10 +12,10 @@ import CountUp from "react-countup";
 import Image from 'next/image';
 
 const doctors = [
-  { name: 'Dr. Sarah Johnson', specialty: 'Cardiologist', rating: 4.9, experience: '12 Yrs',  image: '/images/doctor1.jfif' },
-  { name: 'Dr. Michael Chen', specialty: 'Neurologist', rating: 4.8, experience: '7 Yrs',  image: '/images/doctor2.jfif' },
-  { name: 'Dr. Amelia Roberts', specialty: 'Pediatrician', rating: 5.0, experience: '8 Yrs',  image: '/images/doctor3.jfif' },
-  { name: 'Dr. James Wilson', specialty: 'Orthopedic', rating: 4.7, experience: '5 Yrs',  image: '/images/doctor4.jfif' },
+  { name: 'Dr. Sarah Johnson', specialty: 'Cardiologist', rating: 4.9, experience: '12 Yrs',  image: '/images/doctor1.jpg' },
+  { name: 'Dr. Michael Chen', specialty: 'Neurologist', rating: 4.8, experience: '7 Yrs',  image: '/images/doctor2.jpg' },
+  { name: 'Dr. Amelia Roberts', specialty: 'Pediatrician', rating: 5.0, experience: '8 Yrs',  image: '/images/doctor3.jpg' },
+  { name: 'Dr. James Wilson', specialty: 'Orthopedic', rating: 4.7, experience: '5 Yrs',  image: '/images/doctor4.jpg' },
 ]
 
 const services = [
@@ -32,29 +32,29 @@ const blogs = [
     title: 'Understanding Heart Disease: Prevention and Early Detection',
     excerpt: 'Heart disease remains the leading cause of death worldwide. Learn how to reduce your risk with lifestyle changes and early screening.',
     category: 'Cardiology', date: 'Dec 10, 2024',
-    image: '/images/news_one.jfif',
+    image: '/images/news_one.jpg',
     href: '/blog/heart-disease'
   },
   {
     title: 'The Importance of Regular Health Check-Ups',
     excerpt: 'Regular health screenings can catch problems early when they are most treatable. Discover the key tests every adult should have.',
     category: 'Wellness', date: 'Dec 5, 2024',
-    image: '/images/news_two.jfif',
+    image: '/images/news_two.jpg',
     href: '/blog/check-ups'
   },
   {
     title: 'Children\'s Mental Health: What Parents Should Know',
     excerpt: 'Mental health is just as important as physical health. Here\'s how to support your child\'s emotional wellbeing.',
     category: 'Pediatrics', date: 'Nov 28, 2024',
-    image: '/images/news_three.jfif',
+    image: '/images/news_three.jpg',
     href: '/blog/childrens-mental-health'
   },
 ]
 
 const testimonials = [
-  { name: 'Jennifer Adams', role: 'Patient', rating: 5, avatar: '/images/review_one.jfif', text: 'MediCore truly cares about its patients. The doctors and staff went above and beyond to make me feel comfortable during my treatment.' },
-  { name: 'Robert Martinez', role: 'Patient', rating: 5, avatar: '/images/review_two.jfif', text: 'Exceptional care from the moment I walked in. The team was professional, attentive, and made my recovery much smoother than expected.' },
-  { name: 'Linda Thompson', role: 'Patient', rating: 5, avatar: '/images/review_three.jfif', text: 'I couldn\'t be happier with the treatment I received. The doctors were knowledgeable and explained everything clearly.' },
+  { name: 'Jennifer Adams', role: 'Patient', rating: 5, avatar: '/images/review_one.jpg', text: 'MediCore truly cares about its patients. The doctors and staff went above and beyond to make me feel comfortable during my treatment.' },
+  { name: 'Robert Martinez', role: 'Patient', rating: 5, avatar: '/images/review_two.jpg', text: 'Exceptional care from the moment I walked in. The team was professional, attentive, and made my recovery much smoother than expected.' },
+  { name: 'Linda Thompson', role: 'Patient', rating: 5, avatar: '/images/review_three.jpg', text: 'I couldn\'t be happier with the treatment I received. The doctors were knowledgeable and explained everything clearly.' },
 ]
 
 const stats = [
@@ -131,7 +131,7 @@ export default function Home() {
                 <Image width={288} height={320} src="/images/home_one.jpg" alt="Doctor" className="w-full h-full object-cover" />
               </div>
               <div className="absolute bottom-8 left-0 w-52 h-64 rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-950">
-                <Image width={288} height={256} src="/images/home_two.jfif" alt="Medical" className="w-full h-full object-cover" />
+                <Image width={288} height={256} src="/images/home_two.jpg" alt="Medical" className="w-full h-full object-cover" />
               </div>
               {/* Floating cards */}
               <div className="absolute top-4 left-4 bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-xl border border-gray-100 dark:border-gray-800">
@@ -238,7 +238,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <div className="rounded-3xl overflow-hidden aspect-4/3 shadow-2xl">
-              <Image width={400} height={300} src="/images/why_picture.jfif" alt="Hospital" className="w-full h-full object-cover" />
+              <Image width={400} height={300} src="/images/why_picture.jpg" alt="Hospital" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-xl border border-gray-100 dark:border-gray-800">
               <div className="flex items-center gap-1 mb-2">

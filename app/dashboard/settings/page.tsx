@@ -1,11 +1,13 @@
 "use client";
 
 import Header from "@/app/components/Header";
-import { useState } from "react";
+import { Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function SettingsPage() {
   const [email, setEmail] = useState("");
+  const [dark, setDark] = useState(false);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -13,6 +15,28 @@ export default function SettingsPage() {
 
   const [emailLoading, setEmailLoading] = useState(false);
   const [passwordLoading, setPasswordLoading] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const shouldDark = stored === "dark" || (!stored && prefersDark);
+
+    setDark(shouldDark);
+    document.documentElement.classList.toggle("dark", shouldDark);
+    document.documentElement.style.colorScheme = shouldDark ? "dark" : "light";
+  }, []);
+
+  const toggleDark = () => {
+    setDark((prev) => {
+      const next = !prev;
+
+      document.documentElement.classList.toggle("dark", next);
+      document.documentElement.style.colorScheme = next ? "dark" : "light";
+      localStorage.setItem("theme", next ? "dark" : "light");
+
+      return next;
+    });
+  };
 
   const handleEmailUpdate = async () => {
     try {
@@ -115,10 +139,14 @@ export default function SettingsPage() {
               </p>
             </div>
 
-            {/* Replace with <ThemeToggle /> */}
-            <div className="rounded-lg border border-dashed border-zinc-300 dark:border-zinc-600 px-4 py-2 text-sm text-zinc-500">
-             theme toggle component coming soon
-            </div>
+            <button
+              type="button"
+              onClick={toggleDark}
+              className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-950 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 shadow-sm transition hover:border-blue-300 hover:text-blue-600 dark:hover:border-blue-700 dark:hover:text-blue-400"
+            >
+              {dark ? <Sun size={16} /> : <Moon size={16} />}
+              {dark ? "Switch to light mode" : "Switch to dark mode"}
+            </button>
           </div>
         </div>
 

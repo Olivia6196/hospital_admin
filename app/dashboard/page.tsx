@@ -10,7 +10,7 @@ import StatCard from "../components/submain/StatCard"
 const page = () => {
   return (
     <div className="flex flex-col gap-7 py-5 px-6">
-      <Header title="Dashboard" subtitle="Welcome back, Olivia Omeje. Here's what's happening today." />
+      <Header title="Dashboard" subtitle="Welcome back, Admin. Here's what's happening today." />
         <StatCard />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <PatientTrendChart />

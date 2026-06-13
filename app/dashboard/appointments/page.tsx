@@ -340,7 +340,7 @@ const AppointmentsPage = () => {
         )}
       </div>
 
-      <div className="bg-blue-600/40 dark:bg-white/15 rounded-2xl border border-gray-100 overflow-hidden">
+      <div className="bg-blue-600/80 dark:bg-white/15 rounded-2xl border border-gray-100 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-20 text-sm text-gray-400">
             <svg className="animate-spin w-5 h-5 mr-2 text-gray-300" viewBox="0 0 24 24" fill="none">

@@ -104,7 +104,7 @@ export default function ContactPage() {
         </div>
 
         {/* Form + Map */}
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-lg p-8">
             {sent ? (
@@ -262,21 +262,12 @@ export default function ContactPage() {
               ))}
             </div>
 
-            {/* Map Placeholder */}
             <div className="rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 h-64 flex items-center justify-center border border-gray-200 dark:border-gray-700">
-              {/* <div className="text-center">
-                <MapPin size={40} className="text-blue-600 dark:text-blue-400 mx-auto mb-2" />
-                <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">Interactive Map</p>
-                <p className="text-gray-400 dark:text-gray-500 text-xs mt-1">123 Medical Center Drive, New York, NY</p>
-              </div> */}
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2916.104459774284!2d-76.0255325!3d43.0392336!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d98c4ec349f607%3A0x4d0551707cc269b5!2sNorthEast%20Medical%20center!5e0!3m2!1sen!2sng!4v1781306932809!5m2!1sen!2sng"
                 width="600"
                 height="450"
-                // style="border:0;"
-                // allowfullscreen=""
                 loading="lazy"
-                // referrerpolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
           </div>

@@ -99,7 +99,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Progress Steps */}
-          <div className="flex items-center justify-center gap-4 mb-12">
+          <div className="hidden md:flex items-center justify-center gap-4 mb-12">
             {[
               { n: 1, label: 'Select Service' },
               { n: 2, label: 'Choose Date' },
@@ -125,7 +125,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-lg overflow-hidden">
             <form onSubmit={handleSubmit}>
               {step === 1 && (
-                <div className="p-8">
+                <div className="p-5 md:p-8">
                   <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6">Select Service</h3>
                   <div className="space-y-5">
                     <div>

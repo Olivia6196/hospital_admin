@@ -65,7 +65,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats */}
       <section className="py-7 bg-gray-50 dark:bg-gray-900/50 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
           <StatCard value="1,500+" label="Patients Treated" icon={Users} color="blue" />

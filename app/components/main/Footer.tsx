@@ -15,7 +15,7 @@ export default function Footer() {
             <p className="text-blue-100 mt-1">Our emergency team is available 24/7 to help you.</p>
           </div>
           <div className="flex gap-4">
-            <a href="tel:+18001234567"
+            <a href="tel:+2348082233001"
               className="flex items-center gap-2 px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all">
               <Phone size={18} /> Call Now
             </a>
@@ -36,7 +36,7 @@ export default function Footer() {
               <Activity size={20} className="text-white" />
             </div>
             <div>
-              <div className="font-display font-bold text-lg text-white leading-tight">MediCore</div>
+              <div className="font-display font-bold text-lg text-white leading-tight">LiviaCore</div>
               <div className="text-[10px] text-blue-400 font-medium tracking-wider uppercase leading-tight">Hospital</div>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center shrink-0">
                 <Mail size={15} className="text-blue-400" />
               </div>
-              <p className="text-gray-400 text-sm">info@medicore.hospital</p>
+              <p className="text-gray-400 text-sm">info@liviacore.hospital</p>
             </div>
             </div>
         </div>
@@ -114,7 +114,7 @@ export default function Footer() {
       {/* Bottom */}
       <div className="border-t border-gray-800 py-5 px-4">
         <div className="max-w-7xl text-center text-sm text-gray-500">
-          <p>© 2026 MediCore Hospital. All rights reserved.</p>
+          <p>© 2026 LiviaCore Hospital. All rights reserved.</p>
         </div>
       </div>
     </footer>

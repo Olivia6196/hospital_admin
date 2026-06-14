@@ -40,7 +40,7 @@ export default function Navbar({ dark, toggleDark }: NavbarProps) {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5"><Phone size={13} /> +1 (800) 123-4567</span>
-            <span className="flex items-center gap-1.5"><Mail size={13} /> info@medicore.hospital</span>
+            <span className="flex items-center gap-1.5"><Mail size={13} /> info@liviacore.hospital</span>
           </div>
           <span className="text-blue-200 text-xs">Emergency: Available 24/7</span>
         </div>
@@ -52,7 +52,7 @@ export default function Navbar({ dark, toggleDark }: NavbarProps) {
             <Image src="/images/hospital-logo.png" alt="MediCore Logo" width={18} height={18} className="w-6 h-6" />
           </div>
           <div>
-            <p className="font-display font-800 text-lg text-gray-900 dark:text-white leading-tight">MediCore</p>
+            <p className="font-display font-800 text-lg text-gray-900 dark:text-white leading-tight">LiviaCore</p>
             <p className="text-[10px] text-blue-600 dark:text-blue-400 font-medium tracking-wider uppercase leading-tight">Hospital</p>
           </div>
         </Link>

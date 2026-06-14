@@ -101,7 +101,7 @@ export default function Sidebar() {
                 className="text-[1.7rem] font-bold tracking-tight"
                 style={{ fontFamily: "var(--font-dancing)" }}
               >
-                PrimeCare
+                LiviaCore
               </h1>
               <p className="text-blue-200 text-xs -mt-1">ADMIN PORTAL</p>
             </div>

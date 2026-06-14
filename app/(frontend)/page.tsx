@@ -249,7 +249,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <SectionHeader badge="Why MediCore" title="Caring Health is Important Than All" subtitle="We combine cutting-edge technology with compassionate care to deliver the best possible outcomes for every patient." />
+            <SectionHeader badge="Why LiviaCore" title="Caring Health is Important Than All" subtitle="We combine cutting-edge technology with compassionate care to deliver the best possible outcomes for every patient." />
             <div className="space-y-4">
               {[
                 { icon: Shield, title: 'Board-Certified Specialists', desc: 'All our doctors are board-certified with extensive training in their respective fields.' },

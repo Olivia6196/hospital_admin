@@ -5,7 +5,7 @@ import { dancingScript, inter } from "@/ui/fonts";
 import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
-  title: "PrimeCare Admin - Hospital Dashboard",
+  title: "LiviaCore Admin - Hospital Dashboard",
   description: "General Hospital Administration System",
 };
 

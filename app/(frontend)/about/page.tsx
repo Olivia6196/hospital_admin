@@ -23,7 +23,7 @@ export default function AboutPage() {
     <div className="bg-white dark:bg-gray-950">
       <div className="bg-[url('/images/aboutbg.jpg')] bg-cover bg-center relative">
         <PageHero
-          title="About MediCore Hospital"
+          title="About LiviaCore Hospital"
           subtitle="Delivering compassionate, world-class healthcare for over 29 years"
         />
         <div className="absolute inset-0 bg-black/30" />

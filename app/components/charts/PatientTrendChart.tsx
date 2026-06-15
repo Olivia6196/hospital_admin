@@ -35,12 +35,12 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function PatientTrendChart() {
   return (
-    <div className="bg-black/95 backdrop-blur-2xl border border-white/20 rounded-3xl p-6 shadow-2xl h-full lg:h-93">
+    <div className="dark:bg-black/95 backdrop-blur-2xl border border-white/20 rounded-3xl p-6 shadow-xl h-full lg:h-93">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-semibold text-white">Patient Flow</h3>
-          <p className="text-blue-200 text-sm mt-1">
+          <h3 className="text-xl font-semibold text-black dark:text-white">Patient Flow</h3>
+          <p className="text-black/80 dark:text-blue-200 text-sm mt-1">
             6-month admission & discharge trend
           </p>
         </div>

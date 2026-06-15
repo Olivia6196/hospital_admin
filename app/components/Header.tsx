@@ -30,7 +30,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
         {subtitle && <p className="text-sm text-blue-950/70 dark:text-white/70 pt-1">{subtitle}</p>}
       </div>
       <div className="hidden md:flex items-center gap-4">
-        <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 border bg-blue-100 dark:bg-white/10 backdrop-blur-xl border-white/20 shadow-xl focus-within:ring-1 transition-all duration-200">
+        <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 border bg-white/95 dark:bg-white/10 backdrop-blur-xl border-white/20 shadow-lg focus-within:ring-1 transition-all duration-200">
           <CiSearch size={20} />
           <input
             type="text"
@@ -39,7 +39,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
           />
         </div>
         <button
-          className="relative flex items-center justify-center w-9 h-9 border rounded-xl bg-blue-100 dark:bg-white/10 backdrop-blur-xl border-white/20 shadow-xl "
+          className="relative flex items-center justify-center w-9 h-9 border rounded-xl bg-white/95 dark:bg-white/10 backdrop-blur-xl border-white/20 shadow-lg "
           onClick={() => setNotifOpen(!notifOpen)}
         >
           <IoIosNotificationsOutline size={23} />
@@ -47,7 +47,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
         </button>
         <Link
           href="/dashboard/settings"
-          className="flex items-center justify-center w-9 h-9 border rounded-xl bg-blue-100 dark:bg-white/10 backdrop-blur-xl border-white/20 shadow-xl"
+          className="flex items-center justify-center w-9 h-9 border rounded-xl bg-white/95 dark:bg-white/10 backdrop-blur-xl border-white/20 shadow-lg"
         >
           <IoSettingsOutline size={18} />
         </Link>

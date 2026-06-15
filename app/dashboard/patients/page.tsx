@@ -92,7 +92,7 @@ export default function PatientsPage() {
         {statuses.map((s) => (
           <button
             key={s}
-            className={`bg-blue-950/65 text-white py-2 text-sm mr-2 px-4 rounded-xl backdrop-blur-2xl border border-white/20 shadow-2xl`}
+            className={`dark:bg-blue-950/65 dark:text-white py-2 text-sm mr-2 px-4 rounded-xl backdrop-blur-2xl border border-white/20 shadow-[0_0_4px]`}
             onClick={() => setFilter(s)}
           >
             {s}
@@ -101,13 +101,13 @@ export default function PatientsPage() {
 
         <Link
           href="/dashboard/patients/Add"
-          className="ml-auto bg-blue-700 hover:bg-blue-500 transition-colors px-5 py-2.5 rounded-xl text-sm font-medium"
+          className="ml-auto bg-blue-600 text-white dark:bg-blue-700 hover:bg-blue-800 transition-colors px-5 py-2.5 rounded-xl text-sm font-medium"
         >
           + Add Patient
         </Link>
       </div>
 
-      <div className="bg-blue-950/85 text-white py-3 px-4 rounded-xl backdrop-blur-2xl border border-white/20 shadow-2xl overflow-hidden">
+      <div className="bg-white/90 dark:bg-blue-950/85 dark:text-white py-3 px-4 rounded-xl backdrop-blur-2xl border border-white/20 shadow-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="border-collapse w-full min-w-250">
             <thead>

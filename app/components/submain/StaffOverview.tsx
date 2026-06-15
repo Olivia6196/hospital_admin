@@ -8,9 +8,9 @@ const segments = [
 
 export default function StaffOverview() {
   return (
-    <div className="bg-black border border-zinc-800 rounded-3xl shadow-xl backdrop-blur-2xl pt-6 pb-4 px-6">
+    <div className="dark:bg-black border border-white dark:border-zinc-800 rounded-3xl shadow-xl backdrop-blur-2xl pt-6 pb-4 px-6">
       <div className="mb-3">
-        <h3 className="text-xl font-bold text-white">Staff Overview</h3>
+        <h3 className="text-xl font-bold text-black dark:text-white">Staff Overview</h3>
         <span className="text-sm text-gray-400">On duty today</span>
       </div>
       <div className="space-y-3">
@@ -19,7 +19,7 @@ export default function StaffOverview() {
           return (
             <div key={segment.label} className="space-y-1">
               <div className="flex justify-between items-center">
-                <span className="text-white">{segment.label}</span>
+                <span className="text-black/90 dark:text-white">{segment.label}</span>
                 <span className="text-sm">
                   <span style={{ color: segment.color }}>{segment.onDuty}</span>
                   <span className="text-gray-400">/{segment.total}</span>

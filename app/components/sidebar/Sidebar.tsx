@@ -81,29 +81,29 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`h-full ${isCollapsed ? "w-25 px-3" : "w-60 px-6"} py-4 flex flex-col`}
+      className={`h-full ${isCollapsed ? "w-24 px-2" : "w-58 px-6"} py-4 flex flex-col`}
     >
       <div className="flex items-center gap-3 mb-9">
         <div
           className={`flex items-center gap-3 ${isCollapsed ? "justify-center w-full" : ""}`}
         >
-          <div className="w-10.5 h-10.5 bg-white rounded-full flex items-center justify-center shadow-lg shrink-0">
+          <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-lg shrink-0">
             <Image
               src="/images/hospital-logo.png"
               alt="Hospital Logo"
-              width={40}
-              height={40}
+              width={30}
+              height={30}
             />
           </div>
           {!isCollapsed && (
             <div>
               <h1
-                className="text-[1.7rem] font-bold tracking-tight"
+                className="text-[1.3rem] font-bold tracking-tight"
                 style={{ fontFamily: "var(--font-dancing)" }}
               >
                 LiviaCore
               </h1>
-              <p className="text-blue-200 text-xs -mt-1">ADMIN PORTAL</p>
+              <p className="text-blue-200 text-[0.67rem] -mt-1">ADMIN PORTAL</p>
             </div>
           )}
         </div>

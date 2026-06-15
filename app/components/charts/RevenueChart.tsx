@@ -33,14 +33,13 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function RevenueChart() {
   return (
-    <div className=" bg-black border border-zinc-800 rounded-3xl overflow-hidden shadow-xl">
-      {/* Header */}
-      <div className="px-8 pt-8 pb-6 flex items-start justify-between bg-zinc-950">
+    <div className="dark:bg-black border border-white dark:border-zinc-800 rounded-3xl overflow-hidden shadow-xl">
+      <div className="px-8 pt-8 pb-6 flex items-start justify-between dark:bg-zinc-950">
         <div>
-          <h3 className="text-2xl font-semibold text-white tracking-tight">
+          <h3 className="text-2xl font-semibold text-black dark:text-white tracking-tight">
             Revenue vs Expenses
           </h3>
-          <p className=" text-zinc-400 mt-1 text-sm">
+          <p className="text-black/80 dark:text-zinc-400 mt-1 text-sm">
             6-month financial overview
           </p>
         </div>
@@ -52,8 +51,7 @@ export default function RevenueChart() {
         </div>
       </div>
 
-      {/* Chart Container */}
-      <div className="px-8 pb-8 bg-black">
+      <div className="px-8 pb-8 dark:bg-black">
         <ResponsiveContainer width="100%" height={220}>
           <AreaChart 
             data={revenueData} 

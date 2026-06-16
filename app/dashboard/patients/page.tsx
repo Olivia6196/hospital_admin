@@ -92,7 +92,7 @@ export default function PatientsPage() {
         {statuses.map((s) => (
           <button
             key={s}
-            className={`dark:bg-blue-950/65 dark:text-white py-2 text-sm mr-2 px-4 rounded-xl backdrop-blur-2xl border border-white/20 shadow-[0_0_4px]`}
+            className={`dark:bg-blue-950/65 dark:text-white mb-4 py-2 text-sm mr-2 px-4 rounded-xl backdrop-blur-2xl border border-white/20 shadow-[0_0_4px]`}
             onClick={() => setFilter(s)}
           >
             {s}

@@ -109,7 +109,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="flex flex-col gap-7 p-6">
+    <div className="flex flex-col gap-7 px-3 md:p-6">
       <Header
         title="Settings"
         subtitle="Manage your account security and application preferences."

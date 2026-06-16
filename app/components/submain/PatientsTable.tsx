@@ -58,7 +58,7 @@ export default function PatientsTable() {
       </div>
 
       {/* Table */}
-      <div className="py-3 px-4">
+      <div className="py-3 px-4 overflow-hidden">
         <table className="border-collapse">
           <thead>
             <tr className="text-left uppercase text-xs tracking-widest border-b border-white/10">

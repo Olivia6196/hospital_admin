@@ -82,12 +82,12 @@ export default function AddPatientForm() {
   };
 
   return (
-    <div className="flex flex-col gap-7 p-6">
+    <div className="flex flex-col gap-7 px-3 md:p-6">
       <Header
         title="Patient Registration Form"
         subtitle="Register and admit a new patient into the hospital system"
       />
-      <form onSubmit={handleSubmit} className="grid gap-5 md:grid-cols-2 px-8">
+      <form onSubmit={handleSubmit} className="grid gap-5 md:grid-cols-2 px-3 md:px-8">
         {/* Patient Information */}
         <div className="md:col-span-2">
           <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">

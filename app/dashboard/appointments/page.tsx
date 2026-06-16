@@ -238,7 +238,7 @@ const AppointmentsPage = () => {
     []
   );
   return (
-    <div className="flex flex-col gap-7 py-5 px-6">
+    <div className="flex flex-col gap-7 py-5 px-3 md:px-6">
       <Header title="Appointments" subtitle="Manage your appointments here." />
 
       <div className="flex gap-2">

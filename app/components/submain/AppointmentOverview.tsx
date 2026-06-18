@@ -45,7 +45,7 @@ export default function AppointmentOverview() {
   }, []);
 
   return (
-    <div className="dark:bg-black/85 dark:text-white py-3 px-4 rounded-xl backdrop-blur-2xl border border-white/20 shadow-2xl">
+    <div className="dark:bg-black/85 dark:text-white py-3 px-4 rounded-xl backdrop-blur-2xl border border-white/20 shadow-2xl lg:w-[26vw]">
       <div className="flex items-center gap-3 justify-between">
         <h3 className="text-[0.9rem] font-medium">Today's Appointments</h3>
         <span className="bg-blue-500 text-white py-0.5 px-3 rounded-xl">
@@ -66,7 +66,7 @@ export default function AppointmentOverview() {
               key={a._id}
               className="flex items-center gap-4 dark:bg-blue-500/10 backdrop-blur-2xl shadow rounded-xl p-3"
             >
-              <div className="text-[0.9rem] min-w-[4.2rem]">
+              <div className="text-[0.9rem] min-w-16">
                 <div>{a.time}</div>
                 <div className="text-[0.72rem] text-gray-500">{formatDate(a.date)}</div>
               </div>

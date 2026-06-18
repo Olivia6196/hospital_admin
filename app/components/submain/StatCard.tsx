@@ -42,7 +42,7 @@ export default function StatCard() {
   }, []);
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {(Object.keys(statMeta) as StatKey[]).map((key) => {
         const meta = statMeta[key];
         const data = stats?.[key];

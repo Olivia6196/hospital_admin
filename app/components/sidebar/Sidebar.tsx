@@ -104,7 +104,7 @@ export default function Sidebar() {
       {/* Single toggle button, fixed top-right — icon morphs between menu/close so it never jumps position */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-4 right-4 z-60 p-2 rounded-xl bg-blue-600 dark:bg-blue-900 text-white shadow-lg"
+        className="lg:hidden fixed top-4 right-4 z-60 p-2 rounded-xl bg-blue-600 dark:bg-blue-900 text-white shadow-lg"
       >
         <span className="relative w-5.5 h-5.5 block">
           <HiMenu
@@ -125,7 +125,7 @@ export default function Sidebar() {
       {/* Backdrop - always mounted, fades via opacity so it animates instead of popping in/out */}
       <div
         onClick={() => setIsOpen(false)}
-        className={`md:hidden fixed inset-0 bg-blue-600 dark:bg-blue-950 z-40 transition-opacity duration-300 ${
+        className={`lg:hidden fixed inset-0 bg-blue-600 dark:bg-blue-950 z-40 transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
@@ -134,7 +134,7 @@ export default function Sidebar() {
         className={`h-full ${isCollapsed ? "w-24 px-2" : "w-58 px-6"} py-4 flex flex-col
           fixed inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          md:relative md:translate-x-0 md:z-auto`}
+          lg:relative lg:translate-x-0 lg:z-auto`}
       >
         <div className="flex items-center gap-3 mb-9">
           <div
@@ -164,7 +164,7 @@ export default function Sidebar() {
             {/* Desktop collapse toggle stays as-is, hidden on mobile since the fixed button above handles toggling there */}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="hidden md:inline-flex p-2 hover:bg-white/10 rounded-xl transition-colors text-white/70 hover:text-white"
+              className="hidden lg:inline-flex p-2 hover:bg-white/10 rounded-xl transition-colors text-white/70 hover:text-white"
             >
               {isCollapsed ? (
                 <IoChevronBackOutline size={18} />
@@ -179,7 +179,7 @@ export default function Sidebar() {
           {navItems.map(renderLink)}
 
           {/* Notifications & Settings: only rendered for the mobile drawer, never on desktop */}
-          <div className="md:hidden space-y-2">
+          <div className="lg:hidden space-y-2">
             {mobileOnlyItems.map(renderLink)}
           </div>
         </nav>

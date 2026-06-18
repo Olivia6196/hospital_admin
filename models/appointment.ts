@@ -10,6 +10,7 @@ export interface IAppointment {
   email: string;
   phone: string;
   dob?: string;
+  age?: number;
   gender?: string;
   notes?: string;
   status: string;
@@ -46,6 +47,7 @@ const AppointmentSchema = new Schema(
       required: true,
     },
     dob: String,
+    age: Number,
     gender: String,
     notes: String,
     status: {

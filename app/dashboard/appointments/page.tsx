@@ -4,18 +4,15 @@ import Header from "@/app/components/Header";
 import { IAppointment } from "@/models/appointment";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const PAGE_SIZE = 8;
 
 const STATUS_STYLES: Record<string, string> = {
-  Pending:
-    "bg-amber-50 text-amber-800 border border-amber-200",
-  Confirmed:
-    "bg-blue-50 text-blue-800 border border-blue-200",
-  Completed:
-    "bg-green-50 text-green-800 border border-green-200",
-  Cancelled:
-    "bg-red-50 text-red-800 border border-red-200",
+  Pending: "bg-amber-50 text-amber-800 border border-amber-200",
+  Confirmed: "bg-blue-50 text-blue-800 border border-blue-200",
+  Completed: "bg-green-50 text-green-800 border border-green-200",
+  Cancelled: "bg-red-50 text-red-800 border border-red-200",
 };
 
 function initials(name: string) {
@@ -113,11 +110,9 @@ function Pagination({ page, total, pageSize, onChange }: PaginationProps) {
         {total === 0 ? "No results" : `Showing ${start}–${end} of ${total}`}
       </p>
       <div className="flex items-center gap-1">
-        {/* Prev */}
         <button
           onClick={() => onChange(page - 1)}
           disabled={page === 1}
-          aria-label="Previous page"
           className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
         >
           ‹
@@ -125,17 +120,13 @@ function Pagination({ page, total, pageSize, onChange }: PaginationProps) {
 
         {pages.map((p, i) =>
           p === "…" ? (
-            <span
-              key={`ellipsis-${i}`}
-              className="flex items-center justify-center w-8 h-8 text-xs text-gray-400 select-none"
-            >
+            <span key={`ellipsis-${i}`} className="flex items-center justify-center w-8 h-8 text-xs text-gray-400 select-none">
               …
             </span>
           ) : (
             <button
               key={p}
               onClick={() => onChange(p as number)}
-              aria-current={page === p ? "page" : undefined}
               className={`flex items-center justify-center w-8 h-8 rounded-lg text-xs font-medium transition-colors ${
                 page === p
                   ? "bg-gray-900 text-white border border-gray-900"
@@ -146,10 +137,10 @@ function Pagination({ page, total, pageSize, onChange }: PaginationProps) {
             </button>
           )
         )}
+
         <button
           onClick={() => onChange(page + 1)}
           disabled={page === totalPages}
-          aria-label="Next page"
           className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
         >
           ›
@@ -159,9 +150,8 @@ function Pagination({ page, total, pageSize, onChange }: PaginationProps) {
   );
 }
 
-
 const AppointmentsPage = () => {
-   const [appointments, setAppointments] = useState<IAppointment[]>([]);
+  const [appointments, setAppointments] = useState<IAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -186,7 +176,7 @@ const AppointmentsPage = () => {
     load();
   }, []);
 
-  // Reset to page 1 whenever filters change
+  // Reset to page 1 when filters change
   useEffect(() => {
     setPage(1);
   }, [search, statusFilter, serviceFilter]);
@@ -215,28 +205,51 @@ const AppointmentsPage = () => {
   const uniqueServices = [...new Set(appointments.map((r) => r.service))].sort();
 
   const handleStatusChange = useCallback(
-    async (id: string, newStatus: IAppointment["status"]) => {
-      setAppointments((prev) =>
-        prev.map((r) => (r._id === id ? { ...r, status: newStatus } : r))
+  async (id: string, newStatus: IAppointment["status"]) => {
+    // Use functional update to always get the latest state
+    setAppointments((prev) => {
+      const appointment = prev.find((a) => a._id === id);
+      if (!appointment) return prev;
+
+      const oldStatus = appointment.status;
+
+      // Optimistic update
+      const optimisticAppointments = prev.map((r) =>
+        r._id === id ? { ...r, status: newStatus } : r
       );
-      try {
-        await fetch(`/api/appointments/${id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: newStatus }),
-        });
-      } catch {
-        setAppointments((prev) =>
-          prev.map((r) =>
-            r._id === id
-              ? { ...r, status: r.status }
-              : r
-          )
-        );
-      }
-    },
-    []
-  );
+
+      // Fire the request
+      (async () => {
+        try {
+          const res = await fetch(`/api/appointments/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: newStatus }),
+          });
+
+          if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+          }
+
+        } catch (err) {
+          console.error("Status update failed:", err);
+          
+          // Revert on error
+          setAppointments((current) =>
+            current.map((r) =>
+              r._id === id ? { ...r, status: oldStatus } : r
+            )
+          );
+
+          toast.error("Failed to update status. Please try again.");
+        }
+      })();
+
+      return optimisticAppointments;
+    });
+  },
+  []
+);
   return (
     <div className="flex flex-col gap-7 py-5 px-3 md:px-6">
       <Header title="Appointments" subtitle="Manage your appointments here." />
@@ -269,13 +282,8 @@ const AppointmentsPage = () => {
           { label: "Confirmed", value: stats.confirmed, color: "text-blue-700" },
           { label: "Completed", value: stats.completed, color: "text-green-700" },
         ].map((s) => (
-          <div
-            key={s.label}
-            className="bg-white/90 rounded-2xl border border-gray-100 p-4"
-          >
-            <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
-              {s.label}
-            </p>
+          <div key={s.label} className="bg-white/90 rounded-2xl border border-gray-100 p-4">
+            <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">{s.label}</p>
             <p className={`text-3xl font-semibold ${s.color}`}>{s.value}</p>
           </div>
         ))}
@@ -283,13 +291,7 @@ const AppointmentsPage = () => {
 
       <div className="flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-50">
-          <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.5}
-            viewBox="0 0 24 24"
-          >
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
           <input
@@ -352,10 +354,7 @@ const AppointmentsPage = () => {
         ) : error ? (
           <div className="flex flex-col items-center justify-center py-20 text-sm text-red-500 gap-2">
             <p>{error}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="text-gray-500 underline text-xs"
-            >
+            <button onClick={() => window.location.reload()} className="text-gray-500 underline text-xs">
               Retry
             </button>
           </div>
@@ -365,33 +364,18 @@ const AppointmentsPage = () => {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-100">
-                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">
-                      Patient
-                    </th>
-                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide hidden md:table-cell">
-                      Service
-                    </th>
-                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">
-                      Date & time
-                    </th>
-                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">
-                      Doctor
-                    </th>
-                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">
-                      Status
-                    </th>
-                    <th className="text-right px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">
-                      Actions
-                    </th>
+                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">Patient</th>
+                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide hidden md:table-cell">Service</th>
+                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">Date & time</th>
+                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">Doctor</th>
+                    <th className="text-left px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">Status</th>
+                    <th className="text-right px-5 py-3.5 text-xs font-medium text-black dark:text-white/95 uppercase tracking-wide">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {paginated.length === 0 ? (
                     <tr>
-                      <td
-                        colSpan={6}
-                        className="text-center py-16 text-sm text-gray-400"
-                      >
+                      <td colSpan={6} className="text-center py-16 text-sm text-gray-400">
                         No appointments match your filters.
                       </td>
                     </tr>
@@ -399,31 +383,20 @@ const AppointmentsPage = () => {
                     paginated.map((apt, i) => {
                       const av = AVATAR_COLORS[(i + (page - 1) * PAGE_SIZE) % AVATAR_COLORS.length];
                       return (
-                        <tr
-                          key={apt._id}
-                          className="hover:bg-blue-600 transition-colors"
-                        >
+                        <tr key={apt._id} className="hover:bg-blue-600 transition-colors">
                           <td className="px-5 py-4">
                             <div className="flex items-center gap-3">
-                              <div
-                                className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-medium shrink-0 ${av.bg} ${av.text}`}
-                              >
+                              <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-medium shrink-0 ${av.bg} ${av.text}`}>
                                 {initials(apt.name)}
                               </div>
                               <div>
-                                <p className="font-medium text-gray-900 dark:text-white leading-tight">
-                                  {apt.name}
-                                </p>
-                                <p className="text-xs text-gray-400 mt-0.5">
-                                  {apt.email}
-                                </p>
+                                <p className="font-medium text-gray-900 dark:text-white leading-tight">{apt.name}</p>
+                                <p className="text-xs text-gray-400 mt-0.5">{apt.email}</p>
                               </div>
                             </div>
                           </td>
 
-                          <td className="px-5 py-4 text-gray-500 dark:text-white/80 hidden md:table-cell">
-                            {apt.service}
-                          </td>
+                          <td className="px-5 py-4 text-gray-500 dark:text-white/80 hidden md:table-cell">{apt.service}</td>
 
                           <td className="px-5 py-4">
                             <p className="text-gray-900 dark:text-white">{formatDate(apt.date)}</p>
@@ -438,10 +411,7 @@ const AppointmentsPage = () => {
                             <select
                               value={apt.status}
                               onChange={(e) =>
-                                handleStatusChange(
-                                  apt._id,
-                                  e.target.value as IAppointment["status"]
-                                )
+                                handleStatusChange(apt._id, e.target.value as IAppointment["status"])
                               }
                               className={`text-xs font-medium px-2.5 py-1 rounded-full border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-400 ${STATUS_STYLES[apt.status]}`}
                             >
@@ -454,21 +424,13 @@ const AppointmentsPage = () => {
 
                           <td className="px-5 py-4">
                             <div className="flex items-center justify-end gap-1">
-                              <Link
-                                href={`/appointments/${apt._id}`}
-                                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
-                                title="View details"
-                              >
+                              <Link href={`/appointments/${apt._id}`} className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors" title="View details">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z" />
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                               </Link>
-                              <Link
-                                href={`/appointments/${apt._id}/edit`}
-                                className="p-1.5 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
-                                title="Edit"
-                              >
+                              <Link href={`/appointments/${apt._id}/edit`} className="p-1.5 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors" title="Edit">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                 </svg>
@@ -483,12 +445,7 @@ const AppointmentsPage = () => {
               </table>
             </div>
 
-            <Pagination
-              page={page}
-              total={filtered.length}
-              pageSize={PAGE_SIZE}
-              onChange={setPage}
-            />
+            <Pagination page={page} total={filtered.length} pageSize={PAGE_SIZE} onChange={setPage} />
           </>
         )}
       </div>

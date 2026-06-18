@@ -200,6 +200,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                       { key: 'email', label: 'Email Address *', type: 'email', placeholder: 'john@example.com' },
                       { key: 'phone', label: 'Phone Number *', type: 'tel', placeholder: '+1 (555) 000-0000' },
                       { key: 'dob', label: 'Date of Birth', type: 'date', placeholder: '' },
+                      { key: 'age', label: 'Age', type: 'number', placeholder: '25' },
                     ].map(({ key, label, type, placeholder }) => (
                       <div key={key}>
                         <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{label}</label>

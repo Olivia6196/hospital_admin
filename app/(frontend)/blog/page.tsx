@@ -12,7 +12,7 @@ const posts = [
   { title: 'Managing Diabetes: A Comprehensive Guide', excerpt: 'Living with diabetes requires careful management. Our endocrinologists share practical tips for maintaining healthy blood sugar levels.', category: 'Wellness', date: 'Nov 8, 2024', image: '/images/news_six.webp', href: '/blog/diabetes-management' },
   { title: 'The Rise of Telemedicine: Changing Healthcare Access', excerpt: 'Telemedicine has revolutionized how patients access care. Discover the benefits and limitations of virtual healthcare visits.', category: 'Wellness', date: 'Nov 1, 2024', image: '/images/news_seven.webp', href: '/blog/telemedicine' },
   { title: 'Understanding Anxiety Disorders: Signs and Treatment', excerpt: 'Anxiety affects millions of people worldwide. Learn to recognize the signs and explore evidence-based treatment options.', category: 'Mental Health', date: 'Oct 25, 2024', image: '/images/anxiety.jpg', href: '/blog/anxiety-disorders' },
-  { title: 'Bone Health After 50: Prevention of Osteoporosis', excerpt: 'As we age, maintaining strong bones becomes increasingly important. Discover key strategies to prevent bone loss and fractures.', category: 'Wellness', date: 'Oct 18, 2024', image: '/images/news_nine.webp', href: '/blog/bone-health' },
+  { title: 'Bone Health After 50: Prevention of Osteoporosis', excerpt: 'As we age, maintaining strong bones becomes increasingly important. Discover key strategies to prevent bone loss and fractures.', category: 'Wellness', date: 'Oct 18, 2024', image: '/images/orthpedics.jpg', href: '/blog/bone-health' },
 ]
 
 const featured = posts[0]

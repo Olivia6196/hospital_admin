@@ -32,7 +32,7 @@ const allServices = [
     id: 'orthopedics', icon: Bone, color: 'bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400',
     title: 'Orthopedics', desc: 'Comprehensive care for musculoskeletal conditions including joint replacement, sports medicine, and spinal surgery.',
     features: ['Joint Replacement', 'Sports Medicine', 'Spinal Surgery', 'Physical Therapy'],
-    image: '/images/news_nine.webp'
+    image: '/images/orthpedics.jpg'
   },
   {
     id: 'pediatrics', icon: Baby, color: 'bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400',

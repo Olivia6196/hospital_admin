@@ -204,52 +204,37 @@ const AppointmentsPage = () => {
 
   const uniqueServices = [...new Set(appointments.map((r) => r.service))].sort();
 
-  const handleStatusChange = useCallback(
-  async (id: string, newStatus: IAppointment["status"]) => {
-    // Use functional update to always get the latest state
-    setAppointments((prev) => {
-      const appointment = prev.find((a) => a._id === id);
-      if (!appointment) return prev;
+ const handleStatusChange = useCallback(async (id: string, newStatus: IAppointment["status"]) => {
+  const previousAppointments = [...appointments]; // snapshot for revert
 
-      const oldStatus = appointment.status;
+  // Optimistic update
+  setAppointments(prev =>
+    prev.map(a => a._id === id ? { ...a, status: newStatus } : a)
+  );
 
-      // Optimistic update
-      const optimisticAppointments = prev.map((r) =>
-        r._id === id ? { ...r, status: newStatus } : r
-      );
-
-      // Fire the request
-      (async () => {
-        try {
-          const res = await fetch(`/api/appointments/${id}`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ status: newStatus }),
-          });
-
-          if (!res.ok) {
-            throw new Error(`HTTP ${res.status}`);
-          }
-
-        } catch (err) {
-          console.error("Status update failed:", err);
-          
-          // Revert on error
-          setAppointments((current) =>
-            current.map((r) =>
-              r._id === id ? { ...r, status: oldStatus } : r
-            )
-          );
-
-          toast.error("Failed to update status. Please try again.");
-        }
-      })();
-
-      return optimisticAppointments;
+  try {
+    const res = await fetch(`/api/appointments/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: newStatus }),
     });
-  },
-  []
-);
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP ${res.status}`);
+    }
+
+    toast.success("Status updated successfully");
+  } catch (err: any) {
+    console.error(err);
+    
+    // Revert optimistic update
+    setAppointments(previousAppointments);
+    
+    toast.error(err.message || "Failed to update status. Please try again.");
+  }
+}, [appointments]);
+
   return (
     <div className="flex flex-col gap-7 py-5 px-3 md:px-6">
       <Header title="Appointments" subtitle="Manage your appointments here." />

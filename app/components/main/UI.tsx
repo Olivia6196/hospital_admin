@@ -87,16 +87,13 @@ export function ServiceCard({ icon: Icon, title, desc, color }: {
       </div>
       <h3 className="font-display font-semibold text-gray-900 dark:text-white text-base mb-2">{title}</h3>
       <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
-      <Link href="/services" className="mt-4 flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-medium hover:gap-2 transition-all">
-        Learn more <ChevronRight size={14} />
-      </Link>
     </div>
   )
 }
 
 // Blog Card
-export function BlogCard({ title, excerpt, category, date, image, href }: {
-  title: string; excerpt: string; category: string; date: string; image: string; href: string
+export function BlogCard({ title, excerpt, category, date, image }: {
+  title: string; excerpt: string; category: string; date: string; image: string; 
 }) {
   return (
     <div className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
@@ -108,9 +105,6 @@ export function BlogCard({ title, excerpt, category, date, image, href }: {
         <p className="text-gray-400 dark:text-gray-500 text-xs mb-2">{date}</p>
         <h3 className="font-display font-semibold text-gray-900 dark:text-white text-base leading-snug mb-2 line-clamp-2">{title}</h3>
         <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-2 mb-4">{excerpt}</p>
-        <Link href={href} className="flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-medium hover:gap-2 transition-all">
-          Read more <ChevronRight size={14} />
-        </Link>
       </div>
     </div>
   )

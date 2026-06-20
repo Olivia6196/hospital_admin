@@ -34,15 +34,6 @@ export default function NotFound() {
           >
             {homeLabel}
           </Link>
-
-          {isDashboardPath && (
-            <Link
-              href="/"
-              className="px-6 py-3 rounded-lg border border-gray-300 font-semibold text-gray-700 hover:bg-gray-100 transition duration-300"
-            >
-              Home
-            </Link>
-          )}
         </div>
       </div>
     </section>

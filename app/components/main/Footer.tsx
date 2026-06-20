@@ -1,13 +1,50 @@
-import Link from 'next/link'
-import { Activity, Phone, Mail, MapPin, ArrowRight, Share2, LogIn } from 'lucide-react'
+'use client';
 
-const quickLinks = ['About Us', 'Services', 'Doctors', 'Appointments', 'Pricing', 'Blog', 'Contact']
-const services = ['Emergency Care', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Surgery']
+import Link from 'next/link';
+import { Activity, Phone, Mail, MapPin, ArrowRight, Share2, LogIn } from 'lucide-react';
+import { useState } from 'react';
+
+const quickLinks = ['About Us', 'Services', 'Doctors', 'Appointments', 'Pricing', 'Blog', 'Contact'];
+const services = ['Emergency Care', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Surgery'];
 
 export default function Footer() {
+  const [showToast, setShowToast] = useState(false);
+
+  const handleShare = async () => {
+    const shareData = {
+      title: document.title || "LiviaCore Hospital",
+      text: "Check out LiviaCore Hospital - Providing world-class healthcare with compassion.",
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share && navigator.canShare?.(shareData)) {
+        await navigator.share(shareData);
+        showSuccessToast();
+        return;
+      }
+    } catch (err) {
+      if (err instanceof Error && err.name !== 'AbortError') {
+        console.error('Share failed:', err);
+      }
+    }
+
+    const shareUrl = encodeURIComponent(window.location.href);
+    const shareText = encodeURIComponent("Check out LiviaCore Hospital - World-class healthcare");
+
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+    window.open(twitterUrl, '_blank', 'width=550,height=420');
+
+    showSuccessToast();
+  };
+
+  const showSuccessToast = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2500);
+  };
+
   return (
-    <footer className="bg-gray-950 text-white">
-      {/* CTA Banner */}
+    <footer className="bg-gray-950 text-white relative">
       <div className="bg-blue-600 py-12 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
@@ -15,21 +52,23 @@ export default function Footer() {
             <p className="text-blue-100 mt-1">Our emergency team is available 24/7 to help you.</p>
           </div>
           <div className="flex gap-4">
-            <a href="tel:+2348082233001"
-              className="flex items-center gap-2 px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all">
+            <a 
+              href="tel:+2348082233001"
+              className="flex items-center gap-2 px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all"
+            >
               <Phone size={18} /> Call Now
             </a>
-            <Link href="/appointments"
-              className="flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 border border-blue-500 transition-all">
+            <Link 
+              href="/appointments"
+              className="flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-xl hover:bg-blue-800 border border-blue-500 transition-all"
+            >
               Book Online
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {/* Brand */}
         <div>
           <div className="flex items-center gap-2.5 mb-4">
             <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center">
@@ -43,21 +82,26 @@ export default function Footer() {
           <p className="text-gray-400 text-sm leading-relaxed mb-5">
             Providing world-class healthcare with compassion and innovation since 1985. Your health is our priority.
           </p>
-          <div className="flex gap-3">
-            <a href="#" className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-blue-600 flex items-center justify-center text-gray-400 hover:text-white transition-all" title="Share">
-              <Share2 size={16} />
-            </a>
-          </div>
+          
+          <button
+            onClick={handleShare}
+            className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-blue-600 flex items-center justify-center text-gray-400 hover:text-white transition-all relative"
+            title="Share this website"
+            aria-label="Share LiviaCore Hospital website"
+          >
+            <Share2 size={16} />
+          </button>
         </div>
 
-        {/* Quick Links */}
         <div>
           <h4 className="font-display font-semibold text-white mb-5 text-base">Quick Links</h4>
           <ul className="space-y-2.5">
             {quickLinks.map(link => (
               <li key={link}>
-                <Link href={`/${link.toLowerCase().replace(' ', '-')}`}
-                  className="text-gray-400 hover:text-blue-400 text-sm flex items-center gap-2 transition-colors group">
+                <Link 
+                  href={`/${link.toLowerCase().replace(' ', '-')}`}
+                  className="text-gray-400 hover:text-blue-400 text-sm flex items-center gap-2 transition-colors group"
+                >
                   <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all" />
                   {link}
                 </Link>
@@ -66,14 +110,15 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Services */}
         <div>
           <h4 className="font-display font-semibold text-white mb-5 text-base">Our Services</h4>
           <ul className="space-y-2.5">
             {services.map(s => (
               <li key={s}>
-                <Link href="/services"
-                  className="text-gray-400 hover:text-blue-400 text-sm flex items-center gap-2 transition-colors group">
+                <Link 
+                  href="/services"
+                  className="text-gray-400 hover:text-blue-400 text-sm flex items-center gap-2 transition-colors group"
+                >
                   <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all" />
                   {s}
                 </Link>
@@ -82,7 +127,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Contact */}
         <div>
           <h4 className="font-display font-semibold text-white mb-5 text-base">Contact Info</h4>
           <div className="space-y-4">
@@ -107,16 +151,22 @@ export default function Footer() {
               </div>
               <p className="text-gray-400 text-sm">info@liviacore.hospital</p>
             </div>
-            </div>
+          </div>
         </div>
       </div>
 
-      {/* Bottom */}
       <div className="border-t border-gray-800 py-5 px-4">
         <div className="max-w-7xl text-center text-sm text-gray-500">
           <p>© 2026 LiviaCore Hospital. All rights reserved.</p>
         </div>
       </div>
+
+      {showToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-green-600 text-white text-sm px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 z-50">
+          <Share2 size={18} />
+          Thanks for sharing!
+        </div>
+      )}
     </footer>
-  )
+  );
 }

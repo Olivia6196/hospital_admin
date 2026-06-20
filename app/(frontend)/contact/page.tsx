@@ -67,7 +67,7 @@ export default function ContactPage() {
               color:
                 "bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400",
               title: "Email",
-              lines: ["info@medicore.hospital", "We reply within 24 hours"],
+              lines: ["liviacorehospital@gmail.com", "We reply within 24 hours"],
             },
             {
               icon: MapPin,

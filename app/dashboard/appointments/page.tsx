@@ -250,7 +250,7 @@ const AppointmentsPage = () => {
           Export CSV
         </button>
         <Link
-          href="/appointments/new"
+          href="/patients/add"
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-950/80 border border-white text-white text-sm font-medium hover:bg-gray-700 shadow-2xl backdrop-blur-2xl transition-colors"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -360,7 +360,7 @@ const AppointmentsPage = () => {
                 <tbody className="divide-y divide-gray-50">
                   {paginated.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="text-center py-16 text-sm text-gray-400">
+                      <td colSpan={6} className="text-center py-16 text-sm text-blue-950 dark:text-white">
                         No appointments match your filters.
                       </td>
                     </tr>
@@ -388,7 +388,7 @@ const AppointmentsPage = () => {
                             <p className="text-xs text-gray-400 mt-0.5">{apt.time}</p>
                           </td>
 
-                          <td className="px-5 py-4 text-gray-500 text-xs hidden lg:table-cell">
+                          <td className="px-5 py-4  text-blue-950 dark:text-white text-sm hidden lg:table-cell">
                             {apt.doctor ?? "First Available"}
                           </td>
 

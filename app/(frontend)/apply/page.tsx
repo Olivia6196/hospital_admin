@@ -133,7 +133,7 @@ export default function ApplyPage() {
             access your dashboard.
           </p>
           <button
-            onClick={() => router.push("/doctor")}
+            onClick={() => router.push("/doctors")}
             className="mt-8 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-black/90 dark:text-white transition-all hover:bg-brand-700 hover:scale-105"
           >
             Back to Doctors

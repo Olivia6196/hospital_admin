@@ -1,59 +1,103 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Calendar, Clock, User, ChevronDown, CheckCircle, Phone, Mail } from 'lucide-react'
 import { PageHero } from '@/app/components/main/UI'
 import { toast } from 'react-toastify'
 
-
-const services = ['General Consultation', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Ophthalmology', 'Emergency Care','Surgery', 'Dermatology', 'Gynecology', 'Psychiatry', 'Dental Care']
+const services = ['General Consultation', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Ophthalmology', 'Emergency Care', 'Surgery', 'Dermatology', 'Gynecology', 'Psychiatry', 'Dental Care']
 const timeSlots = ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM']
+
+type Doctor = {
+  id: string
+  name: string
+  specialty: string
+  // Add more fields as needed (experience, rating, availability, photo, etc.)
+}
 
 export default function AppointmentsPage() {
   const [step, setStep] = useState(1)
+  const [doctors, setDoctors] = useState<Doctor[]>([])
+  const [loadingDoctors, setLoadingDoctors] = useState(false)
+  
   const [form, setForm] = useState({
-    service: '', doctor: '', date: '', time: '',
-    name: '', email: '', phone: '', dob: '', gender: '', notes: ''
+    service: '', 
+    doctor: '', 
+    date: '', 
+    time: '',
+    name: '', 
+    email: '', 
+    phone: '', 
+    dob: '', 
+    gender: '', 
+    notes: ''
   })
   const [submitted, setSubmitted] = useState(false)
 
   const update = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }))
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  try {
-    const response = await fetch("/api/appointments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to book appointment");
+  // Fetch doctors when service changes
+  useEffect(() => {
+    if (!form.service) {
+      setDoctors([])
+      return
     }
 
-    toast.success("Appointment booked successfully!");
+    const fetchDoctors = async () => {
+      setLoadingDoctors(true)
+      try {
+        const response = await fetch(`/api/doctors?service=${encodeURIComponent(form.service)}`)
+        if (!response.ok) throw new Error('Failed to fetch doctors')
+        
+        const data: Doctor[] = await response.json()
+        setDoctors(data)
+        
+        // Auto-clear previous doctor selection if service changed
+        if (form.doctor && !data.some(d => d.name === form.doctor)) {
+          update('doctor', '')
+        }
+      } catch (error) {
+        console.error('Error fetching doctors:', error)
+        toast.error('Failed to load available doctors. Please try again.')
+        setDoctors([])
+      } finally {
+        setLoadingDoctors(false)
+      }
+    }
 
-    setSubmitted(true);
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Something went wrong. Please try again."
-    );
+    fetchDoctors()
+  }, [form.service])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    try {
+      const response = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
+
+      if (!response.ok) throw new Error("Failed to book appointment")
+
+      toast.success("Appointment booked successfully!")
+      setSubmitted(true)
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      )
+    }
   }
-};
 
   if (submitted) {
     return (
       <div className="bg-white dark:bg-gray-950 min-h-screen">
         <div className="bg-[url('/images/appointmentbg.jpg')] bg-cover bg-center relative">
-        <PageHero title="Appointment Confirmed!" />
-        <div className="absolute inset-0 bg-black/50" />
-      </div>
+          <PageHero title="Appointment Confirmed!" />
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
         
         <div className="flex items-center justify-center py-20 px-4">
           <div className="max-w-md w-full text-center bg-white dark:bg-gray-900 rounded-3xl p-10 border border-gray-100 dark:border-gray-800 shadow-xl">
@@ -76,8 +120,15 @@ const handleSubmit = async (e: React.FormEvent) => {
                 </div>
               ))}
             </div>
-            <button onClick={() => { setSubmitted(false); setStep(1); setForm({ service: '', doctor: '', date: '', time: '', name: '', email: '', phone: '', dob: '', gender: '', notes: '' }) }}
-              className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all">
+            <button 
+              onClick={() => { 
+                setSubmitted(false); 
+                setStep(1); 
+                setForm({ service: '', doctor: '', date: '', time: '', name: '', email: '', phone: '', dob: '', gender: '', notes: '' })
+                setDoctors([])
+              }}
+              className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all"
+            >
               Book Another Appointment
             </button>
           </div>
@@ -101,7 +152,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           {/* Progress Steps */}
           <div className="hidden md:flex items-center justify-center gap-4 mb-12">
             {[
-              { n: 1, label: 'Select Service' },
+              { n: 1, label: 'Select Service & Doctor' },
               { n: 2, label: 'Choose Date' },
               { n: 3, label: 'Your Info' },
               { n: 4, label: 'Confirm' },
@@ -127,53 +178,101 @@ const handleSubmit = async (e: React.FormEvent) => {
               {step === 1 && (
                 <div className="p-5 md:p-8">
                   <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6">Select Service</h3>
-                  <div className="space-y-5">
-                    <div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        {services.map(s => (
-                          <button type="button" key={s} onClick={() => update('service', s)}
-                            className={`px-3 py-2.5 rounded-xl text-sm font-medium border transition-all ${
-                              form.service === s
-                                ? 'bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-200 dark:shadow-blue-900/30'
-                                : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-300 dark:hover:border-blue-700'
-                            }`}>
-                            {s}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+                    {services.map(s => (
+                      <button 
+                        type="button" 
+                        key={s} 
+                        onClick={() => {
+                          update('service', s)
+                          // Doctor will be cleared by useEffect
+                        }}
+                        className={`px-3 py-2.5 rounded-xl text-sm font-medium border transition-all ${
+                          form.service === s
+                            ? 'bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-200 dark:shadow-blue-900/30'
+                            : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-300 dark:hover:border-blue-700'
+                        }`}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Doctor Selection */}
+                  <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6">Select Doctor</h3>
+                  {form.service ? (
+                    loadingDoctors ? (
+                      <div className="text-center py-12 text-gray-500">Loading available doctors...</div>
+                    ) : doctors.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {doctors.map(doctor => (
+                          <button
+                            type="button"
+                            key={doctor.id}
+                            onClick={() => update('doctor', doctor.name)}
+                            className={`p-6 rounded-2xl border-2 transition-all text-left ${
+                              form.doctor === doctor.name
+                                ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/30'
+                                : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700'
+                            }`}
+                          >
+                            <div className="font-semibold text-lg text-gray-900 dark:text-white">{doctor.name}</div>
+                            <div className="text-sm text-blue-600 dark:text-blue-400">{doctor.specialty}</div>
                           </button>
                         ))}
                       </div>
+                    ) : (
+                      <div className="text-center py-12 text-gray-500">
+                        No doctors available for the selected service at the moment.
+                      </div>
+                    )
+                  ) : (
+                    <div className="text-center py-12 text-gray-400 dark:text-gray-500 italic">
+                      Please select a service first
                     </div>
-                    <div>
-                    </div>
-                  </div>
-                  <div className="mt-8 flex justify-end">
-                    <button type="button" onClick={() => setStep(2)} disabled={!form.service}
-                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all">
+                  )}
+
+                  <div className="mt-10 flex justify-end">
+                    <button 
+                      type="button" 
+                      onClick={() => setStep(2)} 
+                      disabled={!form.service || !form.doctor}
+                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all"
+                    >
                       Continue
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* Step 2: Date & Time */}
               {step === 2 && (
                 <div className="p-8">
                   <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6">Choose Date & Time</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Preferred Date *</label>
-                      <input type="date" value={form.date} onChange={e => update('date', e.target.value)} min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <input 
+                        type="date" 
+                        value={form.date} 
+                        onChange={e => update('date', e.target.value)} 
+                        min={new Date().toISOString().split('T')[0]}
+                        className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Available Time Slots *</label>
                       <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
                         {timeSlots.map(t => (
-                          <button type="button" key={t} onClick={() => update('time', t)}
+                          <button 
+                            type="button" 
+                            key={t} 
+                            onClick={() => update('time', t)}
                             className={`py-2 rounded-xl text-xs font-medium border transition-all ${
                               form.time === t
                                 ? 'bg-blue-600 border-blue-600 text-white'
                                 : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-300 dark:hover:border-blue-700'
-                            }`}>
+                            }`}
+                          >
                             {t}
                           </button>
                         ))}
@@ -182,15 +281,18 @@ const handleSubmit = async (e: React.FormEvent) => {
                   </div>
                   <div className="mt-8 flex justify-between">
                     <button type="button" onClick={() => setStep(1)} className="px-6 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">Back</button>
-                    <button type="button" onClick={() => setStep(3)} disabled={!form.date || !form.time}
-                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all">
+                    <button 
+                      type="button" 
+                      onClick={() => setStep(3)} 
+                      disabled={!form.date || !form.time}
+                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all"
+                    >
                       Continue
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* Step 3: Patient Info */}
               {step === 3 && (
                 <div className="p-8">
                   <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6">Your Information</h3>
@@ -200,22 +302,31 @@ const handleSubmit = async (e: React.FormEvent) => {
                       { key: 'email', label: 'Email Address *', type: 'email', placeholder: 'john@example.com' },
                       { key: 'phone', label: 'Phone Number *', type: 'tel', placeholder: '+1 (555) 000-0000' },
                       { key: 'dob', label: 'Date of Birth', type: 'date', placeholder: '' },
-                      { key: 'age', label: 'Age', type: 'number', placeholder: '25' },
+                      { key: 'age', label: 'Age', type: 'number', placeholder: '25' }, // Note: age not in form state - add if needed
                     ].map(({ key, label, type, placeholder }) => (
                       <div key={key}>
                         <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{label}</label>
-                        <input type={type} value={(form as any)[key]} onChange={e => update(key, e.target.value)} placeholder={placeholder}
-                          className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <input 
+                          type={type} 
+                          value={(form as any)[key] || ''} 
+                          onChange={e => update(key, e.target.value)} 
+                          placeholder={placeholder}
+                          className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        />
                       </div>
                     ))}
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Gender</label>
                       <div className="flex gap-3">
                         {['Male', 'Female', 'Other'].map(g => (
-                          <button type="button" key={g} onClick={() => update('gender', g)}
+                          <button 
+                            type="button" 
+                            key={g} 
+                            onClick={() => update('gender', g)}
                             className={`flex-1 py-3 rounded-xl text-sm font-medium border transition-all ${
                               form.gender === g ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-300 dark:hover:border-blue-700'
-                            }`}>
+                            }`}
+                          >
                             {g}
                           </button>
                         ))}
@@ -223,21 +334,29 @@ const handleSubmit = async (e: React.FormEvent) => {
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Additional Notes</label>
-                      <textarea value={form.notes} onChange={e => update('notes', e.target.value)} rows={3} placeholder="Describe your symptoms or any relevant medical history..."
-                        className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" />
+                      <textarea 
+                        value={form.notes} 
+                        onChange={e => update('notes', e.target.value)} 
+                        rows={3} 
+                        placeholder="Describe your symptoms or any relevant medical history..."
+                        className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" 
+                      />
                     </div>
                   </div>
                   <div className="mt-8 flex justify-between">
                     <button type="button" onClick={() => setStep(2)} className="px-6 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">Back</button>
-                    <button type="button" onClick={() => setStep(4)} disabled={!form.name || !form.email || !form.phone}
-                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all">
+                    <button 
+                      type="button" 
+                      onClick={() => setStep(4)} 
+                      disabled={!form.name || !form.email || !form.phone}
+                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all"
+                    >
                       Review Appointment
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* Step 4: Confirm */}
               {step === 4 && (
                 <div className="p-8">
                   <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-6">Review & Confirm</h3>
@@ -245,8 +364,8 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-wider">Appointment Summary</h4>
                     <div className="grid md:grid-cols-2 gap-4">
                       {[
-                        { icon: Calendar, label: 'Service', value: form.service },
-                        { icon: User, label: 'Doctor', value: form.doctor || 'First Available' },
+                        { icon: User, label: 'Service', value: form.service },
+                        { icon: User, label: 'Doctor', value: form.doctor || 'Not selected' },
                         { icon: Calendar, label: 'Date', value: form.date },
                         { icon: Clock, label: 'Time', value: form.time },
                         { icon: User, label: 'Patient', value: form.name },
@@ -269,8 +388,10 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">By confirming, you agree to our <a href="#" className="text-blue-600 underline">Terms of Service</a> and <a href="#" className="text-blue-600 underline">Privacy Policy</a>.</p>
                   <div className="flex justify-between">
                     <button type="button" onClick={() => setStep(3)} className="px-6 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">Back</button>
-                    <button type="submit"
-                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-200 dark:shadow-blue-900/30 transition-all hover:scale-105">
+                    <button 
+                      type="submit"
+                      className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-200 dark:shadow-blue-900/30 transition-all hover:scale-105"
+                    >
                       Confirm Appointment
                     </button>
                   </div>
@@ -283,6 +404,3 @@ const handleSubmit = async (e: React.FormEvent) => {
     </div>
   )
 }
-
-
-

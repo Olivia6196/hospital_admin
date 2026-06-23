@@ -11,6 +11,7 @@ req: NextRequest,
 ) {
   try {
     await connectDB();
+    
      const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {

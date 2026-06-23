@@ -18,7 +18,7 @@ interface StaffMember {
   photoDataUrl?: string;
   status: string;
   submittedAt: string;
-}u
+}
 
 export default function NursesPage() {
   const [nurses, setNurses] = useState<StaffMember[]>([]);

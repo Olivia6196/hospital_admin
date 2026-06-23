@@ -5,19 +5,20 @@ import { connectDB } from "@/models";
 import authOptions from "@/lib/authOption";
 
 export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
+req: NextRequest,
+{ params }: { params: Promise<{ id: string }> }
+
 ) {
   try {
     await connectDB();
-
+     const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const notification = await Notification.findOneAndUpdate(
-      { _id: params.id, userId: session.user.id },
+      { _id: id, userId: session.user.id },
       { read: true },
       { new: true }
     );

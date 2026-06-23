@@ -100,7 +100,7 @@ export default function PatientsPage() {
         ))}
 
         <Link
-          href="/dashboard/patients/Add"
+          href="/dashboard/patients/add"
           className="ml-auto bg-blue-600 text-white dark:bg-blue-700 hover:bg-blue-800 transition-colors px-5 py-2.5 rounded-xl text-sm font-medium"
         >
           + Add Patient

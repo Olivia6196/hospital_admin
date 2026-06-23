@@ -25,7 +25,7 @@ export const DEPARTMENTS = [
   "Oncology",
   "Surgery",
   "Dental Care",
-  "Dermatogy",
+  "Dermatology",
   "Gynecology",
   "Ophthalmology",
   "Radiology",

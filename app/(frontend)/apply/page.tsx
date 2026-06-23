@@ -133,10 +133,10 @@ export default function ApplyPage() {
             access your dashboard.
           </p>
           <button
-            onClick={() => router.push("/")}
-            className="mt-8 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-700 hover:scale-105"
+            onClick={() => router.push("/doctor")}
+            className="mt-8 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-black/90 dark:text-white transition-all hover:bg-brand-700 hover:scale-105"
           >
-            Back to home
+            Back to Doctors
           </button>
         </div>
       </main>
@@ -211,7 +211,7 @@ export default function ApplyPage() {
                 <TextInput
                   id="phone"
                   type="tel"
-                  placeholder="+234 800 000 0000"
+                  placeholder=" 800 000 0000"
                   value={form.phone}
                   onChange={(e) => update("phone", e.target.value)}
                 />
@@ -263,7 +263,7 @@ export default function ApplyPage() {
               <FieldShell label="School attended" htmlFor="school" required error={errors.school}>
                 <TextInput
                   id="school"
-                  placeholder="University of Lagos"
+                  placeholder="Harvard Medical School"
                   value={form.school}
                   onChange={(e) => update("school", e.target.value)}
                 />

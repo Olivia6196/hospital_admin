@@ -2,6 +2,7 @@
 
 import Header from "@/app/components/Header";
 import { IAppointment } from "@/models/appointment";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -113,9 +114,9 @@ function Pagination({ page, total, pageSize, onChange }: PaginationProps) {
         <button
           onClick={() => onChange(page - 1)}
           disabled={page === 1}
-          className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+          className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-white hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
         >
-          ‹
+          <ChevronLeft size={20} />
         </button>
 
         {pages.map((p, i) =>
@@ -141,9 +142,9 @@ function Pagination({ page, total, pageSize, onChange }: PaginationProps) {
         <button
           onClick={() => onChange(page + 1)}
           disabled={page === totalPages}
-          className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
+          className="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-white hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-sm"
         >
-          ›
+          <ChevronRight size={20} />
         </button>
       </div>
     </div>
@@ -250,7 +251,7 @@ const AppointmentsPage = () => {
           Export CSV
         </button>
         <Link
-          href="/patients/add"
+          href="/dashboard/patients/add"
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-950/80 border border-white text-white text-sm font-medium hover:bg-gray-700 shadow-2xl backdrop-blur-2xl transition-colors"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

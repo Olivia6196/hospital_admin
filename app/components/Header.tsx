@@ -35,7 +35,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
       setLoading(true);
       const res = await fetch("/api/notifications", {
         method: "GET",
-        credentials: "include", // if using cookies/auth
+        credentials: "include", 
       });
 
       if (!res.ok) throw new Error("Failed to fetch");

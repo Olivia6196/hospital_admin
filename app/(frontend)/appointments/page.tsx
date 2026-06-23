@@ -12,7 +12,6 @@ type Doctor = {
   id: string
   name: string
   specialty: string
-  // Add more fields as needed (experience, rating, availability, photo, etc.)
 }
 
 export default function AppointmentsPage() {
@@ -52,7 +51,6 @@ export default function AppointmentsPage() {
         const data: Doctor[] = await response.json()
         setDoctors(data)
         
-        // Auto-clear previous doctor selection if service changed
         if (form.doctor && !data.some(d => d.name === form.doctor)) {
           update('doctor', '')
         }

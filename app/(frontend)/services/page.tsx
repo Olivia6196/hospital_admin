@@ -1,7 +1,10 @@
+"use client"
 import { Heart, Brain, Bone, Baby, Microscope, Zap, Eye, Wind, Activity, Pill, Stethoscope, Shield, CheckCircle, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { PageHero, SectionHeader } from '@/app/components/main/UI'
 import Image from 'next/image'
+import { useEffect } from 'react'
+import { useLoading } from '@/hooks/useLoading'
 
 const allServices = [
   {
@@ -61,6 +64,18 @@ const allServices = [
 ]
 
 export default function ServicesPage() {
+  const { showLoading, hideLoading } = useLoading();
+  
+    useEffect(() => {
+      showLoading();
+      
+      const timer = setTimeout(() => {
+        hideLoading();
+      }, 500);
+      return () => clearTimeout(timer);
+  
+    }, []);
+  
   return (
     <div className="bg-white dark:bg-gray-950">
       <div className="bg-[url('/images/dashboard_img.webp')] bg-cover bg-center relative">

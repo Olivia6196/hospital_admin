@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Calendar, Clock, User, ChevronDown, CheckCircle, Phone, Mail } from 'lucide-react'
 import { PageHero } from '@/app/components/main/UI'
 import { toast } from 'react-toastify'
+import { useLoading } from '@/hooks/useLoading'
 
 const services = ['General Consultation', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Ophthalmology', 'Emergency Care', 'Surgery', 'Dermatology', 'Gynecology', 'Psychiatry', 'Dental Care']
 const timeSlots = ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM']
@@ -15,6 +16,7 @@ type Doctor = {
 }
 
 export default function AppointmentsPage() {
+  const { showLoading, hideLoading } = useLoading();
   const [step, setStep] = useState(1)
   const [doctors, setDoctors] = useState<Doctor[]>([])
   const [loadingDoctors, setLoadingDoctors] = useState(false)
@@ -37,9 +39,15 @@ export default function AppointmentsPage() {
 
   // Fetch doctors when service changes
   useEffect(() => {
+     showLoading();
+        
+        const timer = setTimeout(() => {
+          hideLoading();
+        }, 500);
+
     if (!form.service) {
       setDoctors([])
-      return
+      return () => clearTimeout(timer)
     }
 
     const fetchDoctors = async () => {

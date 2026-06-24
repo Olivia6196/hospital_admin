@@ -31,6 +31,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import CountUp from "react-countup";
 import Image from "next/image";
+import { useLoading } from "@/hooks/useLoading";
 
 const doctors = [
   {
@@ -163,6 +164,17 @@ const stats = [
 export default function Home() {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: "-100px" });
+
+  const { showLoading, hideLoading } = useLoading();
+    
+      useEffect(() => {
+        showLoading();
+        
+        const timer = setTimeout(() => {
+          hideLoading();
+        }, 500);
+    
+      }, []);
 
   // used to force CountUp re-animation
   const [key, setKey] = useState(0);

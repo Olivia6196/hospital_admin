@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PageHero } from "@/app/components/main/UI";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import { useLoading } from "@/hooks/useLoading";
 
 const locations = [
   {
@@ -34,6 +35,16 @@ export default function ContactPage() {
     message: "",
   });
   const [sent, setSent] = useState(false);
+  const { showLoading, hideLoading } = useLoading();
+    
+      useEffect(() => {
+        showLoading();
+        
+        const timer = setTimeout(() => {
+          hideLoading();
+        }, 500);
+    return () => clearTimeout(timer);
+      }, []);
 
   const update = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));
 

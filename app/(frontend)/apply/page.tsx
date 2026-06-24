@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Loader2, UploadCloud } from "lucide-react";
 import { StaffRole } from "@/models";
 import { DEPARTMENTS, StaffApplication } from "@/lib/types";
 import { FieldShell, Select, TextArea, TextInput } from "@/app/components/submain/FormField";
+import { useLoading } from "@/hooks/useLoading";
 
 const ROLE_OPTIONS: { value: StaffRole; label: string; desc: string }[] = [
   { value: "doctor", label: "Doctor", desc: "Physician or specialist" },
@@ -43,6 +44,17 @@ export default function ApplyPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const { showLoading, hideLoading } = useLoading();
+    
+      useEffect(() => {
+        showLoading();
+        
+        const timer = setTimeout(() => {
+          hideLoading();
+        }, 500);
+        return () => clearTimeout(timer);
+    
+      }, []);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));

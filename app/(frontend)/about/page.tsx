@@ -1,7 +1,10 @@
+"use client"
 import { PageHero, SectionHeader, StatCard } from '@/app/components/main/UI'
+import { useLoading } from '@/hooks/useLoading'
 import { Users, Award, Heart, Clock, Shield, Zap, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 const team = [
   { name: 'Dr. Sarah Johnson', role: 'C.M.O & Head of Cardiology', image: '/images/doctor1.jpg' },
@@ -19,6 +22,17 @@ const milestones = [
 ]
 
 export default function AboutPage() {
+  const { showLoading, hideLoading } = useLoading();
+
+  useEffect(() => {
+    showLoading();
+    
+    const timer = setTimeout(() => {
+      hideLoading();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="bg-white dark:bg-gray-950">
       <div className="bg-[url('/images/aboutbg.jpg')] bg-cover bg-center relative">

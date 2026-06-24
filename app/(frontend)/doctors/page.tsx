@@ -4,6 +4,7 @@ import { Star, Phone, Mail, Calendar, ChevronRight, Search, ChevronLeft } from '
 import Link from 'next/link';
 import { useState, useMemo, useEffect } from 'react';
 import { PageHero } from '@/app/components/main/UI';
+import { useLoading } from '@/hooks/useLoading';
 
 const DOCTORS_PER_PAGE = 12;
 
@@ -28,9 +29,16 @@ export default function DoctorsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
+  const { showLoading, hideLoading } = useLoading();
 
   // Fetch approved doctors
   useEffect(() => {
+    showLoading();
+        
+        const timer = setTimeout(() => {
+          hideLoading();
+        }, 500);
+    
     const fetchDoctors = async () => {
       try {
         setLoading(true);
@@ -51,6 +59,7 @@ export default function DoctorsPage() {
     };
 
     fetchDoctors();
+    return () => clearTimeout(timer);
   }, []);
 
   const filtered = useMemo(() => {

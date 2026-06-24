@@ -1,6 +1,9 @@
+"use client"
 import { CheckCircle, X, ArrowRight, Shield, Phone } from 'lucide-react'
 import Link from 'next/link'
 import { PageHero, SectionHeader } from '@/app/components/main/UI'
+import { useLoading } from '@/hooks/useLoading'
+import { useEffect } from 'react'
 
 const plans = [
   {
@@ -75,6 +78,16 @@ const faqs = [
 ]
 
 export default function PricingPage() {
+  const { showLoading, hideLoading } = useLoading();
+    
+      useEffect(() => {
+        showLoading();
+        
+        const timer = setTimeout(() => {
+          hideLoading();
+        }, 500);
+    return () => clearTimeout(timer);
+      }, []);
   return (
     <div className="bg-white dark:bg-gray-950">
       <div className="bg-[url('/images/pricebg.jpg')] bg-cover bg-center relative">

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectDB, StaffApplicationModel } from "@/models";
 
 export async function POST(request: Request) {
@@ -19,12 +19,52 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await connectDB();
-    const applications = await StaffApplicationModel.find().sort({ createdAt: -1 });
+
+    const { searchParams } = new URL(request.url);
+
+    const role = searchParams.get("role");
+    const status = searchParams.get("status");
+    const limit = parseInt(searchParams.get("limit") || "9");
+    const skip = parseInt(searchParams.get("skip") || "0");
+
+    const query: any = {};
+
+    if (role) query.role = role;
+    if (status) query.status = status;
+
+    const applications = await StaffApplicationModel.find(query)
+      .sort({ submittedAt: -1, createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
     return NextResponse.json(applications, { status: 200 });
   } catch (error: any) {
+    console.error("Error fetching applications:", error);
     return NextResponse.json({ message: error.message || "Failed to fetch applications" }, { status: 500 });
+  }
+}
+
+// Optional: Keep PATCH for updating status
+export async function PATCH(request: Request) {
+  try {
+    await connectDB();
+    const { id, status } = await request.json();
+
+    const updated = await StaffApplicationModel.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    if (!updated) {
+      return NextResponse.json({ message: "Application not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, application: updated });
+  } catch (error: any) {
+    return NextResponse.json({ message: error.message || "Failed to update" }, { status: 500 });
   }
 }

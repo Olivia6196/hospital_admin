@@ -31,64 +31,69 @@ export default function DoctorsPage() {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   const observerTarget = useRef<HTMLDivElement>(null);
+const fetchInitialData = async () => {
+  try {
+    setLoading(true);
+    
+    // Fetch ALL applications for pending (we need to filter nurses etc. on frontend here)
+    const allRes = await fetch('/api/staff-applications');
+    const allApps: StaffMember[] = await allRes.json();
 
-  const fetchInitialData = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch('/api/staff-applications');
-      const allApps: StaffMember[] = await res.json();
+    const pendingDoctors = allApps.filter(
+      app => app.role === 'doctor' && app.status === 'pending'
+    );
 
-      const pendingDoctors = allApps.filter(
-        app => app.role === 'doctor' && app.status === 'pending'
-      );
+    setPendingApplications(pendingDoctors);
 
-      setPendingApplications(pendingDoctors);
+    // Load first page of APPROVED DOCTORS only
+    await loadMoreDoctors(1, true);
+  } catch (error) {
+    console.error('Failed to fetch doctors:', error);
+  } finally {
+    setLoading(false);
+  }
+};
 
-      // Load first page of approved doctors
-      await loadMoreDoctors(1, true);
-    } catch (error) {
-      console.error('Failed to fetch doctors:', error);
-    } finally {
-      setLoading(false);
+const loadMoreDoctors = async (currentPage: number, reset = false) => {
+  if (loadingMore) return;
+
+  setLoadingMore(true);
+  try {
+    const skip = (currentPage - 1) * DOCTORS_PER_PAGE;
+    
+    // Explicitly filter for doctors only
+    const res = await fetch(
+      `/api/staff-applications?role=doctor&status=approved&limit=${DOCTORS_PER_PAGE}&skip=${skip}`
+    );
+
+    if (!res.ok) throw new Error('Failed to fetch doctors');
+
+    const newDoctors: StaffMember[] = await res.json();
+
+    // Extra safety filter on frontend
+    const validDoctors = newDoctors.filter(d => d.role === 'doctor');
+
+    if (reset) {
+      setDoctors(validDoctors);
+    } else {
+      setDoctors(prev => [...prev, ...validDoctors]);
     }
-  };
 
-  const loadMoreDoctors = async (currentPage: number, reset = false) => {
-    if (loadingMore) return;
-
-    setLoadingMore(true);
-    try {
-      const skip = (currentPage - 1) * DOCTORS_PER_PAGE;
-      
-      const res = await fetch(
-        `/api/staff-applications?role=doctor&status=approved&limit=${DOCTORS_PER_PAGE}&skip=${skip}`
-      );
-
-      if (!res.ok) throw new Error('Failed to fetch');
-
-      const newDoctors: StaffMember[] = await res.json();
-
-      if (reset) {
-        setDoctors(newDoctors);
-      } else {
-        setDoctors(prev => [...prev, ...newDoctors]);
-      }
-
-      setHasMore(newDoctors.length === DOCTORS_PER_PAGE);
-      setPage(currentPage);
-    } catch (error) {
-      console.error('Failed to load more doctors:', error);
-    } finally {
-      setLoadingMore(false);
-    }
-  };
+    setHasMore(newDoctors.length === DOCTORS_PER_PAGE);
+    setPage(currentPage);
+  } catch (error) {
+    console.error('Failed to load more doctors:', error);
+  } finally {
+    setLoadingMore(false);
+  }
+};
 
   const handleObserver = useCallback((entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
     if (target.isIntersecting && hasMore && !loadingMore && !loading) {
       loadMoreDoctors(page + 1);
     }
-  }, [hasMore, loadingMore, loading, page]);
+  }, []);
 
   useEffect(() => {
     fetchInitialData();

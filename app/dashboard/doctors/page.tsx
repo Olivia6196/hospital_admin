@@ -93,7 +93,7 @@ const loadMoreDoctors = async (currentPage: number, reset = false) => {
     if (target.isIntersecting && hasMore && !loadingMore && !loading) {
       loadMoreDoctors(page + 1);
     }
-  }, []);
+  }, [hasMore, loadingMore, loading, page]);
 
   useEffect(() => {
     fetchInitialData();

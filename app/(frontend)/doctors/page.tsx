@@ -8,7 +8,7 @@ import { useLoading } from '@/hooks/useLoading';
 
 const DOCTORS_PER_PAGE = 12;
 
-const specialties = ['All', 'Cardiology', 'Neurology', 'Orthopedics', 'Pediatrics', 'Oncology', 'Surgery', 'Ophthalmology', 'Dermatology', 'Gynecology', 'Psychiatry', 'Emergency Care', 'Dental Care'];
+const specialties = ['All', 'Cardiology', 'Neurology', 'Orthopedics', 'Radiology', 'Pediatrics', 'Oncology', 'Surgery', 'Ophthalmology', 'Dermatology', 'Gynecology', 'Psychiatry', 'Emergency Care', 'Dental Care'];
 
 interface Doctor {
   _id: string;

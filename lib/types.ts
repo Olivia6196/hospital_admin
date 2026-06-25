@@ -29,4 +29,5 @@ export const DEPARTMENTS = [
   "Gynecology",
   "Ophthalmology",
   "Radiology",
+  "Psychiatry"
 ];

@@ -7,7 +7,7 @@ export default function Loading({ size = "md" }: { size?: "sm" | "md" | "lg" }) 
   };
 
   return (
-    <div className="fixed inset-0 z-99 mt-22 flex items-center justify-center bg-white dark:bg-black backdrop-blur-md">
+    <div className="fixed inset-0 z-99 mt-22 flex items-center justify-center bg-white/90 dark:bg-black/90 backdrop-blur-md">
       <div className={`animate-spin ${sizeClasses[size]}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

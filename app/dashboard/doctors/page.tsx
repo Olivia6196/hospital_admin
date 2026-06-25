@@ -3,6 +3,7 @@
 import Header from '@/app/components/Header';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { CheckCircle2, XCircle, Mail, UserPlus, Clock } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 interface StaffMember {
   _id: string;
@@ -61,7 +62,6 @@ const loadMoreDoctors = async (currentPage: number, reset = false) => {
   try {
     const skip = (currentPage - 1) * DOCTORS_PER_PAGE;
     
-    // Explicitly filter for doctors only
     const res = await fetch(
       `/api/staff-applications?role=doctor&status=approved&limit=${DOCTORS_PER_PAGE}&skip=${skip}`
     );
@@ -123,20 +123,20 @@ const loadMoreDoctors = async (currentPage: number, reset = false) => {
       });
 
       if (res.ok) {
-        await fetchInitialData(); // Refresh everything
+        await fetchInitialData(); 
       } else {
-        alert('Failed to update status');
+        toast.error('Failed to update status');
       }
     } catch (error) {
       console.error(error);
-      alert('Something went wrong');
+      toast.error('Something went wrong');
     } finally {
       setActionLoading(null);
     }
   };
 
   const sendInterviewEmail = (email: string, name: string) => {
-    alert(`Interview email would be sent to ${name} (${email})`);
+    toast.info(`Interview email would be sent to ${name} (${email})`);
   };
 
   return (

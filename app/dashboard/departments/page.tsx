@@ -1,4 +1,3 @@
-// app/departments/page.tsx
 "use client";
 
 import Header from '@/app/components/Header';

@@ -30,7 +30,7 @@ export async function GET() {
       },
       {
         $group: {
-          _id: "$ward",
+          _id: "$condition",
           patientCount: { $sum: 1 }
         }
       }

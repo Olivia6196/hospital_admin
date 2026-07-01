@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectDB, StaffApplicationModel } from "@/models";
+import { connectDB, Admin, StaffApplicationModel } from "@/models";
+import Notification from "@/models/Notification";
 
 export async function POST(request: Request) {
   try {
@@ -12,6 +13,28 @@ export async function POST(request: Request) {
       status: "pending",
       submittedAt: new Date().toISOString(),
     });
+
+    try {
+      const admins = await Admin.find({ role: "admin" }).select("_id").lean();
+
+      if (admins.length > 0) {
+        await Promise.all(
+          admins.map((admin) =>
+            Notification.create({
+              userId: admin._id,
+              title: "New Team Application Submitted",
+              message: `New ${application.role} application from ${application.fullName}`,
+              type: "alert",
+            })
+          )
+        );
+        console.log("✅ Notification created for new staff application");
+      } else {
+        console.warn("No admin user found for staff application notification");
+      }
+    } catch (notificationError) {
+      console.error("Staff application notification failed:", notificationError);
+    }
 
     return NextResponse.json({ success: true, application }, { status: 201 });
   } catch (error: any) {

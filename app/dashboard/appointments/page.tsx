@@ -157,7 +157,7 @@ const AppointmentsPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("Pending");
   const [serviceFilter, setServiceFilter] = useState("");
   const [page, setPage] = useState(1);
 
@@ -226,6 +226,10 @@ const AppointmentsPage = () => {
     }
 
     toast.success("Status updated successfully");
+
+    if (newStatus === "Confirmed") {
+      setAppointments(prev => prev.filter((apt) => apt._id !== id));
+    }
   } catch (err: any) {
     console.error(err);
     

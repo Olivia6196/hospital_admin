@@ -144,15 +144,6 @@ export default async function PatientDetailsPage({
             </div>
           </div>
         </div>
-
-        <div className="flex gap-4 justify-end">
-          <button className=" bg-[#1a1a1f] hover:bg-white hover:text-blue-950 transition-all rounded-lg p-4 flex items-center justify-center gap-3 text-sm font-medium">
-            📊 Lab results
-          </button>
-          <button className=" bg-linear-to-b from-blue-400 to-blue-950 hover:bg-[#25252b] transition-all rounded-lg p-4 flex items-center justify-center gap-3 text-sm font-medium">
-            📋 Discharge summary
-          </button>
-        </div>
       </div>
     </div>
   );

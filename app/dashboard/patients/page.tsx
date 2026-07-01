@@ -8,7 +8,6 @@ const statusStyles: Record<string, { bg: string; color: string }> = {
   Admitted: { bg: "rgba(78,157,224,0.15)", color: "#4e9de0" },
   Outpatient: { bg: "rgba(92,201,160,0.15)", color: "#5cc9a0" },
   Discharged: { bg: "rgba(138,155,176,0.15)", color: "#8a9bb0" },
-  Critical: { bg: "rgba(224,92,92,0.15)", color: "#e05c5c" },
 };
 
 type Patient = {

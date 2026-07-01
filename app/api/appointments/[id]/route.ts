@@ -128,11 +128,21 @@ function getPatientStatusFromCondition(service?: string) {
   if (s.includes("emergency") || s.includes("critical") || s.includes("icu")) {
     return { patientStatus: "Critical" as const, ward: "ICU" };
   }
+
   if (s.includes("surgery") || s.includes("admission") || s.includes("inpatient")) {
     return { patientStatus: "Admitted" as const, ward: "Surgical Ward" };
   }
+
+  if (s.includes("cardiology") || s.includes("neurology") || s.includes("oncology") || s.includes("orthopedics") || s.includes("psychiatry") || s.includes("gynecology")) {
+    return { patientStatus: "Admitted" as const, ward: "Special Care Ward" };
+  }
+
   if (s.includes("maternity") || s.includes("delivery")) {
     return { patientStatus: "Admitted" as const, ward: "Maternity Ward" };
+  }
+
+  if (s.includes("pediatrics")) {
+    return { patientStatus: "Admitted" as const, ward: "Pediatrics Ward" };
   }
 
   return { patientStatus: "Outpatient" as const, ward: "General Ward" };

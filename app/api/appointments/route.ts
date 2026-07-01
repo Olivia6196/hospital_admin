@@ -1,6 +1,6 @@
-import { connectDB } from "@/models";
+import { connectDB, Admin } from "@/models";
 import { Appointment } from "@/models/appointment";
-import Notification from "@/models/Notification";   // ← Add this
+import Notification from "@/models/Notification";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -25,23 +25,27 @@ export async function POST(req: Request) {
     const body = await req.json();
 
     const appointment = await Appointment.create(body);
-
-    // ================== SEND NOTIFICATION ==================
     try {
-      // You can customize this logic based on your needs
-      await Notification.create({
-        userId: appointment.doctorId || appointment.doctor || body.doctorId, // Adjust field name as per your schema
-        title: "New Appointment Booked",
-        message: `New appointment scheduled for ${appointment.patientName || body.patientName} on ${appointment.date || body.date}`,
-        type: "appointment", // or "new_appointment"
-      });
+      const admins = await Admin.find({ role: "admin" }).select("_id").lean();
 
-      console.log("✅ Notification created for new appointment");
+      if (admins.length > 0) {
+        await Promise.all(
+          admins.map((admin) =>
+            Notification.create({
+              userId: admin._id,
+              title: "New Appointment Booked",
+              message: `New appointment scheduled for ${appointment.name || body.name} on ${appointment.date || body.date}`,
+              type: "appointment",
+            })
+          )
+        );
+        console.log("✅ Notification created for new appointment");
+      } else {
+        console.warn("No admin user found for appointment notification");
+      }
     } catch (notificationError) {
       console.error("Notification failed but appointment succeeded:", notificationError);
-      // We don't want notification failure to block appointment creation
     }
-    // ======================================================
 
     return NextResponse.json(appointment, {
       status: 201,

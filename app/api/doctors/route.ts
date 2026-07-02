@@ -6,27 +6,25 @@ export async function GET(request: NextRequest) {
   try {
     const service = request.nextUrl.searchParams.get('service');
 
-    if (!service) {
-      return NextResponse.json({ error: 'Service is required' }, { status: 400 });
-    }
-
     await connectDB();
-    const doctors = await StaffApplicationModel.find({
-      role: "doctor",
-      status: "approved",
-      department: service,                    // Match department with selected service
-    })
-      .select('fullName department yearsOfExperience bio photoDataUrl') // Add more fields if needed
+
+    const query: any = { role: "doctor", status: "approved" };
+    if (service) query.department = service;
+
+    const doctors = await StaffApplicationModel.find(query)
+      .select('fullName department yearsOfExperience bio photoDataUrl status role submittedAt')
       .lean();
 
-    // Transform data to match frontend expectation
     const formattedDoctors = doctors.map((doc: any) => ({
-      id: doc._id.toString(),
-      name: doc.fullName,
-      specialty: doc.department,
-      experience: doc.yearsOfExperience,
+      _id: doc._id?.toString() || doc.id || null,
+      fullName: doc.fullName,
+      department: doc.department,
+      yearsOfExperience: doc.yearsOfExperience,
       bio: doc.bio,
-      image: doc.photoDataUrl,
+      photoDataUrl: doc.photoDataUrl,
+      status: doc.status,
+      role: doc.role,
+      submittedAt: doc.submittedAt,
     }));
 
     return NextResponse.json(formattedDoctors);

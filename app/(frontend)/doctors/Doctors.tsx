@@ -1,5 +1,5 @@
 "use client";
-import { Star, Phone, Mail, Calendar, ChevronRight, Search, ChevronLeft } from 'lucide-react';
+import {  Phone, Mail, Calendar, ChevronRight, Search, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useMemo, useEffect } from 'react';
 import { PageHero } from '@/app/components/main/UI';
@@ -28,7 +28,6 @@ export default function DoctorsPage() {
   const [loading, setLoading] = useState(true);
   const { showLoading, hideLoading } = useLoading();
 
-  // Fetch approved doctors
   useEffect(() => {
     showLoading();
         
@@ -39,15 +38,10 @@ export default function DoctorsPage() {
     const fetchDoctors = async () => {
       try {
         setLoading(true);
-        const res = await fetch('/api/staff-applications');
-        const allApps = await res.json();
+        const res = await fetch('/api/doctors');
+        const allDocs = await res.json();
 
-        // Only approved doctors
-        const approvedDoctors = allApps.filter((app: Doctor) => 
-          app.role === 'doctor' && app.status === 'approved'
-        );
-
-        setDoctors(approvedDoctors);
+        setDoctors(allDocs);
       } catch (error) {
         console.error('Failed to fetch doctors:', error);
       } finally {

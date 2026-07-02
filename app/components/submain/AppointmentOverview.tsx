@@ -18,6 +18,22 @@ function formatDate(date: string) {
   });
 }
 
+function getFirstFivePerDay(appointments: IAppointment[]) {
+  const grouped = new Map<string, IAppointment[]>();
+
+  for (const appointment of appointments) {
+    const dateKey = appointment.date;
+    const group = grouped.get(dateKey) ?? [];
+
+    if (group.length < 5) {
+      group.push(appointment);
+      grouped.set(dateKey, group);
+    }
+  }
+
+  return Array.from(grouped.values()).flat();
+}
+
 export default function AppointmentOverview() {
   const [appointments, setAppointments] = useState<IAppointment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,7 +77,7 @@ export default function AppointmentOverview() {
         <p className="mt-4 text-sm text-gray-300">No appointments found.</p>
       ) : (
         <ul className="mt-4 space-y-3">
-          {appointments.slice(0, 5).map((a) => (
+          {getFirstFivePerDay(appointments).map((a) => (
             <li
               key={a._id}
               className="flex items-center gap-4 dark:bg-blue-500/10 backdrop-blur-2xl shadow rounded-xl p-3"

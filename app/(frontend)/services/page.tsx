@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import ServicesPage from "./Services";
 
 export const metadata: Metadata = {
-  title: "Home — Comprehensive Healthcare Services",
-  description: "Discover expert medical services, patient-centered care, and 24/7 support at LiviaCore Hospital.",
+  title: "What we offer — LiviaCore Hospital",
+  description: "our hospital offers a wide range of medical services to ensure the health and well-being of our patients.",
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "LiviaCore Hospital — Expert Medical Care",
-    description: "Discover expert medical services, patient-centered care, and 24/7 support.",
+    title: "What we offer — LiviaCore Hospital",
+    description: "our hospital offers a wide range of medical services to ensure the health and well-being of our patients.",
     images: [
       {
         url: "/images/og-image.jpg", // recommended: create a good OG image

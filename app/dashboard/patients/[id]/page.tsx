@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Header from "@/app/components/Header";
 import { connectDB, Patient } from "@/models";
 
@@ -12,6 +13,16 @@ import {
   FaHeartbeat,
   FaCalendarAlt,
 } from "react-icons/fa";
+
+export const metadata: Metadata = {
+  title: "Patient Details — LiviaCore Admin",
+  description: "Review individual patient details and medical history in the admin dashboard.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 
 export default async function PatientDetailsPage({
   params,

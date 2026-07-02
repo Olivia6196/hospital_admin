@@ -1,14 +1,30 @@
-import Header from '@/app/components/Header'
-import React from 'react'
+import type { Metadata } from "next";
+import StaffsPage from "./Staffs";
 
-const page = () => {
-  return (
-    <div className="flex flex-col gap-7 p-5">
-          <Header title="Staffs" subtitle="25 staffs" />
-    
-    
-        </div>
-  )
+export const metadata: Metadata = {
+  title: "Dashboard — Staffs",
+  description: "Manage your staff information at LiviaCore Hospital.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "Dashboard — Staffs",
+    description: "Manage your staff information at LiviaCore Hospital.",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "LiviaCore Hospital",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
+
+export default function Staffs() {
+  return <StaffsPage />;
 }
-
-export default page

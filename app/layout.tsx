@@ -5,8 +5,8 @@ import { dancingScript, inter } from "@/ui/fonts";
 import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
-  title: "LiviaCore Admin - Hospital Dashboard",
-  description: "General Hospital Administration System",
+  title: "LiviaCore Hospital — General Hospital Administration System",
+  description: "LiviaCore Hospital is a leading healthcare institution providing comprehensive medical services and patient care.",
 };
 
 export default function RootLayout({

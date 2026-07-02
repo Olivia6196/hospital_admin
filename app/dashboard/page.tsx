@@ -6,6 +6,17 @@ import AppointmentOverview from "../components/submain/AppointmentOverview"
 import PatientsTable from "../components/submain/PatientsTable"
 import StaffOverview from "../components/submain/StaffOverview"
 import StatCard from "../components/submain/StatCard"
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard - LiviaCore Admin",
+  description: "Manage hospital operations, patients, appointments, and staff from the LiviaCore admin dashboard.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 
 const page = () => {
   return (

@@ -18,10 +18,6 @@ export async function GET(request: NextRequest) {
       .sort({ yearsOfExperience: -1 });
 
     const parsedLimit = Number(limitParam);
-    if (Number.isInteger(parsedLimit) && parsedLimit > 0) {
-      doctorsQuery.limit(parsedLimit);
-    }
-
     const doctors = await doctorsQuery.lean();
 
     const filteredDoctors =

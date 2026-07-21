@@ -53,6 +53,12 @@ export async function GET() {
   const occupancyPctAWeekAgo = TOTAL_BEDS > 0 ? (occupiedBedsAWeekAgo / TOTAL_BEDS) * 100 : 0;
   const bedsChangePts = occupancyPct - occupancyPctAWeekAgo;
 
+  // ---- Homepage highlights: derived from real data in MongoDB ----
+  const successfulOutcomes = await Patient.countDocuments({
+    status: { $in: ["Outpatient", "Discharged"] },
+  });
+  const successRate = totalPatients > 0 ? (successfulOutcomes / totalPatients) * 100 : 0;
+
   // ---- Revenue: placeholder, no Invoice/Billing model yet ----
   const monthlyRevenue = 0;
   const lastMonthRevenue = 0;
@@ -79,5 +85,10 @@ export async function GET() {
       change: `${Math.abs(revenueChangePct).toFixed(1)}% from last month`,
       positive: revenueChangePct >= 0,
     },
+    homepageHighlights: [
+      { value: totalPatients.toLocaleString(), label: "Patients Served" },
+      { value: totalDoctors.toString(), label: "Specialists" },
+      { value: `${successRate.toFixed(0)}%`, label: "Success Rate" },
+    ],
   });
 }

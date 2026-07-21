@@ -33,7 +33,7 @@ import { motion, useInView } from "framer-motion";
 import CountUp from "react-countup";
 import Image from "next/image";
 import { useLoading } from "@/hooks/useLoading";
-const doctors = [
+const fallbackDoctors = [
   {
     name: "Dr. Sarah Johnson",
     specialty: "Cardiologist",
@@ -166,15 +166,42 @@ export default function HomeClient() {
   const isInView = useInView(ref, { margin: "-100px" });
 
   const { showLoading, hideLoading } = useLoading();
-    
-      useEffect(() => {
-        showLoading();
-        
-        const timer = setTimeout(() => {
-          hideLoading();
-        }, 500);
-    
-      }, []);
+  const [featuredDoctors, setFeaturedDoctors] = useState(fallbackDoctors);
+
+  useEffect(() => {
+    showLoading();
+
+    const timer = setTimeout(() => {
+      hideLoading();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [hideLoading, showLoading]);
+
+  useEffect(() => {
+    const fetchFeaturedDoctors = async () => {
+      try {
+        const res = await fetch("/api/doctors?limit=4");
+        const data = await res.json();
+
+        if (Array.isArray(data)) {
+          const mappedDoctors = data.map((doctor: any) => ({
+            name: doctor.fullName || "Dr. Unknown",
+            specialty: doctor.department || "General Medicine",
+            rating: 4.8,
+            experience: `${doctor.yearsOfExperience || 0} Yrs`,
+            image: doctor.photoDataUrl || "/images/doctor1.jpg",
+          }));
+
+          setFeaturedDoctors(mappedDoctors);
+        }
+      } catch (error) {
+        console.error("Failed to load featured doctors", error);
+      }
+    };
+
+    fetchFeaturedDoctors();
+  }, []);
 
   // used to force CountUp re-animation
   const [key, setKey] = useState(0);
@@ -270,25 +297,7 @@ export default function HomeClient() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              {/* Floating cards */}
-              <div className="absolute top-4 left-4 bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-xl border border-gray-100 dark:border-gray-800">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-green-100 dark:bg-green-950/50 flex items-center justify-center">
-                    <CheckCircle
-                      size={20}
-                      className="text-green-600 dark:text-green-400"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      Appointment
-                    </div>
-                    <div className="font-semibold text-gray-900 dark:text-white text-sm">
-                      Confirmed!
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Floating card */}
               <div className="absolute bottom-4 right-4 bg-blue-600 rounded-2xl p-4 shadow-xl">
                 <div className="flex items-center gap-2 text-white">
                   <Clock size={16} />
@@ -492,7 +501,7 @@ export default function HomeClient() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {doctors.map((d) => (
+            {featuredDoctors.map((d) => (
               <DoctorCard key={d.name} {...d} />
             ))}
           </div>

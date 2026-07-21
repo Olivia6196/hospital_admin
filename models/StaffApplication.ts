@@ -15,6 +15,7 @@ export interface IStaffApplication extends Document {
   photoDataUrl?: string;
   status: ApplicationStatus;
   submittedAt: string;
+  approvedBy?: string;
 }
 
 const StaffApplicationSchema = new Schema<IStaffApplication>(
@@ -30,6 +31,7 @@ const StaffApplicationSchema = new Schema<IStaffApplication>(
     photoDataUrl: { type: String },
     status: { type: String, required: true, enum: ["pending", "approved", "cancelled"], default: "pending" },
     submittedAt: { type: String, default: () => new Date().toISOString() },
+    approvedBy: { type: String, ref: "Admin" },
   },
   { timestamps: true },
 );

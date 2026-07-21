@@ -92,19 +92,25 @@ export function ServiceCard({ icon: Icon, title, desc, color }: {
 }
 
 // Blog Card
-export function BlogCard({ title, excerpt, category, date, image }: {
-  title: string; excerpt: string; category: string; date: string; image: string; 
+export function BlogCard({ title, excerpt, category, date, image, slug }: {
+  title: string; excerpt: string; category: string; date: string; image: string; slug: string;
 }) {
   return (
-    <div className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+    <div className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full">
       <div className="relative h-48 bg-gray-100 dark:bg-gray-800 overflow-hidden">
         <Image width={400} height={300} src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">{category}</span>
       </div>
-      <div className="p-5">
+      <div className="p-5 flex-1 flex flex-col">
         <p className="text-gray-400 dark:text-gray-500 text-xs mb-2">{date}</p>
         <h3 className="font-display font-semibold text-gray-900 dark:text-white text-base leading-snug mb-2 line-clamp-2">{title}</h3>
         <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-2 mb-4">{excerpt}</p>
+        <div className="mt-auto">
+          <Link href={`/blog/${slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+            View details
+            <ChevronRight size={16} />
+          </Link>
+        </div>
       </div>
     </div>
   )

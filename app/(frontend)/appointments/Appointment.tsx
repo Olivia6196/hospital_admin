@@ -14,21 +14,10 @@ import { PageHero } from "@/app/components/main/UI";
 import { toast } from "react-toastify";
 import { useLoading } from "@/hooks/useLoading";
 
-const services = [
-  "General Consultation",
-  "Cardiology",
-  "Neurology",
-  "Orthopedics",
-  "Pediatrics",
-  "Oncology",
-  "Ophthalmology",
-  "Emergency Care",
-  "Surgery",
-  "Dermatology",
-  "Gynecology",
-  "Psychiatry",
-  "Dental Care",
-];
+type DepartmentOption = {
+  _id: string;
+  name: string;
+};
 const timeSlots = [
   "9:00 AM",
   "9:30 AM",
@@ -54,6 +43,7 @@ export default function AppointmentsPage() {
   const { showLoading, hideLoading } = useLoading();
   const [step, setStep] = useState(1);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [services, setServices] = useState<DepartmentOption[]>([]);
   const [loadingDoctors, setLoadingDoctors] = useState(false);
 
   const [form, setForm] = useState({
@@ -71,6 +61,22 @@ export default function AppointmentsPage() {
   const [submitted, setSubmitted] = useState(false);
 
   const update = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch("/api/departments");
+        if (!response.ok) throw new Error("Failed to fetch departments");
+
+        const data: DepartmentOption[] = await response.json();
+        setServices(data);
+      } catch (error) {
+        console.error("Error fetching departments:", error);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   // Fetch doctors when service changes
   useEffect(() => {
@@ -262,21 +268,21 @@ export default function AppointmentsPage() {
                     Select Service
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
-                    {services.map((s) => (
+                    {services.map((service) => (
                       <button
                         type="button"
-                        key={s}
+                        key={service._id}
                         onClick={() => {
-                          update("service", s);
+                          update("service", service.name);
                           // Doctor will be cleared by useEffect
                         }}
                         className={`px-3 py-2.5 rounded-xl text-sm font-medium border transition-all ${
-                          form.service === s
+                          form.service === service.name
                             ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-200 dark:shadow-blue-900/30"
                             : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-300 dark:hover:border-blue-700"
                         }`}
                       >
-                        {s}
+                        {service.name}
                       </button>
                     ))}
                   </div>

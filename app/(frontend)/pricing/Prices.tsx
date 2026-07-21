@@ -71,13 +71,6 @@ const commonProcedures = [
   { name: 'Minor Surgery', price: '$2,000–$8,000' },
 ]
 
-const faqs = [
-  { q: 'What insurance do you accept?', a: 'We accept most major insurance plans including Blue Cross, Aetna, Cigna, UnitedHealthcare, and Medicare/Medicaid. Contact us to verify your coverage.' },
-  { q: 'Are there payment plans available?', a: 'Yes, we offer flexible payment plans for qualifying patients. Our financial counselors can work with you to find a solution that fits your budget.' },
-  { q: 'What does free consultation include?', a: 'Our free initial consultation includes a 15-minute meeting with a healthcare professional to discuss your symptoms and recommend next steps.' },
-  { q: 'Can I upgrade my plan later?', a: 'Absolutely. You can upgrade or downgrade your plan at any time. Changes take effect at the start of your next billing cycle.' },
-]
-
 export default function PricingPage() {
   const { showLoading, hideLoading } = useLoading();
     
@@ -179,21 +172,6 @@ export default function PricingPage() {
               <div key={ins} className="bg-gray-50 dark:bg-gray-900 rounded-xl py-4 px-2 text-center border border-gray-100 dark:border-gray-800 text-xs font-semibold text-gray-600 dark:text-gray-400">
                 <Shield size={20} className="mx-auto mb-2 text-blue-500 dark:text-blue-400" />
                 {ins}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
-        <div className="max-w-3xl mx-auto">
-          <SectionHeader badge="FAQs" title="Frequently Asked Questions"/>
-          <div className="space-y-4">
-            {faqs.map(({ q, a }) => (
-              <div key={q} className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{q}</h4>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{a}</p>
               </div>
             ))}
           </div>

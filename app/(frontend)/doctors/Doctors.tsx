@@ -5,7 +5,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { PageHero } from '@/app/components/main/UI';
 import { useLoading } from '@/hooks/useLoading';
 const DOCTORS_PER_PAGE = 12;
-const specialties = ['All', 'Cardiology', 'Neurology', 'Orthopedics', 'Radiology', 'Pediatrics', 'Oncology', 'Surgery', 'Ophthalmology', 'Dermatology', 'Gynecology', 'Psychiatry', 'Emergency Care', 'Dental Care'];
+const defaultSpecialties = ['All'];
 
 interface Doctor {
   _id: string;
@@ -25,6 +25,7 @@ export default function DoctorsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [specialties, setSpecialties] = useState<string[]>(defaultSpecialties);
   const [loading, setLoading] = useState(true);
   const { showLoading, hideLoading } = useLoading();
 
@@ -49,7 +50,21 @@ export default function DoctorsPage() {
       }
     };
 
+    const fetchDepartments = async () => {
+      try {
+        const res = await fetch('/api/departments');
+        const data = await res.json();
+
+        if (Array.isArray(data)) {
+          setSpecialties(['All', ...data.map((dept: any) => dept.name)]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch departments:', error);
+      }
+    };
+
     fetchDoctors();
+    fetchDepartments();
     return () => clearTimeout(timer);
   }, []);
 

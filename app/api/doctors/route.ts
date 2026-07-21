@@ -24,23 +24,30 @@ export async function GET(request: NextRequest) {
 
     const doctors = await doctorsQuery.lean();
 
-    const uniqueByDepartment: any[] = [];
-    const seenDepartments = new Set<string>();
+    const filteredDoctors =
+      Number.isInteger(parsedLimit) && parsedLimit > 0
+        ? (() => {
+            const uniqueByDepartment: any[] = [];
+            const seenDepartments = new Set<string>();
 
-    for (const doc of doctors) {
-      const department = doc.department?.trim();
-      if (!department) continue;
-      if (seenDepartments.has(department)) continue;
+            for (const doc of doctors) {
+              const department = doc.department?.trim();
+              if (!department) continue;
+              if (seenDepartments.has(department)) continue;
 
-      seenDepartments.add(department);
-      uniqueByDepartment.push(doc);
+              seenDepartments.add(department);
+              uniqueByDepartment.push(doc);
 
-      if (uniqueByDepartment.length === (Number.isInteger(parsedLimit) && parsedLimit > 0 ? parsedLimit : doctors.length)) {
-        break;
-      }
-    }
+              if (uniqueByDepartment.length === parsedLimit) {
+                break;
+              }
+            }
 
-    const formattedDoctors = uniqueByDepartment.map((doc: any) => ({
+            return uniqueByDepartment;
+          })()
+        : doctors;
+
+    const formattedDoctors = filteredDoctors.map((doc: any) => ({
       _id: doc._id?.toString() || doc.id || null,
       fullName: doc.fullName,
       department: doc.department,

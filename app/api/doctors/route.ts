@@ -6,10 +6,11 @@ export async function GET(request: NextRequest) {
   try {
     const service = request.nextUrl.searchParams.get('service');
     const limitParam = request.nextUrl.searchParams.get('limit');
+    const roleParam = request.nextUrl.searchParams.get('role') || 'doctor';
 
     await connectDB();
 
-    const query: any = { role: "doctor", status: "approved" };
+    const query: any = { role: roleParam, status: "approved" };
     if (service) query.department = service;
 
     const doctorsQuery = StaffApplicationModel.find(query)

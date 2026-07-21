@@ -4,9 +4,9 @@ import { useLoading } from '@/hooks/useLoading'
 import { Users, Award, Heart, Clock, Shield, Zap, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-const team = [
+const fallbackTeam = [
   { name: 'Dr. Sarah Johnson', role: 'C.M.O & Head of Cardiology', image: '/images/doctor1.jpg' },
   { name: 'Dr. Alex Turner', role: 'Head of Surgery', image: '/images/doctor15.jpg' },
   { name: 'Dr. Grace Mensah', role: 'Head of Pediatrics', image: '/images/doctor23.jpg' },
@@ -23,15 +23,41 @@ const milestones = [
 
 export default function AboutPage() {
   const { showLoading, hideLoading } = useLoading();
+  const [team, setTeam] = useState(fallbackTeam);
 
   useEffect(() => {
     showLoading();
-    
+
     const timer = setTimeout(() => {
       hideLoading();
     }, 500);
+
+    const fetchLeadershipTeam = async () => {
+      try {
+        const res = await fetch('/api/doctors?role=doctor&limit=4');
+        const data = await res.json();
+
+        if (Array.isArray(data)) {
+          const formattedTeam = data.map((doctor: any, index: number) => ({
+            name: doctor.fullName || 'Dr. Unknown',
+            role:
+              index === 0
+                ? `C.M.O & Head of ${doctor.department || 'Department'}`
+                : `Head of ${doctor.department || 'Department'}`,
+            image: doctor.photoDataUrl || '/images/doctor1.jpg',
+          }));
+
+          setTeam(formattedTeam);
+        }
+      } catch (error) {
+        console.error('Failed to load leadership team', error);
+      }
+    };
+
+    fetchLeadershipTeam();
+
     return () => clearTimeout(timer);
-  }, []);
+  }, [hideLoading, showLoading]);
 
   return (
     <div className="bg-white dark:bg-gray-950">

@@ -1,3 +1,5 @@
+import { connectDB, BlogPost as BlogPostModel } from "@/models";
+
 export type BlogPost = {
   title: string;
   excerpt: string;
@@ -200,6 +202,56 @@ export const blogPosts: BlogPost[] = [
 
 export const featuredBlogPost = blogPosts[0];
 
-export function getBlogPostBySlug(slug: string) {
-  return blogPosts.find((post) => post.slug === slug) ?? null;
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  try {
+    await connectDB();
+    const posts = await BlogPostModel.find().sort({ createdAt: -1 }).lean();
+
+    if (!posts?.length) {
+      return blogPosts;
+    }
+
+    return posts.map((post) => ({
+      title: post.title,
+      excerpt: post.excerpt,
+      category: post.category,
+      date: post.date,
+      image: post.image,
+      slug: post.slug,
+      content: post.content,
+      highlights: post.highlights ?? [],
+      author: post.author ?? undefined,
+      readTime: post.readTime ?? undefined,
+    }));
+  } catch (error) {
+    console.error("Failed to load blog posts from MongoDB, falling back to local data", error);
+    return blogPosts;
+  }
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  try {
+    await connectDB();
+    const post = await BlogPostModel.findOne({ slug }).lean();
+
+    if (!post) {
+      return blogPosts.find((item) => item.slug === slug) ?? null;
+    }
+
+    return {
+      title: post.title,
+      excerpt: post.excerpt,
+      category: post.category,
+      date: post.date,
+      image: post.image,
+      slug: post.slug,
+      content: post.content,
+      highlights: post.highlights ?? [],
+      author: post.author ?? undefined,
+      readTime: post.readTime ?? undefined,
+    };
+  } catch (error) {
+    console.error("Failed to load blog post from MongoDB", error);
+    return blogPosts.find((item) => item.slug === slug) ?? null;
+  }
 }

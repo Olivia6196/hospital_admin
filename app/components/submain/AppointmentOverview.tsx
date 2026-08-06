@@ -18,26 +18,25 @@ function formatDate(date: string) {
   });
 }
 
-function getFirstFivePerDay(appointments: IAppointment[]) {
-  const grouped = new Map<string, IAppointment[]>();
+function getTodayDateKey() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
-  for (const appointment of appointments) {
-    const dateKey = appointment.date;
-    const group = grouped.get(dateKey) ?? [];
-
-    if (group.length < 5) {
-      group.push(appointment);
-      grouped.set(dateKey, group);
-    }
-  }
-
-  return Array.from(grouped.values()).flat();
+function getTodayAppointments(appointments: IAppointment[]) {
+  const today = getTodayDateKey();
+  return appointments.filter((appointment) => appointment.date === today);
 }
 
 export default function AppointmentOverview() {
   const [appointments, setAppointments] = useState<IAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const todayAppointments = getTodayAppointments(appointments);
 
   useEffect(() => {
     async function loadAppointments() {
@@ -65,7 +64,7 @@ export default function AppointmentOverview() {
       <div className="flex items-center gap-3 justify-between">
         <h3 className="text-[0.9rem] font-medium">Today's Appointments</h3>
         <span className="bg-blue-500 text-white py-0.5 px-3 rounded-xl">
-          {appointments.length}
+          {todayAppointments.length}
         </span>
       </div>
 
@@ -73,11 +72,11 @@ export default function AppointmentOverview() {
         <p className="mt-4 text-sm text-gray-300">Loading appointments...</p>
       ) : error ? (
         <p className="mt-4 text-sm text-red-300">{error}</p>
-      ) : appointments.length === 0 ? (
+      ) : todayAppointments.length === 0 ? (
         <p className="mt-4 text-sm text-gray-300">No appointments found.</p>
       ) : (
         <ul className="mt-4 space-y-3">
-          {getFirstFivePerDay(appointments).map((a) => (
+          {todayAppointments.slice(0, 5).map((a) => (
             <li
               key={a._id}
               className="flex items-center gap-4 dark:bg-blue-500/10 backdrop-blur-2xl shadow rounded-xl p-3"

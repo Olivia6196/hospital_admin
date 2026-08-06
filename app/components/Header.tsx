@@ -106,15 +106,6 @@ export default function Header({ title, subtitle }: HeaderProps) {
       </div>
 
       <div className="hidden md:flex items-center gap-4">
-        {/* Search */}
-        <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 border bg-white/95 dark:bg-white/10 backdrop-blur-xl border-white/20 shadow-lg focus-within:ring-1 transition-all duration-200">
-          <CiSearch size={20} />
-          <input
-            type="text"
-            placeholder="Search patients, doctors…"
-            className="bg-transparent focus:outline-none text-sm text-blue-950/70 dark:text-white/70 placeholder:text-blue-950/50 dark:placeholder:text-white/50 w-64"
-          />
-        </div>
 
         {/* Notifications */}
         <div className="relative notification-panel">

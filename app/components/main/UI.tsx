@@ -93,7 +93,7 @@ export function ServiceCard({ icon: Icon, title, desc, color }: {
 
 // Blog Card
 export function BlogCard({ title, excerpt, category, date, image, slug }: {
-  title: string; excerpt: string; category: string; date: string; image: string; slug: string;
+  title: string; excerpt: string; category: string; date: string; image: string; slug?: string;
 }) {
   return (
     <div className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full">
@@ -106,10 +106,17 @@ export function BlogCard({ title, excerpt, category, date, image, slug }: {
         <h3 className="font-display font-semibold text-gray-900 dark:text-white text-base leading-snug mb-2 line-clamp-2">{title}</h3>
         <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-2 mb-4">{excerpt}</p>
         <div className="mt-auto">
-          <Link href={`/blog/${slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-            View details
-            <ChevronRight size={16} />
-          </Link>
+          {slug ? (
+            <Link href={`/blog/${slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+              View details
+              <ChevronRight size={16} />
+            </Link>
+          ) : (
+            <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400">
+              View details
+              <ChevronRight size={16} />
+            </div>
+          )}
         </div>
       </div>
     </div>

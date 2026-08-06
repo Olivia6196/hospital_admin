@@ -140,9 +140,9 @@ export default function PatientsPage() {
                   return (
                     <tr
                       key={p._id}
-                      className="border-t border-white/10 hover:bg-white/5 transition-colors duration-200 group"
+                      className=" border-t border-white/10 hover:bg-white/5 transition-colors duration-200 group"
                     >
-                      <td className="p-2 text-sm font-mono text-white/80">
+                      <td className="p-2 text-sm font-mono dark:text-white/80">
                         {p._id.slice(-6)}
                       </td>
 
@@ -156,7 +156,7 @@ export default function PatientsPage() {
 
                       <td className="px-3 py-2 text-sm">{p.doctor}</td>
 
-                      <td className="px-3 py-2 text-sm text-white/80">
+                      <td className="px-3 py-2 text-sm dark:text-white/80">
                         {new Date(p.admitDate).toLocaleDateString()}
                       </td>
 
@@ -176,14 +176,14 @@ export default function PatientsPage() {
                         <div className="flex items-center gap-2 justify-center">
                           <Link
                             href={`/dashboard/patients/${p._id}`}
-                            className="border border-white/20 bg-white/5 px-4 py-1.5 rounded-lg text-xs hover:bg-blue-700 transition"
+                            className="border border-white/20 bg-white/5 px-4 py-1.5 rounded-lg text-xs hover:bg-blue-700 hover:text-white transition"
                           >
                             View
                           </Link>
 
                           <button 
                             onClick={() => handleDischarge(p._id)}
-                          className="border border-white/20 hover:bg-red-600 px-4 py-1.5 rounded-lg text-xs">
+                          className="border border-white/20 hover:bg-red-600 hover:text-white px-4 py-1.5 rounded-lg text-xs">
                             Discharge
                           </button>
                         </div>

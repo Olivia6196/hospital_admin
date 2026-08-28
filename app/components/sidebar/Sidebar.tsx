@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoIosPeople } from "react-icons/io";
-import { IoChevronBackOutline, IoChevronForward } from "react-icons/io5";
 import { HiMenu, HiX } from "react-icons/hi";
 import {
   MdDashboard,
@@ -19,6 +18,7 @@ import {
   MdNotifications,
 } from "react-icons/md";
 import type { IconType } from "react-icons";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
 interface NavItem {
   name: string;
@@ -167,9 +167,9 @@ export default function Sidebar() {
               className="hidden lg:inline-flex p-2 hover:bg-white/10 rounded-xl transition-colors text-white/70 hover:text-white"
             >
               {isCollapsed ? (
-                <IoChevronBackOutline size={18} />
+                <ChevronsRight size={18} />
               ) : (
-                <IoChevronForward size={18} />
+                <ChevronsLeft size={18} />
               )}
             </button>
           </div>

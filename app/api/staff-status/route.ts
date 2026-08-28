@@ -1,14 +1,17 @@
-import { connectDB, Staff } from "@/models";
+import { connectDB, StaffApplicationModel } from "@/models";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     await connectDB();
 
-    const aggregation = await Staff.aggregate([
+    const aggregation = await StaffApplicationModel.aggregate([
+      {
+        $match: { status: "approved" },
+      },
       {
         $group: {
-          _id: { role: "$role", status: "$status" },
+          _id: { role: "$role", dutyStatus: "$dutyStatus" },
           count: { $sum: 1 },
         },
       },
@@ -22,11 +25,11 @@ export async function GET() {
 
     aggregation.forEach((item: any) => {
       const role = item._id.role as string;
-      const status = item._id.status as string;
+      const status = item._id.dutyStatus as string;
       if (!counts[role]) return;
-      if (status === "On Duty") counts[role].onDuty = item.count;
-      if (status === "Off Duty") counts[role].offDuty = item.count;
-      if (status === "On Leave") counts[role].onLeave = item.count;
+      if (status === "on_duty" || status === "On Duty") counts[role].onDuty = item.count;
+      if (status === "off_duty" || status === "Off Duty" || !status) counts[role].offDuty = item.count;
+      if (status === "on_leave" || status === "On Leave") counts[role].onLeave = item.count;
       counts[role].total += item.count;
     });
 

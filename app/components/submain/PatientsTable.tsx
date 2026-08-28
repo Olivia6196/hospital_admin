@@ -81,7 +81,10 @@ export default function PatientsTable() {
               </tr>
             ) : (
               patients.slice(0, 6).map((p) => {
-                const s = statusStyles[p.status];
+                const s = statusStyles[p.status] ?? {
+                  bg: "rgba(138,155,176,0.15)",
+                  color: "#8a9bb0",
+                };
 
                 return (
                   <tr

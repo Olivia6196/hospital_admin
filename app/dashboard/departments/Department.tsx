@@ -8,6 +8,7 @@ interface Department {
   description?: string;
   doctorCount: number;
   patientCount: number;
+  category: 'Medical' | 'Other';
   color?: string;
 }
 export default function DepartmentsPage() {
@@ -15,6 +16,9 @@ export default function DepartmentsPage() {
   const [loading, setLoading] = useState(true);
   const [totalDoctors, setTotalDoctors] = useState(0);
   const [totalPatients, setTotalPatients] = useState(0);
+
+  const medicalDepartments = departments.filter((department) => department.category === 'Medical');
+  const otherDepartments = departments.filter((department) => department.category === 'Other');
 
   const fetchDepartments = async () => {
     try {
@@ -79,8 +83,30 @@ export default function DepartmentsPage() {
           <div className="animate-spin w-10 h-10 border-4 border-brand-600 border-t-transparent rounded-full"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {departments.map((dept) => (
+        <div className="space-y-10">
+          {(['Medical', 'Other'] as const).map((category) => {
+            const categoryDepartments = category === 'Medical' ? medicalDepartments : otherDepartments;
+
+            if (categoryDepartments.length === 0) return null;
+
+            return (
+              <section key={category}>
+                <div className="mb-5 flex items-end justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">{category} Departments</h2>
+                    {category === 'Medical' && (
+                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        Doctors and active patients by department
+                      </p>
+                    )}
+                  </div>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {categoryDepartments.length} departments
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {categoryDepartments.map((dept) => (
             <div
               key={dept._id}
               className="group bg-white dark:bg-gray-900 rounded-3xl shadow-soft border border-gray-200 dark:border-gray-800 p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
@@ -105,7 +131,8 @@ export default function DepartmentsPage() {
                 </p>
               )}
 
-              <div className="mt-8 flex justify-between items-end">
+              {dept.category === 'Medical' && (
+                <div className="mt-8 flex justify-between items-end">
                 <div>
                   <div className="flex items-center gap-3">
                     <UserCheck className="w-5 h-5 text-emerald-600" />
@@ -129,10 +156,15 @@ export default function DepartmentsPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+                </div>
+              )}
 
             </div>
           ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       )}
 

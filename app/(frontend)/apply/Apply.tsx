@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Loader2, UploadCloud } from "lucide-react";
 import { StaffRole } from "@/models";
-import { DEPARTMENTS, StaffApplication } from "@/lib/types";
+import { StaffApplication } from "@/lib/types";
 import { FieldShell, Select, TextArea, TextInput } from "@/app/components/submain/FormField";
 import { useLoading } from "@/hooks/useLoading";
 const ROLE_OPTIONS: { value: StaffRole; label: string; desc: string }[] = [
@@ -28,7 +28,7 @@ const initialState: FormState = {
   email: "",
   phone: "",
   role: "doctor",
-  department: DEPARTMENTS[0],
+  department: "",
   yearsOfExperience: "",
   school: "",
   bio: "",
@@ -41,10 +41,23 @@ export default function ApplyPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [departments, setDepartments] = useState<string[]>([]);
   const { showLoading, hideLoading } = useLoading();
     
       useEffect(() => {
         showLoading();
+
+        fetch("/api/departments")
+          .then((response) => response.json())
+          .then((data: { name: string }[]) => {
+            const names = data.map((department) => department.name);
+            setDepartments(names);
+            setForm((previous) => ({
+              ...previous,
+              department: previous.department || names[0] || "",
+            }));
+          })
+          .catch((error) => console.error("Failed to fetch departments:", error));
         
         const timer = setTimeout(() => {
           hideLoading();
@@ -264,7 +277,7 @@ export default function ApplyPage() {
                   value={form.department}
                   onChange={(e) => update("department", e.target.value)}
                 >
-                  {DEPARTMENTS.map((d) => (
+                  {departments.map((d) => (
                     <option key={d} value={d}>{d}</option>
                   ))}
                 </Select>

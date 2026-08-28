@@ -15,6 +15,7 @@ interface StaffMember {
   bio: string;
   photoDataUrl?: string;
   status: string;
+  dutyStatus: 'on_duty' | 'off_duty' | 'on_leave';
   submittedAt: string;
 }
 
@@ -272,6 +273,15 @@ export default function StaffsPage() {
                     <span className="font-medium text-gray-700 dark:text-gray-300">Phone</span>
                     <span>{staff.phone}</span>
                   </div>
+                  <p className={
+                      staff.dutyStatus === 'on_duty'
+                        ? 'text-emerald-600 dark:text-emerald-400 font-medium'
+                        : staff.dutyStatus === 'on_leave'
+                          ? 'text-pink-600 dark:text-pink-500 font-medium'
+                          : 'text-gray-500 dark:text-gray-400 font-medium'
+                    }>
+                      {staff.dutyStatus.replace('_', ' ')}
+                    </p>
                 </div>
               </div>
             ))}

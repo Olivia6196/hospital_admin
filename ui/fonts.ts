@@ -1,11 +1,8 @@
-import {Dancing_Script, Inter} from 'next/font/google';
+const fontVariable = (name: string, fallback: string) => ({
+    variable: name,
+    className: fallback,
+});
 
-export const inter = Inter({
-    subsets: ['latin'],
-    variable: '--font-inter'
-})
-export const dancingScript = Dancing_Script({
-    subsets: ['latin'],
-    variable: '--font-dancing'
-})
+export const inter = fontVariable('--font-inter', 'font-sans');
+export const dancingScript = fontVariable('--font-dancing', 'font-cursive');
 

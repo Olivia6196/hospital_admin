@@ -15,6 +15,7 @@ interface StaffMember {
   bio: string;
   photoDataUrl?: string;
   status: string;
+  dutyStatus: 'on_duty' | 'off_duty' | 'on_leave';
   submittedAt: string;
 }
 const DOCTORS_PER_PAGE = 9;
@@ -29,6 +30,7 @@ export default function DoctorsPage() {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   const observerTarget = useRef<HTMLDivElement>(null);
+  const loadingPages = useRef(new Set<number>());
 const fetchInitialData = async () => {
   try {
     setLoading(true);
@@ -43,7 +45,7 @@ const fetchInitialData = async () => {
 
     setPendingApplications(pendingDoctors);
 
-    // Load first page of APPROVED DOCTORS only
+    // Load the first page of doctors with duty status from Staff
     await loadMoreDoctors(1, true);
   } catch (error) {
     console.error('Failed to fetch doctors:', error);
@@ -53,8 +55,9 @@ const fetchInitialData = async () => {
 };
 
 const loadMoreDoctors = async (currentPage: number, reset = false) => {
-  if (loadingMore) return;
+  if (loadingPages.current.has(currentPage)) return;
 
+  loadingPages.current.add(currentPage);
   setLoadingMore(true);
   try {
     const skip = (currentPage - 1) * DOCTORS_PER_PAGE;
@@ -73,7 +76,10 @@ const loadMoreDoctors = async (currentPage: number, reset = false) => {
     if (reset) {
       setDoctors(validDoctors);
     } else {
-      setDoctors(prev => [...prev, ...validDoctors]);
+      setDoctors(prev => {
+        const existingIds = new Set(prev.map(doctor => doctor._id));
+        return [...prev, ...validDoctors.filter(doctor => !existingIds.has(doctor._id))];
+      });
     }
 
     setHasMore(newDoctors.length === DOCTORS_PER_PAGE);
@@ -81,6 +87,7 @@ const loadMoreDoctors = async (currentPage: number, reset = false) => {
   } catch (error) {
     console.error('Failed to load more doctors:', error);
   } finally {
+    loadingPages.current.delete(currentPage);
     setLoadingMore(false);
   }
 };
@@ -271,7 +278,15 @@ const loadMoreDoctors = async (currentPage: number, reset = false) => {
 
                   <div className="mt-5 text-xs text-gray-400 dark:text-gray-500 flex justify-between">
                     <span>Joined {new Date(doctor.submittedAt).toLocaleDateString()}</span>
-                    <span className="text-emerald-600 dark:text-emerald-400 font-medium">Active</span>
+                    <span className={
+                      doctor.dutyStatus === 'on_duty'
+                        ? 'text-emerald-600 dark:text-emerald-400 font-medium'
+                        : doctor.dutyStatus === 'on_leave'
+                          ? 'text-pink-600 dark:text-pink-500 font-medium'
+                          : 'text-gray-500 dark:text-gray-400 font-medium'
+                    }>
+                      {doctor.dutyStatus.replace('_', ' ')}
+                    </span>
                   </div>
                 </div>
               ))}

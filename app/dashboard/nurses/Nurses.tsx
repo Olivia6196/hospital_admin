@@ -1,8 +1,7 @@
 "use client";
 import Header from '@/app/components/Header';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CheckCircle2, XCircle, Mail, UserPlus, Clock } from 'lucide-react';
-import { StaffApplication } from '@/lib/types';
 interface StaffMember {
   _id: string;
   fullName: string;
@@ -15,30 +14,43 @@ interface StaffMember {
   bio: string;
   photoDataUrl?: string;
   status: string;
+  dutyStatus: 'on_duty' | 'off_duty' | 'on_leave';
   submittedAt: string;
 }
+const NURSES_PER_PAGE = 9;
+
 export default function NursesPage() {
   const [nurses, setNurses] = useState<StaffMember[]>([]);
   const [pendingApplications, setPendingApplications] = useState<StaffMember[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const observerTarget = useRef<HTMLDivElement>(null);
+  const loadingPages = useRef(new Set<number>());
 
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/staff-applications');
-      const allApps: StaffMember[] = await res.json();
+      const [approvedRes, pendingRes] = await Promise.all([
+        fetch('/api/staff-applications?role=nurse&status=approved&limit=9&skip=0'),
+        fetch('/api/staff-applications?role=nurse&status=pending&limit=0'),
+      ]);
 
-      const approvednurses = allApps.filter(
-        app => app.role === 'nurse' && app.status === 'approved'
-      );
+      if (!approvedRes.ok || !pendingRes.ok) {
+        throw new Error('Failed to fetch nurses');
+      }
 
-      const pendingnurses = allApps.filter(
+      const pendingApps: StaffMember[] = await pendingRes.json();
+
+      const pendingnurses = pendingApps.filter(
         app => app.role === 'nurse' && app.status === 'pending'
       );
 
-      setNurses(approvednurses);
       setPendingApplications(pendingnurses);
+
+      await loadMoreNurses(1, true);
     } catch (error) {
       console.error('Failed to fetch nurses:', error);
     } finally {
@@ -46,9 +58,70 @@ export default function NursesPage() {
     }
   };
 
+  const loadMoreNurses = async (currentPage: number, reset = false) => {
+    if (loadingPages.current.has(currentPage)) return;
+
+    loadingPages.current.add(currentPage);
+    setLoadingMore(true);
+    try {
+      const skip = (currentPage - 1) * NURSES_PER_PAGE;
+      const res = await fetch(
+        `/api/staff-applications?role=nurse&status=approved&limit=${NURSES_PER_PAGE}&skip=${skip}`,
+      );
+
+      if (!res.ok) throw new Error('Failed to fetch nurses');
+
+      const newNurses: StaffMember[] = await res.json();
+      const validNurses = newNurses
+        .filter((nurse) => nurse.role === 'nurse')
+        .map((nurse) => ({ ...nurse, dutyStatus: nurse.dutyStatus || 'off_duty' }));
+
+      if (reset) {
+        setNurses(validNurses);
+      } else {
+        setNurses((previousNurses) => {
+          const existingIds = new Set(previousNurses.map((nurse) => nurse._id));
+          return [
+            ...previousNurses,
+            ...validNurses.filter((nurse) => !existingIds.has(nurse._id)),
+          ];
+        });
+      }
+
+      setHasMore(newNurses.length === NURSES_PER_PAGE);
+      setPage(currentPage);
+    } catch (error) {
+      console.error('Failed to load more nurses:', error);
+    } finally {
+      loadingPages.current.delete(currentPage);
+      setLoadingMore(false);
+    }
+  };
+
+  const handleObserver = useCallback((entries: IntersectionObserverEntry[]) => {
+    const target = entries[0];
+    if (target.isIntersecting && hasMore && !loadingMore && !loading) {
+      loadMoreNurses(page + 1);
+    }
+  }, [hasMore, loadingMore, loading, page]);
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, {
+      rootMargin: '200px',
+      threshold: 0.1,
+    });
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) observer.observe(currentTarget);
+
+    return () => {
+      if (currentTarget) observer.unobserve(currentTarget);
+    };
+  }, [handleObserver]);
 
   const updateStatus = async (id: string, newStatus: 'approved' | 'cancelled') => {
     setActionLoading(id);
@@ -170,8 +243,9 @@ export default function NursesPage() {
             No approved nurses yet.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {nurses.map((nurse) => (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {nurses.map((nurse) => (
               <div key={nurse._id} className="group bg-gray-50 dark:bg-gray-950 border border-gray-100 dark:border-gray-800 rounded-3xl p-6 hover:shadow-md transition-all hover:-translate-y-0.5">
                 <div className="flex items-start gap-4">
                   {nurse.photoDataUrl ? (
@@ -203,11 +277,32 @@ export default function NursesPage() {
 
                 <div className="mt-5 text-xs text-gray-400 dark:text-gray-500 flex justify-between">
                   <span>Joined {new Date(nurse.submittedAt).toLocaleDateString()}</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-medium">Active</span>
+                  <span className={
+                      nurse.dutyStatus === 'on_duty'
+                        ? 'text-emerald-600 dark:text-emerald-400 font-medium'
+                        : nurse.dutyStatus === 'on_leave'
+                          ? 'text-pink-600 dark:text-pink-500 font-medium'
+                          : 'text-gray-500 dark:text-gray-400 font-medium'
+                    }>
+                      {nurse.dutyStatus.replace('_', ' ')}
+                    </span>
                 </div>
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+
+            <div ref={observerTarget} className="flex justify-center py-8">
+              {loadingMore && (
+                <div className="flex items-center gap-3 text-gray-500">
+                  <div className="animate-spin w-5 h-5 border-3 border-brand-600 border-t-transparent rounded-full"></div>
+                  Loading more nurses...
+                </div>
+              )}
+              {!hasMore && nurses.length > 0 && (
+                <p className="text-gray-500 text-sm">You've reached the end</p>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>

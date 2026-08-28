@@ -14,6 +14,7 @@ export interface IStaffApplication extends Document {
   bio: string;
   photoDataUrl?: string;
   status: ApplicationStatus;
+  dutyStatus: "on_duty" | "off_duty" | "on_leave";
   submittedAt: string;
   approvedBy?: string;
 }
@@ -30,6 +31,7 @@ const StaffApplicationSchema = new Schema<IStaffApplication>(
     bio: { type: String, required: true, trim: true },
     photoDataUrl: { type: String },
     status: { type: String, required: true, enum: ["pending", "approved", "cancelled"], default: "pending" },
+    dutyStatus: { type: String, enum: ["on_duty", "off_duty", "on_leave"], default: "off_duty" },
     submittedAt: { type: String, default: () => new Date().toISOString() },
     approvedBy: { type: String, ref: "Admin" },
   },

@@ -1,6 +1,6 @@
 "use client";
 
-import { patientTrendData } from "@/lib/data";
+import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -11,6 +11,13 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+
+interface PatientTrend {
+  month: string;
+  admitted: number;
+  discharged: number;
+  outpatient: number;
+}
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -34,6 +41,23 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function PatientTrendChart() {
+  const [patientTrendData, setPatientTrendData] = useState<PatientTrend[]>([]);
+
+  useEffect(() => {
+    const fetchPatientTrends = async () => {
+      try {
+        const response = await fetch("/api/patient-trends");
+        if (!response.ok) throw new Error("Failed to fetch patient trends");
+
+        setPatientTrendData(await response.json());
+      } catch (error) {
+        console.error("Failed to fetch patient trends:", error);
+      }
+    };
+
+    fetchPatientTrends();
+  }, []);
+
   return (
     <div className="dark:bg-black/95 backdrop-blur-2xl border border-white/20 rounded-3xl p-6 shadow-xl h-full lg:h-93">
       {/* Header */}
@@ -43,13 +67,6 @@ export default function PatientTrendChart() {
           <p className="text-black/80 dark:text-blue-200 text-sm mt-1">
             6-month admission & discharge trend
           </p>
-        </div>
-         <div className="bg-white rounded-2xl font-medium">
-        <select className="bg-white/10 border border-white/20 text-blue-950 rounded-2xl px-4.5 py-2 text-[0.95rem] focus:outline-none focus:border-blue-400 transition-colors">
-          <option>Last 6 months</option>
-          <option>Last year</option>
-          <option>Last 12 months</option>
-        </select>
         </div>
       </div>
 

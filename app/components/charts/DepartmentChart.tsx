@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   BarChart,
   Bar,
@@ -10,7 +12,18 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { departmentData } from "@/lib/data";
+interface Department {
+  _id: string;
+  name: string;
+  patientCount: number;
+  category: "Medical" | "Other";
+}
+
+interface DepartmentChartData {
+  name: string;
+  patients: number;
+  color: string;
+}
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -32,6 +45,32 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function DepartmentChart() {
+  const [departmentData, setDepartmentData] = useState<DepartmentChartData[]>([]);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await fetch("/api/departments");
+        if (!response.ok) throw new Error("Failed to fetch departments");
+
+        const departments: Department[] = await response.json();
+        setDepartmentData(
+          departments
+            .filter((department) => department.category === "Medical")
+            .map((department, index) => ({
+              name: department.name,
+              patients: department.patientCount,
+              color: ["#1e40af", "#db2777", "#10b981"][index % 3],
+            })),
+        );
+      } catch (error) {
+        console.error("Failed to fetch department chart data:", error);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
   return (
     <div className="dark:bg-black/95 backdrop-blur-2xl border border-white/20 rounded-xl p-6 shadow-xl h-full lg:h-93">
       {/* Header */}

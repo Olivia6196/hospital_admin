@@ -154,6 +154,11 @@ export default function AdminLoginPage() {
         <p className="text-center text-sm text-gray-500 mt-6">
           Secure access for authorized hospital administrators only.
         </p>
+        <div className="text-center mt-4">
+          <a href="/" className="text-blue-600 hover:underline">
+            Go Back
+          </a>
+        </div>
       </div>
     </section>
   );

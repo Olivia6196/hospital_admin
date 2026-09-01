@@ -194,7 +194,6 @@ export default function AddPatientForm() {
           className="md:col-span-2 border border-zinc-300 dark:border-zinc-700 bg-transparent dark:bg-white/10 backdrop-blur-md placeholder:text-white text-zinc-900 dark:text-white p-3 rounded-lg outline-none focus:ring-1 focus:ring-blue-800"
         />
 
-        {/* Medical Information */}
         <div className="md:col-span-2 mt-2 border-t border-zinc-200 dark:border-zinc-800 pt-5 rounded-lg">
           <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
             Medical Information

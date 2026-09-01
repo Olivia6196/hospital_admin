@@ -43,17 +43,26 @@ export async function GET(request: NextRequest) {
           })()
         : doctors;
 
-    const formattedDoctors = filteredDoctors.map((doc: any) => ({
-      _id: doc._id?.toString() || doc.id || null,
-      fullName: doc.fullName,
-      department: doc.department,
-      yearsOfExperience: doc.yearsOfExperience,
-      bio: doc.bio,
-      photoDataUrl: doc.photoDataUrl,
-      status: doc.status,
-      role: doc.role,
-      submittedAt: doc.submittedAt,
-    }));
+    const formattedDoctors = filteredDoctors.map((doc: any) => {
+      const id = doc._id?.toString() || doc.id || doc.fullName || null;
+      const fullName = doc.fullName || 'Dr. Unknown';
+      const department = doc.department || 'General Medicine';
+
+      return {
+        _id: id,
+        id,
+        fullName,
+        name: fullName,
+        department,
+        specialty: department,
+        yearsOfExperience: doc.yearsOfExperience,
+        bio: doc.bio,
+        photoDataUrl: doc.photoDataUrl,
+        status: doc.status,
+        role: doc.role,
+        submittedAt: doc.submittedAt,
+      };
+    });
 
     return NextResponse.json(formattedDoctors);
 

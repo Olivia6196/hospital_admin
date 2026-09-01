@@ -99,10 +99,18 @@ export default function AppointmentsPage() {
         );
         if (!response.ok) throw new Error("Failed to fetch doctors");
 
-        const data: Doctor[] = await response.json();
-        setDoctors(data);
+        const data = await response.json();
+        const mappedDoctors: Doctor[] = Array.isArray(data)
+          ? data.map((doctor: any) => ({
+              id: doctor.id ?? doctor._id ?? doctor.fullName ?? "",
+              name: doctor.name ?? doctor.fullName ?? "Dr. Unknown",
+              specialty: doctor.specialty ?? doctor.department ?? "General Medicine",
+            }))
+          : [];
 
-        if (form.doctor && !data.some((d) => d.name === form.doctor)) {
+        setDoctors(mappedDoctors);
+
+        if (form.doctor && !mappedDoctors.some((d) => d.name === form.doctor)) {
           update("doctor", "");
         }
       } catch (error) {

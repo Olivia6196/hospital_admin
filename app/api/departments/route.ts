@@ -40,7 +40,11 @@ export async function GET() {
       department: { $exists: true, $nin: [null, ""] },
     });
 
-    const result = departmentNames.sort().map((deptName) => {
+    const filteredDepartmentNames = departmentNames
+      .filter((deptName) => deptName && deptName.trim() !== "Dermatogy")
+      .sort();
+
+    const result = filteredDepartmentNames.map((deptName) => {
       const found = departmentsData.find(d => d._id === deptName);
       const patientStat = patientData.find(p => p._id === deptName);
       return {

@@ -16,18 +16,18 @@ export interface StaffApplication {
   submittedAt: string;
 }
 
-export const DEPARTMENTS = [
-  "Cardiology",
-  "Neurology",
-  "Pediatrics",
-  "Orthopedics",
-  "Emergency Care",
-  "Oncology",
-  "Surgery",
-  "Dental Care",
-  "Dermatology",
-  "Gynecology",
-  "Ophthalmology",
-  "Radiology",
-  "Psychiatry"
-];
+// export const DEPARTMENTS = [
+//   "Cardiology",
+//   "Neurology",
+//   "Pediatrics",
+//   "Orthopedics",
+//   "Emergency Care",
+//   "Oncology",
+//   "Surgery",
+//   "Dental Care",
+//   "Dermatology",
+//   "Gynecology",
+//   "Ophthalmology",
+//   "Radiology",
+//   "Psychiatry"
+// ];

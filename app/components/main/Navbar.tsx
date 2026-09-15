@@ -22,7 +22,6 @@ const navLinks = [
   },
   { label: 'Doctors', href: '/doctors' },
   { label: 'Appointments', href: '/appointments' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]

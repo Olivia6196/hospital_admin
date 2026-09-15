@@ -284,8 +284,10 @@ export default function HomeClient() {
                   width={288}
                   height={320}
                   src="/images/home_one.jpg"
-                  alt="Doctor"
+                  alt="Doctor providing patient care at LiviaCore Hospital"
                   className="w-full h-full object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 288px"
                 />
               </div>
               <div className="absolute bottom-8 left-0 w-52 h-64 rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-950">
@@ -293,7 +295,7 @@ export default function HomeClient() {
                   width={288}
                   height={256}
                   src="/images/home_two.jpg"
-                  alt="Medical"
+                  alt="Medical professionals and healthcare services"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -408,7 +410,7 @@ export default function HomeClient() {
                 width={400}
                 height={300}
                 src="/images/why_picture.jpg"
-                alt="Hospital"
+                alt="LiviaCore Hospital facility and healthcare environment"
                 className="w-full h-full object-cover"
               />
             </div>

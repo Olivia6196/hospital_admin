@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: "Dashboard — Staffs",
   description: "Manage your staff information at LiviaCore Hospital.",
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
   openGraph: {
     title: "Dashboard — Staffs",

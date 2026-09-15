@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --font-inter: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-inter: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
   --font-dancing: "Dancing Script", cursive;
 }
 

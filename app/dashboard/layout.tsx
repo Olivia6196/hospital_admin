@@ -1,4 +1,23 @@
+import type { Metadata } from "next";
 import Sidebar from '../components/sidebar/Sidebar';
+
+export const metadata: Metadata = {
+  title: {
+    default: "Admin Dashboard",
+    template: "%s | LiviaCore Admin",
+  },
+  description: "Secure hospital administration dashboard for managing patients, appointments, staff, and operations.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+};
 
 export default function DashboardLayout({
   children,
@@ -13,7 +32,6 @@ export default function DashboardLayout({
       <div className="flex-1 min-h-screen overflow-auto">
         {children}
       </div>
-
     </div>
   );
 }

@@ -59,11 +59,6 @@ export async function GET() {
   });
   const successRate = totalPatients > 0 ? (successfulOutcomes / totalPatients) * 100 : 0;
 
-  // ---- Revenue: placeholder, no Invoice/Billing model yet ----
-  const monthlyRevenue = 0;
-  const lastMonthRevenue = 0;
-  const revenueChangePct = percentChange(monthlyRevenue, lastMonthRevenue);
-
   return NextResponse.json({
     patients: {
       value: totalPatients.toLocaleString(),
@@ -79,11 +74,6 @@ export async function GET() {
       value: `${occupancyPct.toFixed(0)}%`,
       change: `${Math.abs(bedsChangePts).toFixed(1)}% from last week`,
       positive: bedsChangePts >= 0,
-    },
-    revenue: {
-      value: `$${monthlyRevenue.toLocaleString()}`,
-      change: `${Math.abs(revenueChangePct).toFixed(1)}% from last month`,
-      positive: revenueChangePct >= 0,
     },
     homepageHighlights: [
       { value: totalPatients.toLocaleString(), label: "Patients Served" },

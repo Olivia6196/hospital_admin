@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { LuBadgeDollarSign } from "react-icons/lu";
 import { FaBed, FaUser } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
 import type { IconType } from "react-icons";
 
-type StatKey = "patients" | "doctors" | "beds" | "revenue";
+type StatKey = "patients" | "doctors" | "beds";
 
 type StatData = {
   value: string;
@@ -18,7 +17,6 @@ const statMeta: Record<StatKey, { label: string; icon: IconType }> = {
   patients: { label: "Total Patients", icon: IoIosPeople },
   doctors: { label: "Active Doctors", icon: FaUser },
   beds: { label: "Beds Occupied", icon: FaBed },
-  revenue: { label: "Monthly Revenue", icon: LuBadgeDollarSign },
 };
 
 export default function StatCard() {
@@ -42,7 +40,7 @@ export default function StatCard() {
   }, []);
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {(Object.keys(statMeta) as StatKey[]).map((key) => {
         const meta = statMeta[key];
         const data = stats?.[key];

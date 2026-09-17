@@ -56,7 +56,7 @@ export default function AddPatientForm() {
         return;
       }
 
-      toast.success("Patient added successfully 🎉");
+      toast.success("Patient added successfully🎉");
 
       setFormData({
         name: "",

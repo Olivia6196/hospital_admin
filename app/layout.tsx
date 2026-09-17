@@ -7,7 +7,7 @@ import ClientLayout from "./ClientLayout";
 const siteUrl =
   process.env.NEXTAUTH_URL?.replace(/\/$/, "") ||
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://hospital-admin-omega.vercel.app";
+  "https://hospital-admin-dun.vercel.app/";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

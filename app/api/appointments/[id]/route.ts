@@ -3,7 +3,16 @@ import { Appointment } from "@/models/appointment";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    console.warn("RESEND_API_KEY is missing; appointment email notifications are disabled.");
+    return null;
+  }
+
+  return new Resend(apiKey);
+}
 
 export async function PATCH(
   req: NextRequest,
@@ -78,6 +87,11 @@ export async function PATCH(
 async function sendStatusEmail(appointment: any, newStatus: string) {
   try {
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const resend = getResendClient();
+
+    if (!resend) {
+      return;
+    }
 
     let subject = "";
     let html = "";

@@ -238,7 +238,6 @@ export default function AddPatientForm() {
             readOnly
             className="border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800/50 text-zinc-600 dark:text-zinc-300 p-3 rounded-lg outline-none cursor-not-allowed font-mono"
           />
-          <p className="text-xs text-zinc-500">Auto-generated (can be overridden by system)</p>
         </div>
 
         <div className="flex flex-col gap-1.5">

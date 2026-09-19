@@ -1,6 +1,5 @@
 import DepartmentChart from "../components/charts/DepartmentChart"
 import PatientTrendChart from "../components/charts/PatientTrendChart"
-import RevenueChart from "../components/charts/RevenueChart"
 import Header from "../components/Header"
 import AppointmentOverview from "../components/submain/AppointmentOverview"
 import PatientsTable from "../components/submain/PatientsTable"

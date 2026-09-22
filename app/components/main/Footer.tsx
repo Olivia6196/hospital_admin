@@ -134,14 +134,14 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center shrink-0 mt-0.5">
                 <MapPin size={15} className="text-blue-400" />
               </div>
-              <p className="text-gray-400 text-sm leading-relaxed">123 Medical Center Drive<br/>New York, NY 10001</p>
+              <p className="text-gray-400 text-sm leading-relaxed">12 Specialist Avenue, <br/>Lekki Phase 1, Lagos, Nigeria.</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center shrink-0">
                 <Phone size={15} className="text-blue-400" />
               </div>
               <div>
-                <p className="text-gray-400 text-sm">+1 (800) 123-4567</p>
+                <p className="text-gray-400 text-sm">+234 800 000 0000</p>
                 <p className="text-gray-500 text-xs">Mon–Sat: 8am – 8pm</p>
               </div>
             </div>

@@ -6,20 +6,20 @@ import { useLoading } from "@/hooks/useLoading";
 const locations = [
   {
     name: "Main Hospital",
-    address: "123 Medical Center Drive, New York, NY 10001",
-    phone: "+1 (800) 123-4567",
+    address: "12 Specialist Avenue, Lekki Phase 1, Lagos, Nigeria",
+    phone: "+234 800 123 4567",
     hours: "Open 24/7",
   },
   {
     name: "Downtown Clinic",
-    address: "456 Park Avenue, New York, NY 10022",
-    phone: "+1 (800) 123-4568",
+    address: "45 Marina Road, Victoria Island, Lagos, Nigeria",
+    phone: "+234 800 123 4568",
     hours: "Mon–Fri: 8am–8pm",
   },
   {
-    name: "Brooklyn Center",
-    address: "789 Atlantic Ave, Brooklyn, NY 11217",
-    phone: "+1 (800) 123-4569",
+    name: "Abuja Center",
+    address: "7 Maitama District, Abuja, Nigeria",
+    phone: "+234 800 123 4569",
     hours: "Mon–Sat: 9am–6pm",
   },
 ];
@@ -33,15 +33,15 @@ export default function ContactPage() {
   });
   const [sent, setSent] = useState(false);
   const { showLoading, hideLoading } = useLoading();
-    
-      useEffect(() => {
-        showLoading();
-        
-        const timer = setTimeout(() => {
-          hideLoading();
-        }, 500);
+
+  useEffect(() => {
+    showLoading();
+
+    const timer = setTimeout(() => {
+      hideLoading();
+    }, 500);
     return () => clearTimeout(timer);
-      }, []);
+  }, []);
 
   const update = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));
 
@@ -68,21 +68,24 @@ export default function ContactPage() {
               color:
                 "bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400",
               title: "Phone",
-              lines: ["+1 (800) 123-4567", "Available 24/7"],
+              lines: ["+234 800 123 4567", "Available 24/7"],
             },
             {
               icon: Mail,
               color:
                 "bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400",
               title: "Email",
-              lines: ["liviacorehospital@gmail.com", "We reply within 24 hours"],
+              lines: [
+                "liviacorehospital@gmail.com",
+                "We reply within 24 hours",
+              ],
             },
             {
               icon: MapPin,
               color:
                 "bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400",
               title: "Address",
-              lines: ["123 Medical Center Drive", "New York, NY 10001"],
+              lines: ["12 Specialist Avenue", "Lekki Phase 1, Lagos, Nigeria"],
             },
           ].map(({ icon: Icon, color, title, lines }) => (
             <div
@@ -189,7 +192,7 @@ export default function ContactPage() {
                         type="tel"
                         value={form.phone}
                         onChange={(e) => update("phone", e.target.value)}
-                        placeholder="+1 (555) 000-0000"
+                        placeholder="+234 800 000 0000"
                         className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
@@ -272,7 +275,7 @@ export default function ContactPage() {
 
             <div className="rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 h-64 flex items-center justify-center border border-gray-200 dark:border-gray-700">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2916.104459774284!2d-76.0255325!3d43.0392336!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d98c4ec349f607%3A0x4d0551707cc269b5!2sNorthEast%20Medical%20center!5e0!3m2!1sen!2sng!4v1781306932809!5m2!1sen!2sng"
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d15858.523430388585!2d3.4605131822620097!3d6.441425946796123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s12%20Specialist%20Avenue%2C%20Lekki%20Phase%201%2C%20Lagos%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1790090105745!5m2!1sen!2sng"
                 width="600"
                 height="450"
                 loading="lazy"

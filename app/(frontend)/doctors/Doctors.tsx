@@ -5,7 +5,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { PageHero } from '@/app/components/main/UI';
 import { useLoading } from '@/hooks/useLoading';
 const DOCTORS_PER_PAGE = 12;
-const defaultSpecialties = ['All'];
+const defaultDepartments = ['All'];
 
 interface Doctor {
   _id: string;
@@ -21,11 +21,11 @@ interface Doctor {
 }
 
 export default function DoctorsPage() {
-  const [activeSpecialty, setActiveSpecialty] = useState('All');
+  const [activeDepartment, setActiveDepartment] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [specialties, setSpecialties] = useState<string[]>(defaultSpecialties);
+  const [departments, setDepartments] = useState<string[]>(defaultDepartments);
   const [loading, setLoading] = useState(true);
   const { showLoading, hideLoading } = useLoading();
 
@@ -56,7 +56,14 @@ export default function DoctorsPage() {
         const data = await res.json();
 
         if (Array.isArray(data)) {
-          setSpecialties(['All', ...data.map((dept: any) => dept.name)]);
+          const medicalDepartments = data.filter(
+            (dept: any) => dept.category === 'Medical' || dept.category === undefined
+          );
+
+          setDepartments([
+            'All',
+            ...medicalDepartments.map((dept: any) => dept.name)
+          ]);
         }
       } catch (error) {
         console.error('Failed to fetch departments:', error);
@@ -71,15 +78,15 @@ export default function DoctorsPage() {
   const filtered = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
     return doctors.filter(doc => {
-      const matchesSpecialty = activeSpecialty === 'All' || doc.department === activeSpecialty;
+      const matchesDepartment = activeDepartment === 'All' || doc.department === activeDepartment;
       const matchesSearch = !q || 
         doc.fullName.toLowerCase().includes(q) || 
         doc.department.toLowerCase().includes(q) || 
         doc.school.toLowerCase().includes(q) ||
         doc.bio.toLowerCase().includes(q);
-      return matchesSpecialty && matchesSearch;
+      return matchesDepartment && matchesSearch;
     });
-  }, [doctors, activeSpecialty, searchQuery]);
+  }, [doctors, activeDepartment, searchQuery]);
 
   const totalPages = Math.ceil(filtered.length / DOCTORS_PER_PAGE);
   const paginated = filtered.slice(
@@ -87,8 +94,8 @@ export default function DoctorsPage() {
     currentPage * DOCTORS_PER_PAGE
   );
 
-  const handleSpecialtyChange = (specialty: string) => {
-    setActiveSpecialty(specialty);
+  const handleDepartmentChange = (department: string) => {
+    setActiveDepartment(department);
     setCurrentPage(1);
   };
 
@@ -110,17 +117,17 @@ export default function DoctorsPage() {
       <section className="py-8 px-4 bg-gray-50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="flex flex-wrap gap-2">
-            {specialties.map(s => (
+            {departments.map(department => (
               <button
-                key={s}
-                onClick={() => handleSpecialtyChange(s)}
+                key={department}
+                onClick={() => handleDepartmentChange(department)}
                 className={`px-4 py-1.5 text-sm font-medium rounded-full transition-all ${
-                  s === activeSpecialty
+                  department === activeDepartment
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-blue-300 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400'
                 }`}
               >
-                {s}
+                {department}
               </button>
             ))}
           </div>
@@ -130,7 +137,7 @@ export default function DoctorsPage() {
               type="text"
               value={searchQuery}
               onChange={handleSearch}
-              placeholder="Search doctor or specialty..."
+              placeholder="Search doctor or department..."
               className="pl-9 pr-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
             />
           </div>
@@ -145,7 +152,7 @@ export default function DoctorsPage() {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Showing <span className="font-semibold text-gray-700 dark:text-gray-200">{paginated.length}</span> of{' '}
               <span className="font-semibold text-gray-700 dark:text-gray-200">{filtered.length}</span> doctors
-              {activeSpecialty !== 'All' && <span> in <span className="text-blue-600 dark:text-blue-400 font-medium">{activeSpecialty}</span></span>}
+              {activeDepartment !== 'All' && <span> in <span className="text-blue-600 dark:text-blue-400 font-medium">{activeDepartment}</span></span>}
             </p>
             <p className="text-sm text-gray-400 dark:text-gray-500">Page {currentPage} of {totalPages || 1}</p>
           </div>
@@ -158,9 +165,9 @@ export default function DoctorsPage() {
             <div className="text-center py-24">
               <div className="text-5xl mb-4">🔍</div>
               <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">No doctors found</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">Try a different name, specialty, or clear your filters.</p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">Try a different name, department, or clear your filters.</p>
               <button
-                onClick={() => { setActiveSpecialty('All'); setSearchQuery(''); setCurrentPage(1); }}
+                onClick={() => { setActiveDepartment('All'); setSearchQuery(''); setCurrentPage(1); }}
                 className="mt-4 px-4 py-2 text-sm bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
               >
                 Clear filters

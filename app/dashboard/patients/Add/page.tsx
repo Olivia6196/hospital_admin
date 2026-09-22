@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AddPatientForm from "./addpatient";
+import AddPatientForm from "./AddPatient";
 
 export const metadata: Metadata = {
   title: "Dashboard — Add Patient",

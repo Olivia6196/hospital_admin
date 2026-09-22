@@ -10,6 +10,32 @@ interface Option {
   name: string;
 }
 
+const defaultWardOptions: Option[] = [
+  { id: "1", name: "General Ward" },
+  { id: "2", name: "ICU" },
+  { id: "3", name: "Pediatric Ward" },
+  { id: "4", name: "Maternity Ward" },
+  { id: "5", name: "Surgical Ward" },
+];
+
+const defaultDoctorOptions: Option[] = [
+  { id: "1", name: "Dr. Adebayo Okonkwo" },
+  { id: "2", name: "Dr. Chioma Eze" },
+  { id: "3", name: "Dr. Ibrahim Musa" },
+  { id: "4", name: "Dr. Fatima Bello" },
+  { id: "5", name: "Dr. Tunde Adeyemi" },
+];
+
+const normalizeOptions = <T extends { id?: string; _id?: string; name: string; category?: string; doctorCount?: number }>(
+  items: T[],
+): Option[] =>
+  items
+    .filter((item) => item.category === "Medical" || item.doctorCount === undefined || item.doctorCount > 0)
+    .map((item) => ({
+      id: String(item.id ?? item._id ?? item.name),
+      name: item.name,
+    }));
+
 export default function AddPatientForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -53,36 +79,33 @@ export default function AddPatientForm() {
         setFetchingOptions(true);
 
         const [wardsRes, doctorsRes] = await Promise.all([
-          fetch("/api/wards"),
+          fetch("/api/departments"),
           fetch("/api/doctors"),
         ]);
 
         if (wardsRes.ok) {
           const wardsData = await wardsRes.json();
-          setWards(wardsData.data || wardsData || []);
+          const resolvedWards = Array.isArray(wardsData?.data)
+            ? normalizeOptions(wardsData.data)
+            : Array.isArray(wardsData)
+              ? normalizeOptions(wardsData)
+              : defaultWardOptions;
+          setWards(resolvedWards.length ? resolvedWards : defaultWardOptions);
         }
 
         if (doctorsRes.ok) {
           const doctorsData = await doctorsRes.json();
-          setDoctors(doctorsData.data || doctorsData || []);
+          const resolvedDoctors = Array.isArray(doctorsData?.data)
+            ? normalizeOptions(doctorsData.data)
+            : Array.isArray(doctorsData)
+              ? normalizeOptions(doctorsData)
+              : defaultDoctorOptions;
+          setDoctors(resolvedDoctors);
         }
       } catch (error) {
         console.error("Failed to load wards/doctors", error);
-        // Fallback mock data (remove in production)
-        setWards([
-          { id: "1", name: "General Ward" },
-          { id: "2", name: "ICU" },
-          { id: "3", name: "Pediatric Ward" },
-          { id: "4", name: "Maternity Ward" },
-          { id: "5", name: "Surgical Ward" },
-        ]);
-        setDoctors([
-          { id: "1", name: "Dr. Adebayo Okonkwo" },
-          { id: "2", name: "Dr. Chioma Eze" },
-          { id: "3", name: "Dr. Ibrahim Musa" },
-          { id: "4", name: "Dr. Fatima Bello" },
-          { id: "5", name: "Dr. Tunde Adeyemi" },
-        ]);
+        setWards(defaultWardOptions);
+        setDoctors(defaultDoctorOptions);
       } finally {
         setFetchingOptions(false);
       }

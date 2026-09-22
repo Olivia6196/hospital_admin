@@ -35,8 +35,13 @@ export default function Header({ title, subtitle }: HeaderProps) {
       setLoading(true);
       const res = await fetch("/api/notifications", {
         method: "GET",
-        credentials: "include", 
+        credentials: "include",
       });
+
+      if (res.status === 401 || res.status === 403) {
+        setNotifications([]);
+        return;
+      }
 
       if (!res.ok) throw new Error("Failed to fetch");
 
@@ -44,6 +49,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
       setNotifications(data);
     } catch (error) {
       console.error("Failed to fetch notifications:", error);
+      setNotifications([]);
     } finally {
       setLoading(false);
     }

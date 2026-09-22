@@ -9,7 +9,7 @@ export async function GET() {
     const departmentsData = await StaffApplicationModel.aggregate([
       {
         $match: { 
-          role: "doctor", 
+          role: { $in: ["doctor", "pharmacist"] }, 
           status: "approved" 
         }
       },

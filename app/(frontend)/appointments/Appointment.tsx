@@ -68,8 +68,14 @@ export default function AppointmentsPage() {
         const response = await fetch("/api/departments");
         if (!response.ok) throw new Error("Failed to fetch departments");
 
-        const data: DepartmentOption[] = await response.json();
-        setServices(data);
+        const data: Array<DepartmentOption & { category?: string; doctorCount?: number }> =
+          await response.json();
+
+        const allowedServices = (Array.isArray(data) ? data : []).filter(
+          (item) => item.category === "Medical" || item.doctorCount === undefined || item.doctorCount > 0,
+        );
+
+        setServices(allowedServices);
       } catch (error) {
         console.error("Error fetching departments:", error);
       }

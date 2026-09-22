@@ -1,6 +1,6 @@
 import { Document, Schema, model, models } from "mongoose";
 
-export type StaffRole = "doctor" | "nurse" | "staff";
+export type StaffRole = "doctor" | "nurse" | "staff" | "pharmacist";
 export type ApplicationStatus = "pending" | "approved" | "cancelled";
 
 export interface IStaffApplication extends Document {
@@ -24,7 +24,7 @@ const StaffApplicationSchema = new Schema<IStaffApplication>(
     fullName: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true, lowercase: true },
     phone: { type: String, required: true, trim: true },
-    role: { type: String, required: true, enum: ["doctor", "nurse", "staff"] },
+    role: { type: String, required: true, enum: ["doctor", "nurse", "staff", "pharmacist"] },
     department: { type: String, required: true, trim: true },
     yearsOfExperience: { type: Number, required: true, min: 0 },
     school: { type: String, required: true, trim: true },

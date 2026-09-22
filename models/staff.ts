@@ -4,7 +4,7 @@ const StaffSchema = new Schema({
   name: { type: String, required: true },
   role: {
     type: String,
-    enum: ['doctor', 'nurse', 'staff'],
+    enum: ['doctor', 'nurse', 'staff', 'pharmacist'],
     required: true,
   },
   department: { type: String, trim: true },

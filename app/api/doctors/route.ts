@@ -6,12 +6,14 @@ export async function GET(request: NextRequest) {
   try {
     const service = request.nextUrl.searchParams.get('service');
     const limitParam = request.nextUrl.searchParams.get('limit');
-    const roleParam = request.nextUrl.searchParams.get('role') || 'doctor';
+    const requestedRole = request.nextUrl.searchParams.get('role');
+    const normalizedService = service?.trim();
+    const roleParam = requestedRole || (normalizedService?.toLowerCase() === 'pharmacy' ? 'pharmacist' : 'doctor');
 
     await connectDB();
 
     const query: any = { role: roleParam, status: "approved" };
-    if (service) query.department = service;
+    if (normalizedService) query.department = normalizedService;
 
     const doctorsQuery = StaffApplicationModel.find(query)
       .select('fullName department yearsOfExperience bio photoDataUrl status role submittedAt')

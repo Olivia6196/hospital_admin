@@ -9,6 +9,7 @@ import { useLoading } from "@/hooks/useLoading";
 const ROLE_OPTIONS: { value: StaffRole; label: string; desc: string }[] = [
   { value: "doctor", label: "Doctor", desc: "Physician or specialist" },
   { value: "nurse", label: "Nurse", desc: "Registered or licensed nurse" },
+  { value: "pharmacist", label: "Pharmacist", desc: "Licensed pharmacy professional" },
   { value: "staff", label: "Other Staff", desc: "Admin, technician, support" },
 ];
 interface FormState {

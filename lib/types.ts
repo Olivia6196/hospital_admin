@@ -1,4 +1,4 @@
-export type StaffRole = "doctor" | "nurse" | "staff";
+export type StaffRole = "doctor" | "nurse" | "staff" | "pharmacist";
 export type ApplicationStatus = "pending" | "approved" | "cancelled";
 
 export interface StaffApplication {

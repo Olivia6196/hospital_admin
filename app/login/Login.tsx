@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
             </div>
           </div>
         </div>
-         {error && (
+        {error && (
           <p className="text-red-700 bg-red-100 rounded-lg text-center px-4 py-6">
             {error}
           </p>
@@ -103,6 +103,7 @@ export default function AdminLoginPage() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
+              required
               className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
             />
           </div>
@@ -119,6 +120,8 @@ export default function AdminLoginPage() {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
+              required
+              minLength={9}
               className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
             />
           </div>

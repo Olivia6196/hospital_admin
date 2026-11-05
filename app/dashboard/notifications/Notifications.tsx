@@ -2,6 +2,7 @@
 import Header from "@/app/components/Header";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 interface NotificationItem {
   id: string;
   title: string;
@@ -46,7 +47,6 @@ export default function NotificationsPage() {
       const matchesSearch =
         notif.title.toLowerCase().includes(search.toLowerCase()) ||
         notif.message.toLowerCase().includes(search.toLowerCase());
-
       if (activeTab === "unread") return !notif.read && matchesSearch;
       if (activeTab === "read") return notif.read && matchesSearch;
       return matchesSearch;
@@ -69,12 +69,13 @@ export default function NotificationsPage() {
       const res = await fetch(`/api/notifications/${id}`, { method: "DELETE" });
       if (res.ok) {
         setNotifications((prev) => prev.filter((n) => n.id !== id));
+        toast.success("Notification deleted");
       } else {
-        alert("Failed to delete notification");
+        toast.error("Failed to delete notification");
       }
     } catch (error) {
       console.error(error);
-      alert("Failed to delete notification");
+      toast.error("Failed to delete notification");
     }
   };
 
@@ -170,7 +171,7 @@ export default function NotificationsPage() {
                   <p className="text-zinc-600 dark:text-zinc-400 mt-2">{notif.message}</p>
                 </div>
 
-                <div className="flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex flex-col gap-2">
                   {!notif.read && (
                     <button
                       onClick={() => markAsRead(notif.id)}

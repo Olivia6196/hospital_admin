@@ -85,7 +85,7 @@ export default function AdminLoginPage() {
               router.push("/dashboard");
             } catch (err) {
               console.log(err);
-              setError("An unexpected error occurred");
+              setError("An unexpected error occurred!");
             } finally {
               setLoading(false);
             }
